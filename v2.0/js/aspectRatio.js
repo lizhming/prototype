@@ -1,4 +1,3 @@
-var canvas, stage;
 var w = 1920, h = 1080;
 var ratio;
 
@@ -13,6 +12,7 @@ function maintainAspectRatio() {
 	h *= ratio;
 	stage.canvas.width = w;
 	stage.canvas.height = h;
+	stage.canvas.style.top = (Math.abs(innerHeight - h)/2) + "px";
 }
 
 function resize() { 
