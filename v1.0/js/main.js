@@ -36,7 +36,7 @@ function init() {
 
 	// load the source image:
 	var image = new Image();
-	image.src = "../images/sticky_note.png";
+	image.src = "../v1.0/images/sticky_note_cp.jpg";
 	image.onload = handleImageLoad;
 }
 
