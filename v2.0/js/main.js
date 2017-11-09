@@ -24,6 +24,8 @@ function init() {
 	codebook = makeCodebookArea();
 	viz = makeVizArea();
 	
+	makeGraphs(viz);
+	
 	// load the source image:
 	var image = new Image();
 	image.src = "../v2.0/images/note.png";
@@ -46,9 +48,9 @@ function handleImageLoad(event) {
 		bitmap.y = bounds.height * Math.random() * 0.9;
 		bitmap.regX = bitmap.image.width / 2;
 		bitmap.regY = bitmap.image.height / 2;
-        bitmap.scaleX = ratio*0.75;
-        bitmap.scaleY = ratio*0.75;
-        bitmap.name = "bmp_" + i;
+		bitmap.scaleX = ratio*0.75;
+		bitmap.scaleY = ratio*0.75;
+		bitmap.name = "bmp_" + i;
 		bitmap.cursor = "hand";
 
 		// using "on" binds the listener to the scope of the currentTarget by default
@@ -56,12 +58,15 @@ function handleImageLoad(event) {
 		bitmap.addEventListener("mousedown", function (evt) {
 			// bump the target in front of its siblings:
 			var o = evt.target;
+			o.scaleX = o.scaleX * 0.25;
+			o.scaleY = o.scaleY * 0.25;
 			o.parent.addChild(o);
 			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
 			evt.stopPropagation();
 		});
 
-		// the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
+		// the pressmove event is dispatched when the mouse moves after a mousedown on the 
+		// target until the mouse is released.
 		bitmap.addEventListener("pressmove", function (evt) {
 			var o = evt.target;
 			o.x = evt.stageX + o.offset.x;
@@ -69,14 +74,26 @@ function handleImageLoad(event) {
 			evt.stopPropagation();
 		});
 
+		bitmap.addEventListener("pressup", function (evt) {
+			// bump the target in front of its siblings:
+			var o = evt.target;
+			o.scaleX = o.scaleX / 0.25;
+			o.scaleY = o.scaleY / 0.25;
+			o.parent.addChild(o);
+			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
+			evt.stopPropagation();
+		});
+
 		bitmap.addEventListener("rollover", function (evt) {
 			var o = evt.target;
-			o.scale = o.originalScale * 1.2;
+			o.scaleX = o.scaleX * 1.2;
+			o.scaleY = o.scaleY * 1.2;
 		});
 
 		bitmap.addEventListener("rollout", function (evt) {
 			var o = evt.target;
-			o.scale = o.originalScale;	
+			o.scaleX = o.scaleX / 1.2;
+			o.scaleY = o.scaleY / 1.2;
 		});
 
 		detailContainer.addChild(bitmap);
@@ -154,4 +171,14 @@ function makeVizArea() {
 
 function clickVHandler(e) {
 	console.log("V: "+ e.rawX +" "+ e.rawY);
+}
+
+function makeGraphs(vizContainer) {
+	var graph = new BarGraph(vizContainer);
+	graph.maxValue = 30;
+	graph.margin = 2;
+	graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27", "#888"];
+	graph.xAxisLabelArr = ["0", "1", "2", "4", "5"];
+	graph.update([Math.random() * 30, Math.random() * 30, Math.random() * 30, Math.random() * 30,
+		Math.random() * 30]);
 }
