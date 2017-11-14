@@ -67,8 +67,9 @@ function BarGraph(vizContainer) {
 		}
 
 		// Draw the background color
-		//ctx.fillStyle = that.backgroundColor;
-		//ctx.fillRect(0, 0, that.width, that.height);
+		var bg  = new createjs.Shape();
+		bg.graphics.beginFill(that.backgroundColor).drawRect(0, 0, that.width*that.ratio, that.height*that.ratio);
+		vizContainer.addChild(bg);
 
 		// If x axis labels exist then make room	
 		if (that.xAxisLabelArr.length) {
@@ -102,7 +103,8 @@ function BarGraph(vizContainer) {
 			var bg = new createjs.Shape();
 			// Turn on shadow
 			bg.shadow = new createjs.Shadow("#999", 2, 2, 2);
-			bg.graphics.beginFill("#333").drawRect(
+			bg.name = "bar-" + i;
+			bg.graphics.beginFill("#222").drawRect(
 				(that.margin + i * that.width / numOfBars)*that.ratio,
 				(graphAreaHeight - barHeight)*that.ratio,
 				barWidth*that.ratio,
@@ -115,7 +117,7 @@ function BarGraph(vizContainer) {
 			if (barHeight > border * 2) {
 				// Create gradient
 				bg.graphics.beginLinearGradientFill([that.colors[i % that.colors.length], "#ffffff"],
-					[1-ratio, 1], 0, 0, 0, graphAreaHeight);
+					[1-ratio, 1], 0, 0, 0, graphAreaHeight*that.ratio);
 				// Fill rectangle with gradient
 				bg.graphics.drawRect((that.margin + i * that.width / numOfBars + border)*that.ratio,
 					(graphAreaHeight - barHeight + border)*that.ratio,
@@ -135,17 +137,52 @@ function BarGraph(vizContainer) {
 			// Draw bar label if it exists
 			if (that.xAxisLabelArr[i]) {					
 				// Use try / catch to stop IE 8 from going to error town				
-				var text = new createjs.Text(that.xAxisLabelArr[i], "bold 12px sans-serif", "#333");
+				var text = new createjs.Text(that.xAxisLabelArr[i], "bold 12px sans-serif", "#fff");
 				text.textBaseline = "alphabetic";
 				text.textAlign = "center";
 				try{
-					text.x = (i * that.width / numOfBars + (that.width / numOfBars) / 20)*that.ratio;
+					text.x = (i * that.width / numOfBars + (that.width / numOfBars) / 2)*that.ratio;
 					text.y = (that.height - 10)*that.ratio;
 				} catch (ex) {}
+
+				text.addEventListener("rollover", function(evt) {
+					evt.target.shadow = new createjs.Shadow("#fff", 0, 0, 10);
+				});
+				text.addEventListener("rollout", function(evt) {
+					evt.target.shadow = new createjs.Shadow("#999", 0, 0, 0);
+				});
 			}
+
 			stage.addChild(text);
 			stage.addChild(bg);
+
+			bg.addEventListener("rollover", function(evt) {
+				console.log(evt);
+				evt.target.shadow = new createjs.Shadow("#fff", 0, 0, 10);
+			});
+			bg.addEventListener("rollout", function(evt) {
+				evt.target.shadow = new createjs.Shadow("#999", 0, 0, 0);
+			});
 		}
+	};
+
+	//to check for intersection
+	var intersect = function (obj1, obj2){
+		var objBounds1 = obj1.getBounds().clone();
+		var objBounds2 = obj2.getBounds().clone();
+
+		var pt = obj1.globalToLocal(objBounds2.x, objBounds2.y);
+
+		var h1 = -(objBounds1.height / 2 + objBounds2.height);
+		var h2 = objBounds2.width / 2;
+		var w1 = -(objBounds1.width / 2 + objBounds2.width);
+		var w2 = objBounds2.width / 2;
+
+
+		if(pt.x > w2 || pt.x < w1) return false;
+		if(pt.y > h2 || pt.y < h1) return false;
+
+		return true;
 	};
 
 	// Public properties and methods
@@ -157,7 +194,7 @@ function BarGraph(vizContainer) {
 	this.margin = 5;
 	this.colors = ["purple", "red", "green", "yellow"];
 	this.curArr = [];
-	this.backgroundColor = "#0f0";
+	this.backgroundColor = "green";
 	this.xAxisLabelArr = [];
 	this.yAxisLabelArr = [];
 	this.animationInterval = 100;

@@ -20,12 +20,13 @@ function init() {
 
 	createjs.Ticker.addEventListener("tick", tick);
 
-	detailContainer = makeDetailsArea();
 	codebook = makeCodebookArea();
 	viz = makeVizArea();
-	
+
 	makeGraphs(viz);
-	
+
+	detailContainer = makeDetailsArea();
+
 	// load the source image:
 	var image = new Image();
 	image.src = "../v2.0/images/note.png";
@@ -62,7 +63,7 @@ function handleImageLoad(event) {
 			o.scaleY = o.scaleY * 0.25;
 			o.parent.addChild(o);
 			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
-			evt.stopPropagation();
+			//evt.stopPropagation();
 		});
 
 		// the pressmove event is dispatched when the mouse moves after a mousedown on the 
@@ -71,7 +72,7 @@ function handleImageLoad(event) {
 			var o = evt.target;
 			o.x = evt.stageX + o.offset.x;
 			o.y = evt.stageY + o.offset.y;
-			evt.stopPropagation();
+			//evt.stopPropagation();
 		});
 
 		bitmap.addEventListener("pressup", function (evt) {
@@ -81,7 +82,7 @@ function handleImageLoad(event) {
 			o.scaleY = o.scaleY / 0.25;
 			o.parent.addChild(o);
 			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
-			evt.stopPropagation();
+			//evt.stopPropagation();
 		});
 
 		bitmap.addEventListener("rollover", function (evt) {
@@ -110,18 +111,7 @@ function makeDetailsArea() {
 	detail.addChild(dp);
 	stage.addChild(detail);
 
-	detail.addEventListener("click", clickDHandler);
-	detail.addEventListener("mousedown", function(evt) {
-		console.log("Down in D");
-	});
-	detail.addEventListener("pressup", function(evt) {
-		console.log("Up in D");
-	});
 	return detail;
-}
-
-function clickDHandler(e) {
-	console.log("D: "+ e.rawX +" "+ e.rawY);
 }
 
 function makeCodebookArea() {
@@ -134,20 +124,8 @@ function makeCodebookArea() {
 	detail.addChild(dp);
 	stage.addChild(detail);
 
-	detail.addEventListener("click", clickCHandler);
-	detail.addEventListener("mousedown", function(evt) {
-		console.log("Down in C");
-	});
-	detail.addEventListener("pressup", function(evt) {
-		console.log("Up in C");
-	});
 	return detail;
 }
-
-function clickCHandler(e) {
-	console.log("C: "+ e.rawX +" "+ e.rawY);
-}
-
 
 function makeVizArea() {
 	var dp = new createjs.DisplayObject();
@@ -159,13 +137,8 @@ function makeVizArea() {
 	detail.addChild(dp);
 	stage.addChild(detail);
 
-	detail.addEventListener("click", clickVHandler);
-	detail.addEventListener("mousedown", function(evt) {
-		console.log("Down in V");
-	});
-	detail.addEventListener("pressup", function(evt) {
-		console.log("Up in V");
-	});
+	//detail.addEventListener("click", clickVHandler);
+	
 	return detail;
 }
 
@@ -175,10 +148,10 @@ function clickVHandler(e) {
 
 function makeGraphs(vizContainer) {
 	var graph = new BarGraph(vizContainer);
-	graph.maxValue = 30;
+	graph.maxValue = 30000;
 	graph.margin = 2;
-	graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27", "#888"];
-	graph.xAxisLabelArr = ["0", "1", "2", "4", "5"];
-	graph.update([Math.random() * 30, Math.random() * 30, Math.random() * 30, Math.random() * 30,
-		Math.random() * 30]);
+	graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27", "#888888", "#12a0b0"];
+	graph.xAxisLabelArr = ["0", "1", "2", "3", "4", "5"];
+	graph.update([Math.random() * 30000, Math.random() * 30000, Math.random() * 30000, Math.random() * 30000,
+		Math.random() * 30000, Math.random() * 30000]);
 }
