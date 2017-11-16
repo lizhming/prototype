@@ -178,7 +178,7 @@ function BarGraph(vizContainer, x, y) {
 	this.margin = 5 * ratio;
 	this.colors = ["purple", "red", "green", "yellow"];
 	this.curArr = [];
-	this.backgroundColor = "green";
+	this.backgroundColor = "black";
 	this.xAxisLabelArr = [];
 	this.yAxisLabelArr = [];
 	this.animationInterval = 100;

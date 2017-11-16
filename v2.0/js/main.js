@@ -2,7 +2,7 @@
 var canvas, stage;
 var detailContainer, codebook, viz;
 var graphs = [];
-var pos = [{x:50, y:225}, {x:450, y:225}, {x:50, y:400}, {x:450, y:400}];
+var pos = [{x:100, y:150}, {x:500, y:150}, {x:100, y:350}, {x:500, y:350}];
 
 function init() {
 	// create stage and point it to the canvas:
@@ -47,12 +47,12 @@ function handleImageLoad(event) {
 	var bounds = detailContainer.getBounds();
 
 	// create and populate the screen with random daisies:
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < 7; i++) {
 		bitmap = new createjs.Bitmap(image);
-		bitmap.x = bounds.width * Math.random() * 0.9;
-		bitmap.y = bounds.height * Math.random() * 0.9;
-		bitmap.regX = bitmap.image.width / 2;
-		bitmap.regY = bitmap.image.height / 2;
+		bitmap.x = (bounds.width * Math.random() * 0.7) + bounds.x;
+		bitmap.y = (bounds.height * Math.random() * 0.7) + bounds.y;
+		//bitmap.regX = bitmap.image.width / 2;
+		//bitmap.regY = bitmap.image.height / 2;
 		bitmap.scaleX = ratio*0.75;
 		bitmap.scaleY = ratio*0.75;
 		bitmap.name = "bmp_" + i;
@@ -86,15 +86,16 @@ function handleImageLoad(event) {
 		bitmap.addEventListener("pressup", function (evt) {
 			// bump the target in front of its siblings:
 			var o = evt.target;
+			var intersectAt = check(o);
+			if(intersectAt != -1) {
+				console.log("Released at viz-" + intersectAt);
+				//detailContainer.removeChild(o);
+			}
 			o.scaleX = o.scaleX / 0.25;
 			o.scaleY = o.scaleY / 0.25;
 			o.parent.addChild(o);
 			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
 			//evt.stopPropagation();
-			var intersectAt = check(o);
-			if(intersectAt != -1) {
-				detailContainer.removeChild(o);
-			}
 		});
 
 		bitmap.addEventListener("rollover", function (evt) {
@@ -130,9 +131,9 @@ function intersect(obj1, obj2) {
 	var pt = obj1.globalToLocal(objBounds2.x, objBounds2.y);
 
 	var h1 = -(objBounds1.height + objBounds2.height);
-	var h2 = objBounds2.height + objBounds2.height;
+	var h2 = objBounds2.height + objBounds1.height;
 	var w1 = -(objBounds1.width + objBounds2.width);
-	var w2 = objBounds2.width + objBounds2.width;
+	var w2 = objBounds2.width + objBounds1.width;
 
 	//console.log(h1 + " " + h2 + " " + w1 + " " + w2);
 	//console.log(pt.x + " "  + pt.y);
@@ -163,7 +164,7 @@ function makeCodebookArea() {
 	var detail = new createjs.Container();
 	detail.setTransform(0, h/2);
 	detail.setBounds(0, 0, w/2, h/2);
-	detail.addChild(dp);
+	detail.addChild(dp.hitArea);
 	stage.addChild(detail);
 
 	return detail;
