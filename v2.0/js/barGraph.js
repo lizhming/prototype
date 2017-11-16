@@ -127,7 +127,8 @@ function BarGraph(vizContainer, x, y) {
 			}
 			
 			// Write bar value
-			var text = new createjs.Text(parseInt(arr[i], 10), "bold 20px sans-serif", "#333");
+			var font = 20 * that.ratio;
+			var text = new createjs.Text(parseInt(arr[i], 10), "bold " + font + "px sans-serif", "#333");
 			text.textBaseline = "alphabetic";
 			text.textAlign = "center";
 			// Use try / catch to stop IE 8 from going to error town
@@ -138,7 +139,7 @@ function BarGraph(vizContainer, x, y) {
 			// Draw bar label if it exists
 			if (that.xAxisLabelArr[i]) {					
 				// Use try / catch to stop IE 8 from going to error town				
-				var text = new createjs.Text(that.xAxisLabelArr[i], "bold 20px sans-serif", "#fff");
+				var text = new createjs.Text(that.xAxisLabelArr[i], "bold " + font + "px sans-serif", "#fff");
 				text.textBaseline = "alphabetic";
 				text.textAlign = "center";
 				try{
@@ -158,7 +159,6 @@ function BarGraph(vizContainer, x, y) {
 			vizContainer.addChild(bg);
 
 			bg.addEventListener("rollover", function(evt) {
-				console.log(evt);
 				evt.target.shadow = new createjs.Shadow("#fff", 0, 0, 10);
 			});
 			bg.addEventListener("rollout", function(evt) {
@@ -167,34 +167,15 @@ function BarGraph(vizContainer, x, y) {
 		}
 	};
 
-	//to check for intersection
-	var intersect = function (obj1, obj2){
-		var objBounds1 = obj1.getBounds().clone();
-		var objBounds2 = obj2.getBounds().clone();
-
-		var pt = obj1.globalToLocal(objBounds2.x, objBounds2.y);
-
-		var h1 = -(objBounds1.height / 2 + objBounds2.height);
-		var h2 = objBounds2.width / 2;
-		var w1 = -(objBounds1.width / 2 + objBounds2.width);
-		var w2 = objBounds2.width / 2;
-
-
-		if(pt.x > w2 || pt.x < w1) return false;
-		if(pt.y > h2 || pt.y < h1) return false;
-
-		return true;
-	};
-
 	// Public properties and methods
 
-	this.width = vizContainer.getBounds().width/3;
-	this.height = vizContainer.getBounds().height/3;
+	this.width = 1920/6;//vizContainer.getBounds().width/3;
+	this.height = 1080/6;//vizContainer.getBounds().height/3;
 	this.x = x;
 	this.y = y;
 	this.ratio = ratio;	
 	this.maxValue;
-	this.margin = 5;
+	this.margin = 5 * ratio;
 	this.colors = ["purple", "red", "green", "yellow"];
 	this.curArr = [];
 	this.backgroundColor = "green";
@@ -221,4 +202,8 @@ function BarGraph(vizContainer, x, y) {
 			}
 		}
 	}; 
+
+	this.getBounds = function() {
+		return {x: this.x, y: this.y, height: this.height*this.ratio, width: this.width*this.ratio};
+	}
 }

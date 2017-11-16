@@ -1,6 +1,8 @@
 "use strict"
 var canvas, stage;
 var detailContainer, codebook, viz;
+var graphs = [];
+var pos = [{x:50, y:225}, {x:450, y:225}, {x:50, y:400}, {x:450, y:400}];
 
 function init() {
 	// create stage and point it to the canvas:
@@ -23,10 +25,9 @@ function init() {
 	codebook = makeCodebookArea();
 	viz = makeVizArea();
 
-	makeGraphs(viz, 25, 225);
-	makeGraphs(viz, 425, 225);
-	makeGraphs(viz, 25, 400);
-	makeGraphs(viz, 425, 400);
+	for(var i=0; i<pos.length; i++) {
+		graphs[i] = makeGraphs(viz, pos[i].x * ratio, pos[i].y * ratio);
+	}
 
 	detailContainer = makeDetailsArea();
 
@@ -76,6 +77,10 @@ function handleImageLoad(event) {
 			o.x = evt.stageX + o.offset.x;
 			o.y = evt.stageY + o.offset.y;
 			//evt.stopPropagation();
+			var intersectAt = check(o);
+			if(intersectAt != -1) {
+				console.log("viz-" + intersectAt);
+			}
 		});
 
 		bitmap.addEventListener("pressup", function (evt) {
@@ -86,6 +91,10 @@ function handleImageLoad(event) {
 			o.parent.addChild(o);
 			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
 			//evt.stopPropagation();
+			var intersectAt = check(o);
+			if(intersectAt != -1) {
+				detailContainer.removeChild(o);
+			}
 		});
 
 		bitmap.addEventListener("rollover", function (evt) {
@@ -102,6 +111,36 @@ function handleImageLoad(event) {
 
 		detailContainer.addChild(bitmap);
 	}
+}
+
+//to check for intersection
+function check(obj) {
+	for(var i=0; i<graphs.length; i++) {
+		if(intersect(obj, graphs[i])) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function intersect(obj1, obj2) {
+	var objBounds1 = obj1.getBounds().clone();
+	var objBounds2 = obj2.getBounds();
+
+	var pt = obj1.globalToLocal(objBounds2.x, objBounds2.y);
+
+	var h1 = -(objBounds1.height + objBounds2.height);
+	var h2 = objBounds2.height + objBounds2.height;
+	var w1 = -(objBounds1.width + objBounds2.width);
+	var w2 = objBounds2.width + objBounds2.width;
+
+	//console.log(h1 + " " + h2 + " " + w1 + " " + w2);
+	//console.log(pt.x + " "  + pt.y);
+
+	if(pt.x > w2 || pt.x < w1) return false;
+	if(pt.y > h2 || pt.y < h1) return false;
+
+	return true;
 }
 
 function makeDetailsArea() {
@@ -152,9 +191,10 @@ function clickVHandler(e) {
 function makeGraphs(vizContainer, x, y) {
 	var graph = new BarGraph(vizContainer, x, y);
 	graph.maxValue = 30;
-	graph.margin = 2;
+	graph.margin = 2*ratio;
 	graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27", "#888888", "#12a0b0"];
 	graph.xAxisLabelArr = ["0", "1", "2", "3", "4", "5"];
 	graph.update([Math.random() * 30, Math.random() * 30, Math.random() * 30, Math.random() * 30,
 		Math.random() * 30, Math.random() * 30]);
+	return graph;
 }
