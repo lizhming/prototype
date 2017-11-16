@@ -23,7 +23,10 @@ function init() {
 	codebook = makeCodebookArea();
 	viz = makeVizArea();
 
-	makeGraphs(viz);
+	makeGraphs(viz, 25, 225);
+	makeGraphs(viz, 425, 225);
+	makeGraphs(viz, 25, 400);
+	makeGraphs(viz, 425, 400);
 
 	detailContainer = makeDetailsArea();
 
@@ -146,12 +149,12 @@ function clickVHandler(e) {
 	console.log("V: "+ e.rawX +" "+ e.rawY);
 }
 
-function makeGraphs(vizContainer) {
-	var graph = new BarGraph(vizContainer);
-	graph.maxValue = 30000;
+function makeGraphs(vizContainer, x, y) {
+	var graph = new BarGraph(vizContainer, x, y);
+	graph.maxValue = 30;
 	graph.margin = 2;
 	graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27", "#888888", "#12a0b0"];
 	graph.xAxisLabelArr = ["0", "1", "2", "3", "4", "5"];
-	graph.update([Math.random() * 30000, Math.random() * 30000, Math.random() * 30000, Math.random() * 30000,
-		Math.random() * 30000, Math.random() * 30000]);
+	graph.update([Math.random() * 30, Math.random() * 30, Math.random() * 30, Math.random() * 30,
+		Math.random() * 30, Math.random() * 30]);
 }

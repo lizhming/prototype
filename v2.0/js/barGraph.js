@@ -5,7 +5,7 @@
 * Modified for creating a prototype compatible with createjs library
 */
 
-function BarGraph(vizContainer) {
+function BarGraph(vizContainer, x, y) {
 
 	// Private properties and methods
 
@@ -61,15 +61,16 @@ function BarGraph(vizContainer) {
 		var i;
 
 		// Update the dimensions of the canvas only if they have changed
-		if (vizContainer.getBounds().width !== that.width || vizContainer.getBounds().height !== that.height) {
-			that.width = vizContainer.getBounds().width;
-			that.height = vizContainer.getBounds().height;
-		}
+		/*if (vizContainer.getBounds().width/3 !== that.width || vizContainer.getBounds().height/3 !== that.height) {
+			that.width = vizContainer.getBounds().width/3;
+			that.height = vizContainer.getBounds().height/3;
+		}*/
 
 		// Draw the background color
-		var bg  = new createjs.Shape();
-		bg.graphics.beginFill(that.backgroundColor).drawRect(0, 0, that.width*that.ratio, that.height*that.ratio);
-		vizContainer.addChild(bg);
+		var bkg  = new createjs.Shape();
+		bkg.graphics.beginFill(that.backgroundColor).drawRect(0, 0, that.width*that.ratio, that.height*that.ratio);
+		bkg.setTransform(that.x, that.y);
+		vizContainer.addChild(bkg);
 
 		// If x axis labels exist then make room	
 		if (that.xAxisLabelArr.length) {
@@ -105,8 +106,8 @@ function BarGraph(vizContainer) {
 			bg.shadow = new createjs.Shadow("#999", 2, 2, 2);
 			bg.name = "bar-" + i;
 			bg.graphics.beginFill("#222").drawRect(
-				(that.margin + i * that.width / numOfBars)*that.ratio,
-				(graphAreaHeight - barHeight)*that.ratio,
+				that.x + (that.margin + i * that.width / numOfBars)*that.ratio,
+				that.y + (graphAreaHeight - barHeight)*that.ratio,
 				barWidth*that.ratio,
 				barHeight*that.ratio);
 
@@ -117,32 +118,32 @@ function BarGraph(vizContainer) {
 			if (barHeight > border * 2) {
 				// Create gradient
 				bg.graphics.beginLinearGradientFill([that.colors[i % that.colors.length], "#ffffff"],
-					[1-ratio, 1], 0, 0, 0, graphAreaHeight*that.ratio);
+					[1, 1-ratio], 0, 0, 0, (graphAreaHeight+that.y)*that.ratio);
 				// Fill rectangle with gradient
-				bg.graphics.drawRect((that.margin + i * that.width / numOfBars + border)*that.ratio,
-					(graphAreaHeight - barHeight + border)*that.ratio,
+				bg.graphics.drawRect(that.x + (that.margin + i * that.width / numOfBars + border)*that.ratio,
+					that.y + (graphAreaHeight - barHeight + border)*that.ratio,
 					(barWidth - border * 2)*that.ratio,
 					(barHeight - border * 2)*that.ratio);
 			}
 			
 			// Write bar value
-			var text = new createjs.Text(parseInt(arr[i], 10), "bold 12px sans-serif", "#333");
+			var text = new createjs.Text(parseInt(arr[i], 10), "bold 20px sans-serif", "#333");
 			text.textBaseline = "alphabetic";
 			text.textAlign = "center";
 			// Use try / catch to stop IE 8 from going to error town
 			try {
-				text.x = (i * that.width / numOfBars + (that.width / numOfBars) / 2)*that.ratio;
-				text.y = (graphAreaHeight - barHeight - 10)*that.ratio;
+				text.x = that.x + (i * that.width / numOfBars + (that.width / numOfBars) / 2)*that.ratio;
+				text.y = that.y + (graphAreaHeight - barHeight - 10)*that.ratio;
 			} catch (ex) {}
 			// Draw bar label if it exists
 			if (that.xAxisLabelArr[i]) {					
 				// Use try / catch to stop IE 8 from going to error town				
-				var text = new createjs.Text(that.xAxisLabelArr[i], "bold 12px sans-serif", "#fff");
+				var text = new createjs.Text(that.xAxisLabelArr[i], "bold 20px sans-serif", "#fff");
 				text.textBaseline = "alphabetic";
 				text.textAlign = "center";
 				try{
-					text.x = (i * that.width / numOfBars + (that.width / numOfBars) / 2)*that.ratio;
-					text.y = (that.height - 10)*that.ratio;
+					text.x = that.x + (i * that.width / numOfBars + (that.width / numOfBars) / 2)*that.ratio;
+					text.y = that.y + (that.height - 10)*that.ratio;
 				} catch (ex) {}
 
 				text.addEventListener("rollover", function(evt) {
@@ -153,8 +154,8 @@ function BarGraph(vizContainer) {
 				});
 			}
 
-			stage.addChild(text);
-			stage.addChild(bg);
+			vizContainer.addChild(text);
+			vizContainer.addChild(bg);
 
 			bg.addEventListener("rollover", function(evt) {
 				console.log(evt);
@@ -187,8 +188,10 @@ function BarGraph(vizContainer) {
 
 	// Public properties and methods
 
-	this.width = vizContainer.getBounds().width;
-	this.height = vizContainer.getBounds().height;
+	this.width = vizContainer.getBounds().width/3;
+	this.height = vizContainer.getBounds().height/3;
+	this.x = x;
+	this.y = y;
 	this.ratio = ratio;	
 	this.maxValue;
 	this.margin = 5;
