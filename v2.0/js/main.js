@@ -63,10 +63,12 @@ function handleImageLoad(event) {
 		bitmap.addEventListener("mousedown", function (evt) {
 			// bump the target in front of its siblings:
 			var o = evt.target;
+			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
+			o.regX = evt.stageX;
+			o.regY = evt.stageY;
 			o.scaleX = o.scaleX * 0.25;
 			o.scaleY = o.scaleY * 0.25;
 			o.parent.addChild(o);
-			o.offset = {x: o.x - evt.stageX, y: o.y - evt.stageY};
 			//evt.stopPropagation();
 		});
 
@@ -76,6 +78,8 @@ function handleImageLoad(event) {
 			var o = evt.target;
 			o.x = evt.stageX + o.offset.x;
 			o.y = evt.stageY + o.offset.y;
+			//o.regX = o.x;
+			//o.regY = o.y;
 			//evt.stopPropagation();
 			var intersectAt = check(o);
 			if(intersectAt != -1) {
