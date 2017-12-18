@@ -1,0 +1,23 @@
+#viz {
+	height: 300px;
+	background: red;
+}
+
+#dash {
+	height: 700px;
+	background: orange;
+}
+
+#question {
+	height: 300px;
+	background: green;
+}
+
+#rater-agreement {
+	height: 400px;
+	background: gray;
+}
+
+#details {
+	height: 400px;
+}
