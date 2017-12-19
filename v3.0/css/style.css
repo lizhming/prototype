@@ -32,3 +32,20 @@ button {
 .w-97 {
 	width: 97% !important;
 }
+
+.rotate-left {
+  transform: translate(-25em) scale(0.8);
+  transition: 1s;
+  margin-left: 400px;
+  cursor: e-resize;
+  opacity: 0;
+  z-index: 10;
+}
+.rotate-right {
+  transform: translate(25em) scale(0.8);
+  transition: 1s;
+  opacity: 0;
+  margin-left: -400px;
+  cursor: w-resize;
+  z-index: 10;
+}
