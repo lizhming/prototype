@@ -2,11 +2,13 @@
 
 ## Installing React
 
-```npm i -g np
+```
+npm i -g np
 
 npm install -g create-react-app
 
-create-react-app v4.0```
+create-react-app v4.0
+```
 
 ## Hosting on Github
 
@@ -32,8 +34,10 @@ Inside that directory, you can run several commands:
 
 We suggest that you begin by typing:
 
-```cd v4.0
-npm start```
+```
+cd v4.0
+npm start
+```
 
 
 ## Installing Bootstrap:
