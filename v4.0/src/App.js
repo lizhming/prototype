@@ -6,15 +6,21 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>Badges <Badge>420</Badge></p>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-9">
+            <div class="row">
+              <div class="col-4 border">
+                <div class="row" id="viz">Viz</div>
+                <div class="row" id="rater">Rater Agreement</div>
+              </div>
+              <div class="col-8 border" id="draggable"></div>
+            </div>
+          </div>
+          <div class="col-3 border" id="dash">
+            DashBoard
+          </div>
+        </div>
       </div>
     );
   }

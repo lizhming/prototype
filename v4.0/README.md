@@ -14,7 +14,7 @@ create-react-app v4.0
 
 Check out this link:
 
-`https://github.com/gitname/react-gh-pages `
+[https://github.com/gitname/react-gh-pages](https://github.com/gitname/react-gh-pages)
 
 
 Inside that directory, you can run several commands:
