@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Badge } from 'reactstrap';
-import './App.css';
+import Cards from './Cards.js';
 
 class App extends Component {
+
   render() {
+    const viz = 'Viz';
+    const rater = 'Rater Agreement';
+    const dash = 'DashBoard';
+
     return (
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-9">
-            <div class="row">
-              <div class="col-4 border">
-                <div class="row" id="viz">Viz</div>
-                <div class="row" id="rater">Rater Agreement</div>
-              </div>
-              <div class="col-8 border" id="draggable"></div>
-            </div>
+      <div className="container-fluid">
+        <div className="row"> 
+          <div className="col-3 border">
+            <div className="row" id="viz">{viz}</div>
+            <div className="row" id="rater">{rater}</div>
           </div>
-          <div class="col-3 border" id="dash">
-            DashBoard
+          <div className="col-6 border">
+            <Cards />
           </div>
+          <div className="col-3 border" id="dash">{dash}</div>
         </div>
       </div>
     );
