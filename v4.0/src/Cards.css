@@ -8,7 +8,7 @@ body {
   color: #222;
   font-family: "Helvetica Neue", sans-serif;
   font-weight: 200;
-  margin: 0 50px;
+  margin: 0;
 }
 .react-draggable, .cursor {
   cursor: move;
@@ -21,15 +21,6 @@ body {
 }
 .cursor-x {
   cursor: ew-resize;
-}
-.react-draggable strong {
-  background: #ddd;
-  border: 1px solid #999;
-  border-radius: 3px;
-  display: block;
-  margin-bottom: 10px;
-  padding: 3px 5px;
-  text-align: center;
 }
 .box {
   background: #fff;

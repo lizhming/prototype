@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cards from './Cards.js';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +37,10 @@ class App extends Component {
       });
 
       console.log("Aspect Ratio " + this.state.ratio);
+
+      document.getElementById("viz").style.height = (this.state.ratio * 480) + "px";
+      document.getElementById("rater").style.height = (this.state.ratio * 600) + "px";
+      document.getElementById("dash").style.height = (this.state.ratio * 1080) + "px";
     }
   }
 
