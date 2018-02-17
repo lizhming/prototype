@@ -7,7 +7,7 @@ class App extends Component {
     const viz = 'Viz';
     const rater = 'Rater Agreement';
     const dash = 'DashBoard';
-
+    
     return (
       <div className="container-fluid">
         <div className="row"> 

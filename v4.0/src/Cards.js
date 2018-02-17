@@ -3,11 +3,26 @@ import Draggable, {DraggableCore} from 'react-draggable';
 import './Cards.css';
 
 class Cards extends React.Component {
-  state = {
-    activeDrags: 0,
-    deltaPosition: {x: 0, y: 0},
-    controlledPosition: {x: 0, y: 0},
-  };
+  constructor(props) {
+    super(props);
+    this.createBindings();
+
+    this.state = { 
+      activeDrags : 0,
+      deltaPosition: {x: 0, y: 0},
+      controlledPosition: {x: 0, y: 0},
+    };
+  }
+
+  createBindings() {
+    this.onStart = this.onStart.bind(this);
+    this.onStop = this.onStop.bind(this);
+    this.handleDrag = this.handleDrag.bind(this);
+    this.adjustXPos = this.adjustXPos.bind(this);
+    this.adjustYPos = this.adjustYPos.bind(this);
+    this.onControlledDrag = this.onControlledDrag.bind(this);
+    this.onControlledDragStop = this.onControlledDragStop.bind(this);
+  }
 
   handleDrag(e, ui) {
     const {x, y} = this.state.deltaPosition;
@@ -20,6 +35,7 @@ class Cards extends React.Component {
   }
 
   onStart() {
+    console.log(this);
     this.setState({
       activeDrags: this.state.activeDrags + 1
     });
@@ -54,26 +70,35 @@ class Cards extends React.Component {
 
   onControlledDragStop(e, position) {
     this.onControlledDrag(e, position);
-    this.handleStop();
+    this.onStop();
   }
 
   render() {
+    const qcard = "Q-Card";
     const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
     return (
       <div>
         <p>Active DragHandlers: {this.state.activeDrags}</p>
-        <Draggable>
-          <div className="box">dragged anywhere</div>
-        </Draggable>
-        <Draggable axis="x">
-          <div className="box cursor-x">dragged horizonally (x axis)</div>
-        </Draggable>
-        <Draggable axis="y">
-          <div className="box cursor-y">dragged vertically (y axis)</div>
-        </Draggable>
-        <Draggable onStart={() => false}>
-          <div className="box">No dragged</div>
-        </Draggable>
+        <div style={{height: '1000px', width: '1000px', padding: '10px'}}>
+          <Draggable bounds="parent" {...dragHandlers}>
+            <div className="box">
+              I can only be moved within my offsetParent.<br /><br />
+              Both parent padding and child margin work properly.
+            </div>
+          </Draggable>
+          <Draggable bounds="parent" {...dragHandlers}>
+            <div className="box">{qcard}</div>
+          </Draggable>
+          <Draggable bounds="parent" {...dragHandlers}>
+            <div className="box">{qcard}</div>
+          </Draggable>
+          <Draggable bounds="parent" {...dragHandlers}>
+            <div className="box">{qcard}</div>
+          </Draggable>
+          <Draggable bounds="parent" {...dragHandlers}>
+            <div className="box">{qcard}</div>
+          </Draggable>
+        </div>
       </div>
     );
   }

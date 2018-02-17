@@ -41,6 +41,7 @@ body {
   padding: 10px;
   float: left;
   z-index: 1;
+  text-align: center;
 }
 .clear {
   clear: both;
