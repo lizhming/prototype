@@ -35,7 +35,7 @@ class Cards extends React.Component {
   }
 
   onStart() {
-    console.log(this);
+    //console.log(this);
     this.setState({
       activeDrags: this.state.activeDrags + 1
     });
@@ -76,15 +76,15 @@ class Cards extends React.Component {
   render() {
     const qcard = "Q-Card";
     const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
+    const h = (this.props.ratio * 1080) + "px";
+    console.log(h);
+
     return (
       <div>
-        <p>Active DragHandlers: {this.state.activeDrags}</p>
-        <div style={{height: '1000px', width: '1000px', padding: '10px'}}>
+        <div style={{position:"relative", height:h, width:"100%", background:"red"}}>
+          <div>Active DragHandlers: {this.state.activeDrags}</div>
           <Draggable bounds="parent" {...dragHandlers}>
-            <div className="box">
-              I can only be moved within my offsetParent.<br /><br />
-              Both parent padding and child margin work properly.
-            </div>
+            <div className="box">{qcard}</div>
           </Draggable>
           <Draggable bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
