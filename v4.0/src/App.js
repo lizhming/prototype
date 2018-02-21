@@ -25,21 +25,23 @@ class App extends Component {
   }
 
   _maintainAspectRatio() {
-    this.setState({ ratio: window.innerWidth / this.state.w });
-    if (this.state.h * this.state.ratio > window.innerHeight) {
-        this.setState({ ratio: window.innerHeight / this.state.h });
+    if(this._isMounted) {
+      this.setState({ ratio: window.innerWidth / this.state.w });
+      if (this.state.h * this.state.ratio > window.innerHeight) {
+          this.setState({ ratio: window.innerHeight / this.state.h });
+      }
+
+      this.setState({ 
+        w: this.state.w * this.state.ratio, 
+        h: this.state.h * this.state.ratio 
+      });
+
+      console.log("Aspect Ratio " + this.state.ratio);
+
+      document.getElementById("viz").style.height = (this.state.ratio * 480) + "px";
+      document.getElementById("rater").style.height = (this.state.ratio * 600) + "px";
+      document.getElementById("dash").style.height = (this.state.ratio * 1080) + "px";
     }
-
-    this.setState({ 
-      w: this.state.w * this.state.ratio, 
-      h: this.state.h * this.state.ratio 
-    });
-
-    console.log("Aspect Ratio " + this.state.ratio);
-
-    document.getElementById("viz").style.height = (this.state.ratio * 480) + "px";
-    document.getElementById("rater").style.height = (this.state.ratio * 600) + "px";
-    document.getElementById("dash").style.height = (this.state.ratio * 1080) + "px";
   }
 
   render() {
