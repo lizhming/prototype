@@ -1,5 +1,6 @@
 import React from 'react';
 import Draggable, {DraggableCore} from 'react-draggable';
+import { Progress } from 'reactstrap';
 import './Cards.css';
 
 class Cards extends React.Component {
@@ -86,7 +87,13 @@ class Cards extends React.Component {
 
     return (
       <div>
-        <div id="main" style={{position:"relative", height:h, width:"100%", background:"red"}}>
+        <div id="main" style={{position:"relative", height:h, width:"100%"}}>
+          <div id="progress-bar"> 
+            <Progress multi>
+              <Progress animated bar color="success" value="15">15%</Progress>
+              <Progress animated bar color="warning" value="35">35%</Progress>
+            </Progress>
+          </div>
           <div className="head">Active DragHandlers: {this.state.activeDrags}</div>
           <Draggable bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
