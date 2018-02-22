@@ -23,7 +23,7 @@ body {
   cursor: ew-resize;
 }
 .box {
-  position: absolute;
+  position: relative;
   background: #fff;
   border: 1px solid #999;
   border-radius: 10px;
@@ -31,13 +31,12 @@ body {
   height: 180px;
   margin: 10px;
   padding: 10px;
-  float: left;
   text-align: center;
+  display: inline-block;
 }
-.clear {
-  clear: both;
+.react-draggable-dragged {
+  z-index: 5;
 }
-
 .react-draggable-dragging {
   background: yellow;
   box-shadow: 0 0 12px #000;

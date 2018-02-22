@@ -3,8 +3,10 @@ import Draggable, {DraggableCore} from 'react-draggable';
 import './Cards.css';
 
 class Cards extends React.Component {
+  
   constructor(props) {
     super(props);
+    this.val = 6;
     this.createBindings();
 
     this.state = { 
@@ -32,6 +34,7 @@ class Cards extends React.Component {
         y: y + ui.deltaY,
       }
     });
+    document.getElementsByClassName("react-draggable-dragging")[0].style.zIndex = this.val++;
   }
 
   onStart() {
@@ -74,13 +77,17 @@ class Cards extends React.Component {
 
   render() {
     const qcard = "Q-Card";
-    const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
+    const dragHandlers = {
+      onDrag: this.handleDrag, 
+      onStart: this.onStart, 
+      onStop: this.onStop
+    };
     const h = (this.props.ratio * 1080) + "px";
 
     return (
       <div>
-        <div style={{position:"relative", height:h, width:"100%", background:"red"}}>
-          <div>Active DragHandlers: {this.state.activeDrags}</div>
+        <div id="main" style={{position:"relative", height:h, width:"100%", background:"red"}}>
+          <div className="head">Active DragHandlers: {this.state.activeDrags}</div>
           <Draggable bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
           </Draggable>
