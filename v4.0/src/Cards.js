@@ -35,7 +35,6 @@ class Cards extends React.Component {
   }
 
   onStart() {
-    //console.log(this);
     this.setState({
       activeDrags: this.state.activeDrags + 1
     });
@@ -77,7 +76,6 @@ class Cards extends React.Component {
     const qcard = "Q-Card";
     const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
     const h = (this.props.ratio * 1080) + "px";
-    console.log(h);
 
     return (
       <div>
