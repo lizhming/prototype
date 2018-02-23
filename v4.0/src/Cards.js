@@ -29,12 +29,14 @@ class Cards extends React.Component {
 
   handleDrag(e, ui) {
     const {x, y} = this.state.deltaPosition;
+    console.log("p", this.state.deltaPosition);
     this.setState({
       deltaPosition: {
         x: x + ui.deltaX,
         y: y + ui.deltaY,
       }
     });
+    console.log(this.state.deltaPosition);
     document.getElementsByClassName("react-draggable-dragging")[0].style.zIndex = this.val++;
   }
 
@@ -84,6 +86,15 @@ class Cards extends React.Component {
       onStop: this.onStop
     };
     const h = (this.props.ratio * 1080) + "px";
+    const pos = {
+      x: [], 
+      y: []
+    };
+
+    for(var i=0; i<5; i++) {
+      pos.x.push(Math.floor(Math.random() * 300) + 200)
+      pos.y.push(Math.floor(Math.random() * 275) + 175);
+    }
 
     return (
       <div>
@@ -95,19 +106,19 @@ class Cards extends React.Component {
             </Progress>
           </div>
           <div className="head">Active DragHandlers: {this.state.activeDrags}</div>
-          <Draggable bounds="parent" {...dragHandlers}>
+          <Draggable defaultPosition={{x: pos.x[0], y: pos.y[0]}} bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
           </Draggable>
-          <Draggable bounds="parent" {...dragHandlers}>
+          <Draggable defaultPosition={{x: pos.x[1], y: pos.y[1]}} bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
           </Draggable>
-          <Draggable bounds="parent" {...dragHandlers}>
+          <Draggable defaultPosition={{x: pos.x[2], y: pos.y[2]}} bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
           </Draggable>
-          <Draggable bounds="parent" {...dragHandlers}>
+          <Draggable defaultPosition={{x: pos.x[3], y: pos.y[3]}} bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
           </Draggable>
-          <Draggable bounds="parent" {...dragHandlers}>
+          <Draggable defaultPosition={{x: pos.x[4], y: pos.y[4]}} bounds="parent" {...dragHandlers}>
             <div className="box">{qcard}</div>
           </Draggable>
         </div>
