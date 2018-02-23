@@ -1,13 +1,12 @@
 import React from 'react';
 import Draggable from 'react-draggable';
-import { Progress } from 'reactstrap';
-import './css/Cards.css';
 
 class Cards extends React.Component {
   
   constructor(props) {
     super(props);
     this.val = 6;
+    this.size = 100;
     this.createBindings();
 
     this.state = { 
@@ -29,15 +28,16 @@ class Cards extends React.Component {
 
   handleDrag(e, ui) {
     const {x, y} = this.state.deltaPosition;
-    console.log("p", this.state.deltaPosition);
+    //console.log(e, this.state.deltaPosition);
     this.setState({
       deltaPosition: {
         x: x + ui.deltaX,
         y: y + ui.deltaY,
       }
     });
-    console.log(this.state.deltaPosition);
+    //console.log(this.state.deltaPosition);
     document.getElementsByClassName("react-draggable-dragging")[0].style.zIndex = this.val++;
+    this.toggleSize(false);
   }
 
   onStart() {
@@ -50,6 +50,7 @@ class Cards extends React.Component {
     this.setState({
       activeDrags: this.state.activeDrags - 1
     });
+    this.toggleSize(false);
   }
 
   // For controlled component
@@ -78,50 +79,41 @@ class Cards extends React.Component {
     this.onStop();
   }
 
+  toggleSize(flg) {
+    var factor = 1;
+    if(flg) {
+      factor = 0.52;
+    }
+    document.getElementsByClassName("react-draggable-dragging")[0].style.height = (this.size * factor) + "px";
+    document.getElementsByClassName("react-draggable-dragging")[0].style.width = (this.size * factor) + "px";
+  }
+
   render() {
+    const no_of_cards = 15;
     const qcard = "Q-Card";
     const dragHandlers = {
       onDrag: this.handleDrag, 
       onStart: this.onStart, 
       onStop: this.onStop
     };
-    const h = (this.props.ratio * 1080) + "px";
-    const pos = {
-      x: [], 
-      y: []
-    };
+    
+    const h = this.props.ratio * (window.innerHeight-66) + "px";
 
-    for(var i=0; i<5; i++) {
-      pos.x.push(this.props.ratio * (Math.floor(Math.random() * 300) + 200))
-      pos.y.push(this.props.ratio * (Math.floor(Math.random() * 275) + 175));
+    var cards = [];
+    for(var i=0; i<no_of_cards; i++) {
+      var px = this.props.ratio * (Math.floor(Math.random() * 300) + 200);
+      var py = this.props.ratio * (Math.floor(Math.random() * 275) + 175);
+      var bh = (this.props.ratio * this.size) + "px";
+
+      cards.push(
+        <Draggable key={i} defaultPosition={{x: px, y: py}} bounds="parent" {...dragHandlers}>
+            <div className="box" style={{height: bh, width: bh}}>{qcard}</div>
+        </Draggable>);
     }
 
     return (
-      <div>
-        <div id="main" style={{position:"relative", height:h, width:"100%"}}>
-          <div id="progress-bar"> 
-            <Progress multi>
-              <Progress animated bar color="success" value="15">15%</Progress>
-              <Progress animated bar color="warning" value="35">35%</Progress>
-            </Progress>
-          </div>
-          <div className="head">Active DragHandlers: {this.state.activeDrags}</div>
-          <Draggable defaultPosition={{x: pos.x[0], y: pos.y[0]}} bounds="parent" {...dragHandlers}>
-            <div className="box">{qcard}</div>
-          </Draggable>
-          <Draggable defaultPosition={{x: pos.x[1], y: pos.y[1]}} bounds="parent" {...dragHandlers}>
-            <div className="box">{qcard}</div>
-          </Draggable>
-          <Draggable defaultPosition={{x: pos.x[2], y: pos.y[2]}} bounds="parent" {...dragHandlers}>
-            <div className="box">{qcard}</div>
-          </Draggable>
-          <Draggable defaultPosition={{x: pos.x[3], y: pos.y[3]}} bounds="parent" {...dragHandlers}>
-            <div className="box">{qcard}</div>
-          </Draggable>
-          <Draggable defaultPosition={{x: pos.x[4], y: pos.y[4]}} bounds="parent" {...dragHandlers}>
-            <div className="box">{qcard}</div>
-          </Draggable>
-        </div>
+      <div id="main" style={{position:"relative", height:h, width:"100%"}}>
+        {cards}
       </div>
     );
   }

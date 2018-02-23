@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import './css/Rater.css';
 
 class Rater extends React.Component {
 	constructor(props) {

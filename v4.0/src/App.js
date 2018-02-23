@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Cards from './Cards.js';
 import Rater from './Rater.js';
 import Dash from './Dash.js';
+import ProgressBar from './ProgressBar.js';
 import './css/App.css';
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
     this._maintainAspectRatio = this._maintainAspectRatio.bind(this);
     this.state = {
       w: props.width, 
-      h: props.width,
+      h: props.height,
       ratio: 0
     };
     this._isMounted = false;
@@ -40,16 +41,18 @@ class App extends Component {
 
       console.log("Aspect Ratio " + this.state.ratio);
 
-      document.getElementById("viz").style.height = (this.state.ratio * 480) + "px";
-      document.getElementById("rater").style.height = (this.state.ratio * 600) + "px";
-      document.getElementById("dash").style.height = (this.state.ratio * 1080) + "px";
+      document.getElementById("viz").style.height = (this.state.ratio * 0.44 * this.state.h) + "px";
+      document.getElementById("rater").style.height = (this.state.ratio * 0.56 * this.state.h) + "px";
+      document.getElementById("dash").style.height = (this.state.ratio * this.state.h) + "px";
     }
   }
 
   render() {
     const viz = 'Viz';
-    const vizH = (this.props.ratio * 480) + "px";
-    const raterH = (this.props.ratio * 600) + "px";
+    const vizH = (this.props.ratio * 0.44 * this.state.h) + "px";
+    const raterH = (this.props.ratio * 0.56 * this.state.h) + "px";
+
+    console.log(this.state.h, vizH, raterH);
 
     return (
       <div className="container-fluid">
@@ -61,6 +64,7 @@ class App extends Component {
             </div>
           </div>
           <div className="col-6 border">
+            <ProgressBar />
             <Cards ratio={this.props.ratio} />
           </div>
           <div className="col-3 border" id="dash">

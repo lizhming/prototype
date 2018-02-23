@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-var w = 1920, h = 1080;
+var w = window.innerWidth, h = window.innerHeight;
 var ratio;
 
 window.addEventListener('resize', maintainAspectRatio, false);
