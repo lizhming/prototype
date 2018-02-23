@@ -1,5 +1,5 @@
 import React from 'react';
-import Draggable, {DraggableCore} from 'react-draggable';
+import Draggable from 'react-draggable';
 import { Progress } from 'reactstrap';
 import './css/Cards.css';
 
@@ -92,8 +92,8 @@ class Cards extends React.Component {
     };
 
     for(var i=0; i<5; i++) {
-      pos.x.push(Math.floor(Math.random() * 300) + 200)
-      pos.y.push(Math.floor(Math.random() * 275) + 175);
+      pos.x.push(this.props.ratio * (Math.floor(Math.random() * 300) + 200))
+      pos.y.push(this.props.ratio * (Math.floor(Math.random() * 275) + 175));
     }
 
     return (

@@ -50,7 +50,6 @@ class App extends Component {
     const viz = 'Viz';
     const vizH = (this.props.ratio * 480) + "px";
     const raterH = (this.props.ratio * 600) + "px";
-    const dashH = (this.props.ratio * this.props.height) + "px";
 
     return (
       <div className="container-fluid">
@@ -58,14 +57,14 @@ class App extends Component {
           <div className="col-3 border">
             <div className="row" id="viz" style={{height:vizH}}>{viz}</div>
             <div className="row" id="rater" style={{height:raterH}}>
-              <Rater />
+              <Rater ratio={this.props.ratio} />
             </div>
           </div>
           <div className="col-6 border">
-            <Cards ratio={this.props.ratio}/>
+            <Cards ratio={this.props.ratio} />
           </div>
-          <div className="col-3 border" id="dash" style={{height:dashH}}>
-            <Dash />
+          <div className="col-3 border" id="dash">
+            <Dash ratio={this.props.ratio} />
           </div>
         </div>
       </div>

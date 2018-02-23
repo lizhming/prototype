@@ -3,6 +3,11 @@ import { Table } from 'reactstrap';
 import './css/Rater.css';
 
 class Rater extends React.Component {
+	constructor(props) {
+		super(props);
+		const ratio = this.props.ratio;
+	}
+
 	render() {
 		return(
 			<div className="container-fluid">
