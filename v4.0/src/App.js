@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Cards from './Cards.js';
 import Rater from './Rater.js';
-import './App.css';
+import Dash from './Dash.js';
+import './css/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -47,7 +48,6 @@ class App extends Component {
 
   render() {
     const viz = 'Viz';
-    const dash = 'DashBoard';
     const vizH = (this.props.ratio * 480) + "px";
     const raterH = (this.props.ratio * 600) + "px";
     const dashH = (this.props.ratio * this.props.height) + "px";
@@ -64,7 +64,9 @@ class App extends Component {
           <div className="col-6 border">
             <Cards ratio={this.props.ratio}/>
           </div>
-          <div className="col-3 border" id="dash" style={{height:dashH}}>{dash}</div>
+          <div className="col-3 border" id="dash" style={{height:dashH}}>
+            <Dash />
+          </div>
         </div>
       </div>
     );

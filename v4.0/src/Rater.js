@@ -1,36 +1,36 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import './Rater.css';
+import './css/Rater.css';
 
 class Rater extends React.Component {
 	render() {
 		return(
 			<div className="container-fluid">
-				<Table dark responsive id="rater">
+				<Table bordered dark responsive className="rater">
 					<tbody>
 						<tr>
-							<td>1</td>
+							<td></td>
 							<td>2</td>
 							<td>3</td>
 							<td>4</td>
 						</tr>
 						<tr>
 							<td>1</td>
-							<td>2</td>
+							<td></td>
 							<td>3</td>
 							<td>4</td>
 						</tr>
 						<tr>
 							<td>1</td>
 							<td>2</td>
-							<td>3</td>
+							<td></td>
 							<td>4</td>
 						</tr>
 						<tr>
 							<td>1</td>
 							<td>2</td>
 							<td>3</td>
-							<td>4</td>
+							<td></td>
 						</tr>
 					</tbody>
 				</Table>

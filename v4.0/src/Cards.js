@@ -1,7 +1,7 @@
 import React from 'react';
 import Draggable, {DraggableCore} from 'react-draggable';
 import { Progress } from 'reactstrap';
-import './Cards.css';
+import './css/Cards.css';
 
 class Cards extends React.Component {
   
