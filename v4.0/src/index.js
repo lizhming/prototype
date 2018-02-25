@@ -21,5 +21,9 @@ function maintainAspectRatio() {
 
 maintainAspectRatio();
 
-ReactDOM.render(<App width={w} ratio={ratio} height={h} />, document.getElementById('root'));
+function onPropsChange(r) {
+	ratio = r;
+}
+
+ReactDOM.render(<App width={w} ratio={ratio} height={h} onPropsChange={onPropsChange} />, document.getElementById('root'));
 registerServiceWorker();

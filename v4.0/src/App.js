@@ -9,10 +9,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this._maintainAspectRatio = this._maintainAspectRatio.bind(this);
+    this.onProgressUpdate = this.onProgressUpdate.bind(this);
     this.state = {
       w: props.width, 
       h: props.height,
-      ratio: 0
+      ratio: 0,
+      cards: 10,
+      count: [10,0,0,0]
     };
     this._isMounted = false;
   }
@@ -44,7 +47,13 @@ class App extends Component {
       document.getElementById("viz").style.height = (this.state.ratio * 0.44 * this.state.h) + "px";
       document.getElementById("rater").style.height = (this.state.ratio * 0.56 * this.state.h) + "px";
       document.getElementById("dash").style.height = (this.state.ratio * this.state.h) + "px";
+
+      this.props.onPropsChange(this.state.ratio);
     }
+  }
+
+  onProgressUpdate(count) {
+    this.setState({ count : count });
   }
 
   render() {
@@ -52,7 +61,7 @@ class App extends Component {
     const vizH = (this.props.ratio * 0.44 * this.state.h) + "px";
     const raterH = (this.props.ratio * 0.56 * this.state.h) + "px";
 
-    console.log(this.state.h, vizH, raterH);
+    //console.log(this.state.h, vizH, raterH);
 
     return (
       <div className="container-fluid">
@@ -64,8 +73,8 @@ class App extends Component {
             </div>
           </div>
           <div className="col-6 border">
-            <ProgressBar />
-            <Cards ratio={this.props.ratio} />
+            <ProgressBar cards={this.state.cards} count={this.state.count} />
+            <Cards cards={this.state.cards} count={this.state.count} ratio={this.props.ratio} onProgressUpdate={this.onProgressUpdate} />
           </div>
           <div className="col-3 border" id="dash">
             <Dash ratio={this.props.ratio} />

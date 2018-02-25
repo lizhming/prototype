@@ -5,16 +5,17 @@ class Cards extends React.Component {
   
   constructor(props) {
     super(props);
+    //var no_of_cards = this.props.no_of_cards;
     this.val = 6;
     this.size = 100;
     this.createBindings();
 
     this.state = { 
       activeDrags : 0,
-      deltaPosition: {x: 0, y: 0}
+      deltaPosition: {x: 0, y: 0},
+      //count : [no_of_cards, 0, 0, 0]
     };
 
-    const no_of_cards = 10;
     const qcard = "Q-Card";
     const dragHandlers = {
       onDrag: this.handleDrag, 
@@ -23,9 +24,9 @@ class Cards extends React.Component {
     };
 
     this.cards = [];
-    for(var i=0; i<no_of_cards; i++) {
+    for(var i=0; i<this.props.cards; i++) {
       //put cards in random location between x & y betwwen (275, 475)
-      var px = this.props.ratio * (Math.floor(Math.random() * 248) + 340);
+      var px = this.props.ratio * (Math.floor(Math.random() * 200) + 275);
       var py = this.props.ratio * (Math.floor(Math.random() * 200) + 275);
       var bh = (this.props.ratio * this.size) + "px";
 
@@ -57,19 +58,21 @@ class Cards extends React.Component {
     elem.style.zIndex = this.val;
     //elem.innerHTML = this.state.deltaPosition.x + ", " + this.state.deltaPosition.y;
     this.toggleSize(elem, false);
-    this.locateCard(elem, ui.x, ui.y);
+
+    switch(this.locateCard(ui.x, ui.y)) {
+      case 0: elem.style.background = "#fff"; break;
+      case 1: elem.style.background = "#0f0"; break;
+      case 2: elem.style.background = "#f00"; break;
+      case 3: elem.style.background = "#0ff"; break;
+      default: break;
+    }
   }
 
-  locateCard(elem, x, y) {
-    if(x >= 275 && x <= 475 && y >= 275 && y <= 475) {
-      elem.style.background = "#fff";
-    } else if(x >= 600 && y <= 600) {  //relevant
-      elem.style.background = "#0f0";
-    } else if(x <= 150 && y <= 600) { //irrelevant
-      elem.style.background = "#f00";
-    } else if(y > 600) {  //unknown
-      elem.style.background = "#00f";
-    }
+  locateCard(x, y) {
+    if(x >= 250 && x <= 600 && y <= 750) { return 0; } 
+    else if(x > 600 && y < 750) { return 1; } //relevant
+    else if(x < 250 && y < 750) { return 2; } //irrelevant
+    else if(y > 750) { return 3; }            //unknown
   }
 
   onStart(e, ui) {
@@ -78,15 +81,27 @@ class Cards extends React.Component {
     this.setState({
       activeDrags: this.state.activeDrags + 1
     });
+
+    this.prev = this.locateCard(ui.x, ui.y);
   }
 
-  onStop() {
+  onStop(e, ui) {
+    let count = this.props.count;
+
     this.setState({
       activeDrags: this.state.activeDrags - 1,
       deltaPosition: {x: 0, y: 0}
     });
-    this.toggleSize(document.getElementsByClassName("react-draggable-dragging")[0], false);
 
+    this.toggleSize(document.getElementsByClassName("react-draggable-dragging")[0], false);
+    console.log("onStop", ui.x, ui.y);
+
+    this.curr = this.locateCard(ui.x, ui.y);
+    ++count[this.curr];
+    --count[this.prev];
+
+    this.setState({ count : count });
+    this.props.onProgressUpdate(this.state.count);
   }
 
   toggleSize(elem, flg) {
