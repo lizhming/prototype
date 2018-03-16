@@ -83,6 +83,7 @@ class Cards extends React.Component {
     });
 
     this.prev = this.locateCard(ui.x, ui.y);
+    document.getElementById("main").style.backgroundPosition = "center";
   }
 
   onStop(e, ui) {
@@ -102,6 +103,7 @@ class Cards extends React.Component {
 
     this.setState({ count : count });
     this.props.onProgressUpdate(this.state.count);
+    document.getElementById("main").style.backgroundPosition = "initial";
   }
 
   toggleSize(elem, flg) {
@@ -118,6 +120,8 @@ class Cards extends React.Component {
 
     return (
       <div id="main" style={{position:"relative", height:h, width:"100%"}}>
+        <div id="tmp">          
+        </div>
         {this.cards}
       </div>
     );

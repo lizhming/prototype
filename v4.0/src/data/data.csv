@@ -1,0 +1,17 @@
+﻿x,y,value
+trainer1,trainer1,0
+trainer1,trainer2,0.9
+trainer1,trainer3,0.65
+trainer1,trainer4,0.5
+trainer2,trainer1,0.9
+trainer2,trainer2,0
+trainer2,trainer3,0.8
+trainer2,trainer4,0.23
+trainer3,trainer1,0.65
+trainer3,trainer2,0.8
+trainer3,trainer3,0
+trainer3,trainer4,0.7
+trainer4,trainer1,0.5
+trainer4,trainer2,0.23
+trainer4,trainer3,0.7
+trainer4,trainer4,0
