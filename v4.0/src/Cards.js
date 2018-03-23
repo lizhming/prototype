@@ -16,7 +16,6 @@ class Cards extends React.Component {
       //count : [no_of_cards, 0, 0, 0]
     };
 
-    const qcard = "Q-Card";
     const dragHandlers = {
       onDrag: this.handleDrag, 
       onStart: this.onStart, 
@@ -24,7 +23,7 @@ class Cards extends React.Component {
     };
 
     this.cards = [];
-    for(var i=0; i<this.props.cards; i++) {
+    for(var i=0; i<this.props.cardsCount; i++) {
       //put cards in random location between x & y betwwen (275, 475)
       var px = this.props.ratio * (Math.floor(Math.random() * 200) + 275);
       var py = this.props.ratio * (Math.floor(Math.random() * 200) + 275);
@@ -34,7 +33,7 @@ class Cards extends React.Component {
 
       this.cards.push(
         <Draggable key={i} defaultPosition={{x: px, y: py}} bounds="parent" {...dragHandlers}>
-            <div className="box" style={{height: bh, width: bh}}>{qcard}-{i}</div>
+            <div className="box" style={{height: bh, width: bh}}>{this.props.cards[i]}</div>
         </Draggable>);
     }
   }
