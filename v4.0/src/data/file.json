@@ -1,0 +1,57 @@
+{
+	"id": 1,
+	"questionsCount": 3,
+	"values": [
+		{
+			"id": 1,
+			"question": "Orange",
+			"cardsCount": 10,
+			"values": [
+				"vehicle",
+				"color",
+				"fruit",
+				"animal",
+				"vegetable",
+				"car",
+				"bike",
+				"motor",
+				"food",
+				"place"
+			]
+		},
+		{
+			"id": 2,
+			"question": "BMW",
+			"cardsCount": 10,
+			"values": [
+				"vehicle",
+				"color",
+				"fruit",
+				"animal",
+				"vegetable",
+				"car",
+				"bike",
+				"motor",
+				"food",
+				"place"
+			]
+		},
+		{
+			"id": 3,
+			"question": "JavaScript",
+			"cardsCount": 10,
+			"values": [
+				"vehicle",
+				"color",
+				"fruit",
+				"animal",
+				"vegetable",
+				"car",
+				"bike",
+				"motor",
+				"food",
+				"place"
+			]
+		}
+	]
+}

@@ -57,7 +57,6 @@ class App extends Component {
   }
 
   render() {
-    const viz = 'Viz';
     const vizH = (this.props.ratio * 0.44 * this.state.h) + "px";
     const raterH = (this.props.ratio * 0.56 * this.state.h) + "px";
 
@@ -67,7 +66,7 @@ class App extends Component {
       <div className="container-fluid">
         <div className="row"> 
           <div className="col-3 border">
-            <div className="row" id="viz" style={{height:vizH}}>{viz}</div>
+            <div className="row" id="viz" style={{height:vizH}}></div>
             <div className="row" id="rater" style={{height:raterH}}>
               <Rater ratio={this.props.ratio} />
             </div>

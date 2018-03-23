@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './App';
+import data from './data/file.json';
 import registerServiceWorker from './registerServiceWorker';
 
 var w = window.innerWidth, h = window.innerHeight;
@@ -25,5 +26,5 @@ function onPropsChange(r) {
 	ratio = r;
 }
 
-ReactDOM.render(<App width={w} ratio={ratio} height={h} onPropsChange={onPropsChange} />, document.getElementById('root'));
+ReactDOM.render(<App width={w} ratio={ratio} height={h} data={data} onPropsChange={onPropsChange} />, document.getElementById('root'));
 registerServiceWorker();
