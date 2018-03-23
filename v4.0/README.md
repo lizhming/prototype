@@ -15,7 +15,11 @@ create-react-app v4.0
 Check out this link:
 
 [https://github.com/gitname/react-gh-pages](https://github.com/gitname/react-gh-pages)
+[https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#github-pages](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#github-pages)
 
+Draggable: [https://github.com/mzabriskie/react-draggable](https://github.com/mzabriskie/react-draggable)
+
+Reactstrap: [https://reactstrap.github.io](https://reactstrap.github.io)
 
 Inside that directory, you can run several commands:
 
