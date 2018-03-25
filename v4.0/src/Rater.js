@@ -33,8 +33,8 @@ class Rater extends React.Component {
 	    var x_elements = d3.set(data.map(function( item ) { return item.product; } )).values(),
 	        y_elements = d3.set(data.map(function( item ) { return item.country; } )).values(),
 	        relation_values = d3.set(data.map(function( item ) { return item.value; })).values();
-	    console.log(x_elements);
-	    console.log(y_elements);
+	    //console.log(x_elements);
+	    //console.log(y_elements);
 	    var r = (x_elements.length) * itemSize;
 
 	    var xScale = d3.scaleOrdinal()

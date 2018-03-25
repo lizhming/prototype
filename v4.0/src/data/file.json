@@ -1,5 +1,11 @@
 {
 	"id": 1,
+	"classificationCategories": 3,
+	"categories": [
+		"Relevant",
+		"Unknown",
+		"Irrelevant"
+	],
 	"questionsCount": 5,
 	"values": [
 		{

@@ -13,7 +13,7 @@ class Question extends React.Component {
   constructor(props) {
     super(props);
     this.items = this.props.qcards;
-    console.log(this.items);
+    //console.log(this.items);
     this.state = { activeIndex: 0 };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -34,12 +34,16 @@ class Question extends React.Component {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === this.items.length - 1 ? 0 : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
+    //console.log(this.state.activeIndex + " next " + nextIndex);
+    this.props.onSelectQuestion(nextIndex);
   }
 
   previous() {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === 0 ? this.items.length - 1 : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
+    //console.log(this.state.activeIndex + " prev");
+    this.props.onSelectQuestion(nextIndex);
   }
 
   goToIndex(newIndex) {
@@ -59,7 +63,7 @@ class Question extends React.Component {
           key={item.id}
           onExiting={this.onExiting}
           onExited={this.onExited}>
-          <CarouselCaption className="text-danger" captionText={item.src} captionHeader={item.src} />
+          <CarouselCaption className="text-primary" captionText={item.src} captionHeader={item.src} />
         </CarouselItem>
       );
     });

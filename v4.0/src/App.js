@@ -12,17 +12,18 @@ class App extends Component {
     this.state = {
       w: props.width, 
       h: props.height,
-      ratio: 0
+      ratio: 0,
+      activeIndex: 0
     };
     this._isMounted = false;
     this.cards = [];
-    this.questions = [];
+    this.labels = [];
     this.progressBar = [];
 
     for(var i=0; i<props.data.questionsCount; ++i) {
       this.cards.push({count: [10,0,0,0]})
       this.progressBar.push(i);
-      this.questions.push(i);
+      this.labels.push(i);
     }
   }
 
@@ -30,6 +31,7 @@ class App extends Component {
     this._maintainAspectRatio = this._maintainAspectRatio.bind(this);
     this.onProgressUpdate = this.onProgressUpdate.bind(this);
     this.createProgressBars = this.createProgressBars.bind(this);
+    this.onSelectQuestion = this.onSelectQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -58,7 +60,7 @@ class App extends Component {
 
       document.getElementById("viz").style.height = (this.state.ratio * 0.44 * this.state.h) + "px";
       document.getElementById("rater").style.height = (this.state.ratio * 0.56 * this.state.h) + "px";
-      document.getElementById("dash").style.height = (this.state.ratio * this.state.h) + "px";
+      document.getElementById("question").style.height = (this.state.ratio * this.state.h) + "px";
 
       this.props.onPropsChange(this.state.ratio);
     }
@@ -68,16 +70,23 @@ class App extends Component {
     this.setState({ count : count });
   }
 
-  createQuestions() {
-    return this.questions.map((val, i) => {
+  onSelectQuestion(id) {
+    this.setState({ activeIndex : id });
+    //console.log(id);
+  }
+
+  createLabels() {
+    return this.labels.map((val, i) => {
       let id = "c-"+i;
-      let cls = (i === 0) ? "card-section" : "card-section hidden";
+      //console.log("show" + this.state.activeIndex)
+      let cls = (i === this.state.activeIndex) ? "card-section" : "card-section hidden";
       return (
         <div className={cls} key={id}>
           <Cards cards={this.props.data.values[i].values} 
                 cardsCount={this.props.data.values[i].cardsCount} 
                 count={this.cards[i].count} 
                 ratio={this.props.ratio} 
+                categories={this.props.data.classificationCategories}
                 onProgressUpdate={this.onProgressUpdate} />
         </div>
       )
@@ -94,6 +103,7 @@ class App extends Component {
   render() {
     const vizH = (this.props.ratio * 0.44 * this.state.h) + "px";
     const raterH = (this.props.ratio * 0.56 * this.state.h) + "px";
+    const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
 
     return (
       <div className="container-fluid">
@@ -107,13 +117,15 @@ class App extends Component {
             </div>
           </div>
           <div className="col-8 border">
-            <div className="row" id="question" className="question-tag">
+            <div id="question" className="question-tag" 
+                  style={{height:quesH}}>
               <Question qcount={this.props.data.questionsCount}
                         qcards={this.props.data.values} 
-                        ratio={this.props.ratio} />
+                        ratio={this.props.ratio}
+                        onSelectQuestion={this.onSelectQuestion} />
             </div>
             <div className="row">
-              {this.createQuestions()}
+              {this.createLabels()}
             </div>
           </div>
         </div>
