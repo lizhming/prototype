@@ -24,8 +24,8 @@ body {
 }
 .box {
   position: absolute;
-  background: #ff0;
-  border: 1px solid #999;
+  background: #ffc107;
+  border: 3px solid #000;
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
@@ -47,6 +47,10 @@ body {
   width: 100%;
   padding: 10px;
   background-color: #000;
+}
+.progress-bar {
+  color: black;
+  font-weight: bolder;
 }
 .progress {
   height: 5rem;
@@ -82,19 +86,19 @@ body {
   position: absolute;
 }
 #part1 {
-  background-color: #E64C65;
+  background-color: #11A8AB;
   -webkit-clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 50%);
   clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 50%);
 }
 
 #part2 {
-  background-color: #11A8AB;
+  background-color: #4FC4F6;
   -webkit-clip-path: polygon(50% 50%, 50% 50%, 100% 100%, 0 100%);
   clip-path: polygon(50% 50%, 50% 50%, 100% 100%, 0 100%);
 }
 
 #part3 {
-  background-color: #4FC4F6;
+  background-color: #E64C65;
   -webkit-clip-path: polygon(0 0, 50% 0, 50% 50%, 0 100%);
   clip-path: polygon(0 0, 50% 0, 50% 50%, 0 100%);
 }

@@ -9,11 +9,14 @@ class Cards extends React.Component {
     this.val = 6;
     this.size = 75;
     this.createBindings();
+    this.center = {
+      x: window.innerWidth*0.66*props.ratio*0.5, 
+      y: window.innerHeight*0.88*props.ratio*0.5
+    };
 
     this.state = { 
       activeDrags : 0,
-      deltaPosition: {x: 0, y: 0},
-      //count : [no_of_cards, 0, 0, 0]
+      deltaPosition: {x: 0, y: 0}
     };
 
     const dragHandlers = {
@@ -25,16 +28,11 @@ class Cards extends React.Component {
     this.cards = [];
     for(var i=0; i<this.props.cardsCount; i++) {
       //put cards in random location between x & y betwwen (275, 475)
-      var center = {
-        x: window.innerWidth*0.66*props.ratio*0.5, 
-        y: window.innerHeight*0.88*props.ratio*0.5
-      };
-
-      var px = this.props.ratio * (Math.floor(Math.random() * 200) + center.x-150);
-      var py = this.props.ratio * (Math.floor(Math.random() * 200) + center.y-150);
+      var px = this.props.ratio * (Math.floor(Math.random() * 200) + this.center.x-150);
+      var py = this.props.ratio * (Math.floor(Math.random() * 200) + this.center.y-150);
       var bh = (this.props.ratio * this.size) + "px";
 
-      console.log(i, px, py);
+      //console.log(i, px, py);
 
       this.cards.push(
         <Draggable key={i} defaultPosition={{x: px, y: py}} bounds="parent" {...dragHandlers}>
@@ -51,6 +49,7 @@ class Cards extends React.Component {
     this.onStop = this.onStop.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
     this.inside = this.inside.bind(this);
+    this.insideCircle = this.insideCircle.bind(this);
     this.createCategories = this.createCategories.bind(this);
   }
 
@@ -69,24 +68,39 @@ class Cards extends React.Component {
     this.toggleSize(elem, false);
 
     switch(this.locateCard(ui.x, ui.y)) {
-      case 0: elem.style.background = "#ff0"; break;
-      case 1: elem.style.background = "#0f0"; break;
-      case 2: elem.style.background = "#f00"; break;
-      case 3: elem.style.background = "#0ff"; break;
+      case 0: elem.style.background = "#ffc107"; break;
+      case 1: elem.style.background = "#28a745"; break;
+      case 2: elem.style.background = "#007bff"; break;
+      case 3: elem.style.background = "#dc3545"; break;
       default: break;
     }
   }
 
   locateCard(x, y) {
-    //for(var i=1; i<=this.props.categories; ++i) {
-      var pie = document.getElementById("part1");
-      console.log(pie.getAttribute("style"));
-      //if(this.inside(x+main.left, y+main.top, pie)) {
-        //console.log(i, pie.top-main.top, pie.left-main.left);
-        //return i;
-      //}
-    //}
-    return 0;
+    var elem = document.getElementsByClassName("card-section")[0];
+    console.log(elem);
+    var r = elem.getBoundingClientRect();
+    //var stage = elem.getElementById("stage").getBoundingClientRect();
+    if(this.insideCircle({x: x, y: y}, r.width)) {
+      return 0;
+    }
+    var main = elem.children[0];
+    console.log(main);
+    for(var i=1; i<=this.props.categories; ++i) {
+      var pie = main.childNodes[i-1].getBoundingClientRect();
+      let center = {
+        x: this.center.x - main.style.left,
+        y: this.center.y - main.style.top
+      }
+      //console.log(pie);
+      if(this.inside({x: x, y: y}, pie.width/2, -1.57, 0.5233)) {
+        return 1;
+      } else if(this.inside({x: x, y: y}, pie.width/2, 0.5233, 2.616)) {
+        return 2;
+      } else if(this.inside({x: x, y: y}, pie.width/2, 2.616, -1.57)) {
+        return 3;
+      } 
+    }
     /*
     if(x >= 250 && x <= 600 && y <= 750) { return 0; } 
     else if(x > 600 && y < 750) { return 1; } //relevant
@@ -95,12 +109,32 @@ class Cards extends React.Component {
     */
   }
 
-  inside(x, y, pie) {
-    console.log(pie.top, pie.right, pie.bottom, pie.left);
-    return (
-      (x <= pie.right && x >= pie.left) && 
-      (y <= pie.bottom && y >= pie.top)
-    );
+  insideCircle(point, r) {
+    let radius = r * 0.175;
+    var relPoint = {
+      x: point.x - this.center.x,
+      y: point.y - this.center.y
+    };
+    return (relPoint.x*relPoint.x + relPoint.y*relPoint.y <= radius * radius);
+  }
+
+  inside(point, radius, angle1, angle2) {
+    function areClockwise(center, radius, angle, point2) {
+      var point1 = {
+        x : (center.x + radius) * Math.cos(angle),
+        y : (center.y + radius) * Math.sin(angle)
+      };
+      return -point1.x*point2.y + point1.y*point2.x > 0;
+    }
+
+    var relPoint = {
+      x: point.x - this.center.x,
+      y: point.y - this.center.y
+    };
+
+    return !areClockwise(this.center, radius, angle1, relPoint) &&
+           areClockwise(this.center, radius, angle2, relPoint) &&
+           (relPoint.x*relPoint.x + relPoint.y*relPoint.y <= radius * radius);
   }
 
   onStart(e, ui) {
@@ -126,10 +160,12 @@ class Cards extends React.Component {
     console.log("onStop", ui.x, ui.y);
 
     this.curr = this.locateCard(ui.x, ui.y);
+    console.log(this.curr, this.prev);
     ++count[this.curr];
     --count[this.prev];
 
     this.setState({ count : count });
+    console.log(this.state.count)
     this.props.onProgressUpdate(this.state.count);
     //document.getElementById("main").style.backgroundPosition = "initial";
   }
