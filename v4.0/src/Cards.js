@@ -16,7 +16,7 @@ class Cards extends React.Component {
 
     this.state = { 
       activeDrags : 0,
-      deltaPosition: {x: 0, y: 0}
+      deltaPosition: {x: 0, y: 0},
     };
 
     const dragHandlers = {
@@ -77,22 +77,18 @@ class Cards extends React.Component {
   }
 
   locateCard(x, y) {
-    var elem = document.getElementsByClassName("card-section")[0];
-    console.log(elem);
-    var r = elem.getBoundingClientRect();
-    //var stage = elem.getElementById("stage").getBoundingClientRect();
-    if(this.insideCircle({x: x, y: y}, r.width)) {
+    var stage = document.getElementsByClassName("stage")[this.props.activeIndex].getBoundingClientRect();
+    if(this.insideCircle({x: x, y: y}, stage.width)) {
       return 0;
     }
-    var main = elem.children[0];
-    console.log(main);
+    var main = document.getElementsByClassName("main")[this.props.activeIndex].getBoundingClientRect();
     for(var i=1; i<=this.props.categories; ++i) {
-      var pie = main.childNodes[i-1].getBoundingClientRect();
+      var pos = this.props.categories * this.props.activeIndex + i - 1;
+      var pie = document.getElementsByClassName("circle")[pos].getBoundingClientRect();
       let center = {
-        x: this.center.x - main.style.left,
-        y: this.center.y - main.style.top
+        x: this.center.x - main.left,
+        y: this.center.y - main.top
       }
-      //console.log(pie);
       if(this.inside({x: x, y: y}, pie.width/2, -1.57, 0.5233)) {
         return 1;
       } else if(this.inside({x: x, y: y}, pie.width/2, 0.5233, 2.616)) {
@@ -101,12 +97,6 @@ class Cards extends React.Component {
         return 3;
       } 
     }
-    /*
-    if(x >= 250 && x <= 600 && y <= 750) { return 0; } 
-    else if(x > 600 && y < 750) { return 1; } //relevant
-    else if(x < 250 && y < 750) { return 2; } //irrelevant
-    else if(y > 750) { return 3; }            //unknown
-    */
   }
 
   insideCircle(point, r) {
@@ -192,8 +182,8 @@ class Cards extends React.Component {
     const h = (this.props.ratio * 0.88 * window.innerHeight) + "px";
 
     return (
-      <div id="main" style={{position:"relative", height:h, width:"100%"}}>
-        <div id="stage"></div>
+      <div className="main" style={{position:"relative", height:h, width:"100%"}}>
+        <div className="stage"></div>
         {this.categories}
         {this.cards}
       </div>

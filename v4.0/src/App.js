@@ -86,6 +86,7 @@ class App extends Component {
                 cardsCount={this.props.data.values[i].cardsCount} 
                 count={this.cards[i].count} 
                 ratio={this.props.ratio} 
+                activeIndex={this.state.activeIndex}
                 categories={this.props.data.classificationCategories}
                 onProgressUpdate={this.onProgressUpdate} />
         </div>
