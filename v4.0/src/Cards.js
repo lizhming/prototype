@@ -155,7 +155,7 @@ class Cards extends React.Component {
     --count[this.prev];
 
     this.setState({ count : count });
-    console.log(this.state.count)
+    console.log(this.state.count);
     this.props.onProgressUpdate(this.state.count);
     //document.getElementById("main").style.backgroundPosition = "initial";
   }

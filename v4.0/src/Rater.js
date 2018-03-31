@@ -130,7 +130,6 @@ class Rater extends React.Component {
 	render() {
 		return(
 			<div className="container-fluid">
-				<h2>Raters Agreement</h2>
         <div className="heatmap"></div>
         <div className="legend"></div>
 			</div>

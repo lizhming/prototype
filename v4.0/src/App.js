@@ -95,10 +95,17 @@ class App extends Component {
   }
 
   createProgressBars() {
-    return this.progressBar.map((val, i) => {
-      return <ProgressBar key={i} cards={this.props.data.values[i].cardsCount} 
-                count={this.cards[i].count} />
-    });
+    for(var i=0; i<this.props.data.questionsCount; ++i) {
+      this.progressBar[i] = <ProgressBar key={i} 
+                          cards={this.props.data.values[i].cardsCount} 
+                          count={this.cards[i].count} 
+                          qid={this.props.data.values[i].src} 
+                          active={i==this.state.activeIndex} />
+    }
+    var tmp = this.progressBar[0];
+    this.progressBar[0] = this.progressBar[this.state.activeIndex];
+    this.progressBar[this.state.activeIndex] = tmp;
+    return this.progressBar;
   }
 
   render() {
@@ -118,12 +125,14 @@ class App extends Component {
             </div>
           </div>
           <div className="col-8 border">
-            <div id="question" className="question-tag" 
-                  style={{height:quesH}}>
-              <Question qcount={this.props.data.questionsCount}
-                        qcards={this.props.data.values} 
-                        ratio={this.props.ratio}
-                        onSelectQuestion={this.onSelectQuestion} />
+            <div className="row">
+              <div id="question" className="question-tag" 
+                    style={{height:quesH}}>
+                <Question qcount={this.props.data.questionsCount}
+                          qcards={this.props.data.values} 
+                          ratio={this.props.ratio}
+                          onSelectQuestion={this.onSelectQuestion} />
+              </div>
             </div>
             <div className="row">
               {this.createLabels()}
