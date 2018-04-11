@@ -10,14 +10,14 @@ class Rater extends React.Component {
 	}
   
   componentDidMount() {
-    var itemSize = 100,
+    var itemSize = 75,
 	      cellSize = itemSize - 1,
 	      margin = {top: 40, right: 10, bottom: 10, left: 40};
       
 	  var width = 450 - margin.right - margin.left,
 	      height = 450 - margin.top - margin.bottom;
 
-	  var colors = ["#f7882f", "#f7c331", "#66cc66"];
+	  var colors = ["#000000", "#D3D3D3", "#696969"];
 
 	  d3.csv(file, function ( response ) {
 

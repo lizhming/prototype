@@ -110,7 +110,8 @@ class App extends Component {
 
   render() {
     const vizH = (this.props.ratio * 0.44 * this.state.h) + "px";
-    const raterH = (this.props.ratio * 0.56 * this.state.h) + "px";
+    const raterH = (this.props.ratio * 0.30 * this.state.h) + "px";
+    const historyH = (this.props.ratio * 0.26 * this.state.h) + "px";
     const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
 
     return (
@@ -122,6 +123,8 @@ class App extends Component {
             </div>
             <div className="row" id="rater" style={{height:raterH}}>
               <Rater ratio={this.props.ratio} />
+            </div>
+            <div className="row" id="history" style={{height:historyH}}>
             </div>
           </div>
           <div className="col-8 border">
