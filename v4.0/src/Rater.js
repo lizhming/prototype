@@ -10,14 +10,16 @@ class Rater extends React.Component {
 	}
   
   componentDidMount() {
-    var itemSize = 75,
+    var itemSize = 60,
 	      cellSize = itemSize - 1,
-	      margin = {top: 40, right: 10, bottom: 10, left: 280};
+	      margin = {top: 40, right: 10, bottom: 10, left: 40};
       
-	  var width = 650 - margin.right - margin.left,
-	      height = 450 - margin.top - margin.bottom;
+	  var width = 350 - margin.right - margin.left,
+	      height = 350 - margin.top - margin.bottom;
 
-	  var colors = ["#000000", "#D3D3D3", "#696969"];
+	  var range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
+	  var cols = ["#7f3b08","#b35806","#e08214","#fdb863","#fee0b6","#d8daeb","#b2abd2","#8073ac","#542788","#2d004b"];//["#000000", "#D3D3D3", "#696969", "#F00", "#0F0", "#00F", "#FF0", "#F0F", "#0FF", "#F93"];
+	  var colors = d3.scaleQuantize().range(cols);
 
 	  d3.csv(file, function ( response ) {
 
@@ -28,7 +30,7 @@ class Rater extends React.Component {
 	        newItem.value = item.value;
 
 	        return newItem;
-	    })
+	    });
 
 	    var x_elements = d3.set(data.map(function( item ) { return item.product; } )).values(),
 	        y_elements = d3.set(data.map(function( item ) { return item.country; } )).values(),
@@ -61,13 +63,14 @@ class Rater extends React.Component {
 	        });
 
 	    var colorScale = d3.scaleThreshold()
-	        .domain([0.33, 0.67])
-	        .range(colors);
+	        .domain(range)
+	        .range(colors.range());
 
 	    var svg = d3.select('.heatmap')
 	        .append("svg")
 	        .attr("width", width + margin.left + margin.right)
 	        .attr("height", height + margin.top + margin.bottom)
+	        .attr("transform", "translate(175, 50)")
 	        .append("g")
 	        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -87,7 +90,7 @@ class Rater extends React.Component {
 	        .selectAll('text')
 	        .attr('font-weight', 'normal')
 	        .attr("transform", function (d) {
-	            return "translate(0,35)";
+	            return "translate(0,30)";
 	        });
 
 	    svg.append("g")
@@ -99,16 +102,31 @@ class Rater extends React.Component {
 	        .attr("dx", ".8em")
 	        .attr("dy", ".5em")
 	        .attr("transform", function (d) {
-	            return "translate(15,-25)";
+	            return "translate(10,-25)";
 	        });
-	  });
+
+	  	var legend = d3.select('.legend')
+										  .append('ul')
+										  .attr('class', 'list-inline');
+
+			var keys = legend.selectAll('li.key').data(colors.range());
+
+			keys.enter().append('li')
+			    .attr('class', 'key')
+			    .style('border-left-color', String)
+			    .text(function(d) {
+			        var r = colors.invertExtent(d);
+			        return r[1];
+			    });
+  	});
   }
+
 
 	render() {
 		return(
 			<div className="container-fluid">
+				<div className="legend"></div> 
         <div className="heatmap"></div>
-        <div className="legend"></div>
 			</div>
 			);
 	}

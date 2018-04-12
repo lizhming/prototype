@@ -96,6 +96,27 @@ body {
 #rater {
 	
 }
+.legend, .heatmap {
+  position: relative;
+  display: inline-block;
+  width: 80%;
+  float: left;
+}
+.legend {
+  width: 20%;
+  top: 5%;
+  padding-left: 10%;
+}
+li.key {
+  border-left-width: 3rem;
+  border-left-style: solid;
+  height: 2rem;
+  font-size: 0.5rem;
+  /*width: 10%;*/
+  padding-left: 1rem;
+  padding-right: 0;
+  font-weight: bolder;
+}
 #history {
   background-color: #555;
 }
