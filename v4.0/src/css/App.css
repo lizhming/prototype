@@ -53,6 +53,11 @@ body {
   padding: 0.4rem;
   border-radius: 1rem;
   border: 1px solid #000;
+  filter: none;
+  -webkit-filter: grayscale(70%);
+  -moz-filter: grayscale(70%);
+  -ms-filter: grayscale(70%);
+  -o-filter: grayscale(70%);
 }
 .progress-bar {
   color: black;
@@ -75,6 +80,11 @@ body {
 }
 .active-bar {
   border: 5px solid #f00;
+  filter: none;
+  -webkit-filter: grayscale(0%);
+  -moz-filter: grayscale(0%);
+  -ms-filter: grayscale(0%);
+  -o-filter: grayscale(0%);
 }
 .main {
   background-position: initial;

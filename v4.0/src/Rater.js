@@ -99,7 +99,7 @@ class Rater extends React.Component {
 	        .attr("dx", ".8em")
 	        .attr("dy", ".5em")
 	        .attr("transform", function (d) {
-	            return "translate(10,-25)";
+	            return "translate(15,-25)";
 	        });
 	  });
   }
