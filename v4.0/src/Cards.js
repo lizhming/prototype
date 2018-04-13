@@ -182,7 +182,8 @@ class Cards extends React.Component {
     const h = (this.props.ratio * 0.88 * window.innerHeight) + "px";
 
     return (
-      <div className="main" style={{position:"relative", height:h, width:"100%"}}>
+
+      <div className="main" style={{height:h}}>
         <div className="stage"></div>
         {this.categories}
         {this.cards}

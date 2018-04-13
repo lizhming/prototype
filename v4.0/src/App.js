@@ -3,6 +3,7 @@ import Cards from './Cards.js';
 import Rater from './Rater.js';
 import Question from './Question.js';
 import ProgressBar from './ProgressBar.js';
+import PopoverItem from './PopoverItem.js';
 import './css/App.css';
 
 class App extends Component {
@@ -118,14 +119,11 @@ class App extends Component {
       <div className="container-fluid">
         <div className="row"> 
           <div className="col-4 border">
-            <div className="row" id="viz" style={{height:vizH}}>
-              {this.createProgressBars()}
-            </div>
-            <div className="row" id="rater" style={{height:raterH}}>
-              <Rater ratio={this.props.ratio} />
-            </div>
-            <div className="row" id="history" style={{height:historyH}}>
-            </div>
+            <PopoverItem id="viz" height={vizH} placement="right" title="Progress Report" 
+                elements={this.createProgressBars()} />
+            <PopoverItem id="rater" height={raterH} placement="right" title="Rater's Agreement" 
+                elements={<Rater ratio={this.props.ratio} />} />
+            <PopoverItem id="history" height={historyH} placement="right" title="History" />
           </div>
           <div className="col-8 border">
             <div className="row">

@@ -18,8 +18,8 @@ class Rater extends React.Component {
 	      height = 350 - margin.top - margin.bottom;
 
 	  var range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
-	  var cols = ["#7f3b08","#b35806","#e08214","#fdb863","#fee0b6","#d8daeb","#b2abd2","#8073ac","#542788","#2d004b"];//["#000000", "#D3D3D3", "#696969", "#F00", "#0F0", "#00F", "#FF0", "#F0F", "#0FF", "#F93"];
-	  var colors = d3.scaleQuantize().range(cols);
+	  var colorRange = ["#67001f","#b2182b","#d6604d","#f4a582","#fddbc7","#e0e0e0","#bababa","#878787","#4d4d4d","#1a1a1a"];
+	  var colors = d3.scaleQuantize().range(colorRange);
 
 	  d3.csv(file, function ( response ) {
 
