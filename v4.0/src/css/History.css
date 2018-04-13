@@ -1,0 +1,36 @@
+#history {
+  border-top: 5px solid #555;
+  /*box-shadow: 0px 0px 56px 0px rgba(0,0,0,0.87);*/
+}
+#history-wrapper {
+	position: relative;
+	width: 100%;
+	padding-top: 0.5rem;
+	overflow-y: scroll;
+}
+.history-data {
+	position: relative;
+	width: 48%;
+	height: 105px;
+	margin: 2px;	
+	padding: 5px;
+	padding-left: 10px;
+	float: left;
+	border-radius: 10px;
+	border: 1px solid #000;
+}
+.dir {
+	position: relative;
+	width: 75px;
+	height: 75px;
+	margin: 10px;
+	padding: 10px;
+	float: left;
+	background-image: url('../images/arrow.png');
+	background-size: contain;
+}
+
+.hist {
+	position: relative !important;
+	float: left;
+}

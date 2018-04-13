@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cards from './Cards.js';
 import Rater from './Rater.js';
+import History from './History.js';
 import Question from './Question.js';
 import ProgressBar from './ProgressBar.js';
 import PopoverItem from './PopoverItem.js';
@@ -14,7 +15,9 @@ class App extends Component {
       w: props.width, 
       h: props.height,
       ratio: 0,
-      activeIndex: 0
+      activeIndex: 0,
+      from: "#ffc107",
+      to: "#ffc107"
     };
     this._isMounted = false;
     this.cards = [];
@@ -33,6 +36,7 @@ class App extends Component {
     this.onProgressUpdate = this.onProgressUpdate.bind(this);
     this.createProgressBars = this.createProgressBars.bind(this);
     this.onSelectQuestion = this.onSelectQuestion.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +75,11 @@ class App extends Component {
     this.setState({ count : count });
   }
 
+  onChange(colorFrom, colorTo) {
+    console.log(colorFrom, colorTo);
+    this.setState({ from : colorFrom, to : colorTo});
+  }
+
   onSelectQuestion(id) {
     this.setState({ activeIndex : id });
     //console.log(id);
@@ -89,6 +98,7 @@ class App extends Component {
                 ratio={this.props.ratio} 
                 activeIndex={this.state.activeIndex}
                 categories={this.props.data.classificationCategories}
+                onChange={this.onChange}
                 onProgressUpdate={this.onProgressUpdate} />
         </div>
       )
@@ -120,10 +130,14 @@ class App extends Component {
         <div className="row"> 
           <div className="col-4 border">
             <PopoverItem id="viz" height={vizH} placement="right" title="Progress Report" 
-                elements={this.createProgressBars()} />
+                elements={this.createProgressBars()} className="row" />
             <PopoverItem id="rater" height={raterH} placement="right" title="Rater's Agreement" 
-                elements={<Rater ratio={this.props.ratio} />} />
-            <PopoverItem id="history" height={historyH} placement="right" title="History" />
+                elements={<Rater ratio={this.props.ratio} className="row" />} />
+            <PopoverItem id="history" height={historyH} placement="right" title="History" className="row"
+                elements={<History ratio={this.props.ratio} 
+                                   from={this.state.from} 
+                                   to={this.state.to} 
+                                   className="row" />} />
           </div>
           <div className="col-8 border">
             <div className="row">

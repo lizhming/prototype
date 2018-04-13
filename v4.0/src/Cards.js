@@ -13,10 +13,13 @@ class Cards extends React.Component {
       x: window.innerWidth*0.66*props.ratio*0.5, 
       y: window.innerHeight*0.88*props.ratio*0.5
     };
+    this.color = ["#ffc107", "#28a745", "#007bff", "#dc3545"];
 
     this.state = { 
       activeDrags : 0,
       deltaPosition: {x: 0, y: 0},
+      from : 0,
+      to : 0
     };
 
     const dragHandlers = {
@@ -67,12 +70,9 @@ class Cards extends React.Component {
     //elem.innerHTML = this.state.deltaPosition.x + ", " + this.state.deltaPosition.y;
     this.toggleSize(elem, false);
 
-    switch(this.locateCard(ui.x, ui.y)) {
-      case 0: elem.style.background = "#ffc107"; break;
-      case 1: elem.style.background = "#28a745"; break;
-      case 2: elem.style.background = "#007bff"; break;
-      case 3: elem.style.background = "#dc3545"; break;
-      default: break;
+    var idx = this.locateCard(ui.x, ui.y);
+    if(idx >= 0 && idx <= this.props.categories) {
+      elem.style.background = this.color[idx];
     }
   }
 
@@ -136,6 +136,9 @@ class Cards extends React.Component {
 
     this.prev = this.locateCard(ui.x, ui.y);
     //document.getElementById("main").style.backgroundPosition = "center";
+    this.setState({
+      from: this.prev
+    });
   }
 
   onStop(e, ui) {
@@ -150,13 +153,19 @@ class Cards extends React.Component {
     console.log("onStop", ui.x, ui.y);
 
     this.curr = this.locateCard(ui.x, ui.y);
+    this.setState({
+      to: this.curr
+    });
     console.log(this.curr, this.prev);
     ++count[this.curr];
     --count[this.prev];
 
     this.setState({ count : count });
-    console.log(this.state.count);
+    //console.log(this.state.count);
     this.props.onProgressUpdate(this.state.count);
+    if(typeof this.prev !== 'undefined' && typeof this.curr !== 'undefined' && (this.curr !== this.prev)) {
+      this.props.onChange(this.color[this.prev], this.color[this.curr]);
+    }
     //document.getElementById("main").style.backgroundPosition = "initial";
   }
 
@@ -182,7 +191,6 @@ class Cards extends React.Component {
     const h = (this.props.ratio * 0.88 * window.innerHeight) + "px";
 
     return (
-
       <div className="main" style={{height:h}}>
         <div className="stage"></div>
         {this.categories}
