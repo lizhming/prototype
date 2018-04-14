@@ -167,16 +167,6 @@ class Cards extends React.Component {
     if(typeof this.prev !== 'undefined' && typeof this.curr !== 'undefined' && (this.curr !== this.prev)) {
       this.props.onProgressUpdate(this.state.count);
       this.props.onChange(this.color[this.prev], this.color[this.curr]);
-      var playPromise = this.audio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(function() {
-          // Automatic playback started!
-          console.log("Passed");
-        }).catch(function(error) {
-          // Automatic playback failed.
-          console.log(error);
-        });
-      }
     }
     //document.getElementById("main").style.backgroundPosition = "initial";
   }
@@ -207,10 +197,6 @@ class Cards extends React.Component {
         <div className="stage"></div>
         {this.categories}
         {this.cards}
-        <audio ref={(audio) => { this.audio = audio; }}>
-          <source src="sounds/cardPlace1.wav" type="audio/wav" >
-          </source>
-        </audio>
       </div>
     );
   }
