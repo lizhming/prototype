@@ -20,9 +20,9 @@ class History extends React.Component {
 		++this.idx;
 		this.historyData.push(
 			<div key={this.idx} className="history-data">
-				<div className="box hist" style={{height: bh, width: bh, backgroundColor: from}}>Start</div>
+				<div className="box hist" style={{height: bh, width: bh, backgroundColor: from}}>{this.props.cardName}</div>
 				<div className="dir"></div>
-				<div className="box hist" style={{height: bh, width: bh, backgroundColor: to}}>End</div>
+				<div className="box hist" style={{height: bh, width: bh, backgroundColor: to}}>{this.props.cardName}</div>
 			</div>
 		);
 		this.updateScroll();

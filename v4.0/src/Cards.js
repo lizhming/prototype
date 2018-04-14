@@ -165,8 +165,9 @@ class Cards extends React.Component {
     this.setState({ count : count });
     //console.log(this.state.count);
     if(typeof this.prev !== 'undefined' && typeof this.curr !== 'undefined' && (this.curr !== this.prev)) {
+      let name = document.getElementsByClassName("react-draggable-dragging")[0].innerHTML;
       this.props.onProgressUpdate(this.state.count);
-      this.props.onChange(this.color[this.prev], this.color[this.curr]);
+      this.props.onChange(this.color[this.prev], this.color[this.curr], name);
     }
     //document.getElementById("main").style.backgroundPosition = "initial";
   }

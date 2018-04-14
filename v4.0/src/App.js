@@ -18,7 +18,8 @@ class App extends Component {
       ratio: 0,
       activeIndex: 0,
       from: this.defaultColor,
-      to: this.defaultColor
+      to: this.defaultColor,
+      cardName: ""
     };
     this._isMounted = false;
     this.cards = [];
@@ -80,9 +81,9 @@ class App extends Component {
     });
   }
 
-  onChange(colorFrom, colorTo) {
+  onChange(colorFrom, colorTo, value) {
     //console.log(colorFrom, colorTo);
-    this.setState({ from : colorFrom, to : colorTo});
+    this.setState({ from : colorFrom, to : colorTo, cardName: value });
   }
 
   onSelectQuestion(id) {
@@ -130,18 +131,24 @@ class App extends Component {
     const historyH = (this.props.ratio * 0.26 * this.state.h) + "px";
     const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
 
+    const vizDesc = "Graphical representation of the progress made by all the domain-experts to train the ML Algorithm by labeling and classifying questions.";
+    const raterDesc = "It is the representation of intercoder agreement, such as Cohen's kappa or Krippendoff alpha, is used to evaluate the robustness of the labeled data.";
+    const historyDesc = "This section displays history data for each classification made per question by the trainer.";
+
     return (
       <div className="container-fluid">
         <div className="row"> 
           <div className="col-4 border">
-            <PopoverItem id="viz" height={vizH} placement="right" title="Progress Report" 
-                elements={this.createProgressBars()} className="row" />
+            <PopoverItem id="viz" height={vizH} placement="right" title="Total Progress" 
+                elements={this.createProgressBars()} className="row" description={vizDesc} />
             <PopoverItem id="rater" height={raterH} placement="right" title="Rater's Agreement" 
-                elements={<Rater ratio={this.props.ratio} className="row" />} />
+                elements={<Rater ratio={this.props.ratio} className="row" />} description={raterDesc} />
             <PopoverItem id="history" height={historyH} placement="right" title="History" className="row"
+                description={historyDesc}
                 elements={<History ratio={this.props.ratio} 
                                    from={this.state.from} 
                                    to={this.state.to} 
+                                   cardName={this.state.cardName}
                                    className="row" />} />
           </div>
           <div className="col-8 border">
