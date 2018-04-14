@@ -11,7 +11,7 @@ class Cards extends React.Component {
     this.createBindings();
     this.center = {
       x: window.innerWidth*0.66*props.ratio*0.5, 
-      y: window.innerHeight*0.88*props.ratio*0.5
+      y: window.innerHeight*0.79*props.ratio*0.5
     };
     
     this.color = ["#969696", "#11A8AB", "#4FC4F6", "#E64C65"]; 
@@ -191,7 +191,7 @@ class Cards extends React.Component {
   }
 
   render() {
-    const h = (this.props.ratio * 0.88 * window.innerHeight) + "px";
+    const h = (this.props.ratio * 0.79 * window.innerHeight) + "px";
 
     return (
       <div className="main" style={{height:h}}>

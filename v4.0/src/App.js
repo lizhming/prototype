@@ -5,6 +5,7 @@ import History from './History.js';
 import Question from './Question.js';
 import ProgressBar from './ProgressBar.js';
 import PopoverItem from './PopoverItem.js';
+
 import './css/App.css';
 
 class App extends Component {
@@ -160,6 +161,9 @@ class App extends Component {
                           ratio={this.props.ratio}
                           onSelectQuestion={this.onSelectQuestion} />
               </div>
+            </div>
+            <div className="row">
+              {this.progressBar[0]}
             </div>
             <div className="row">
               {this.createLabels()}
