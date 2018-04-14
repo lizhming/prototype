@@ -7,17 +7,17 @@
 	width: 100%;
 	padding-top: 0.5rem;
 	overflow-y: scroll;
+	margin-top: 0.25rem;
+	margin-bottom: 1rem;
 }
 .history-data {
 	position: relative;
-	width: 48%;
-	height: 105px;
+	width: 49%;
+	height: 110px;
 	margin: 2px;	
 	padding: 5px;
 	padding-left: 10px;
 	float: left;
-	border-radius: 10px;
-	border: 1px solid #000;
 }
 .dir {
 	position: relative;

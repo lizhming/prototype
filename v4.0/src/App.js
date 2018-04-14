@@ -10,14 +10,15 @@ import './css/App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.defaultColor = "#969696";
     this.createBindings();
     this.state = {
       w: props.width, 
       h: props.height,
       ratio: 0,
       activeIndex: 0,
-      from: "#ffc107",
-      to: "#ffc107"
+      from: this.defaultColor,
+      to: this.defaultColor
     };
     this._isMounted = false;
     this.cards = [];
@@ -72,11 +73,15 @@ class App extends Component {
   }
 
   onProgressUpdate(count) {
-    this.setState({ count : count });
+    this.setState({ 
+      count : count, 
+      from : this.defaultColor, 
+      to : this.defaultColor 
+    });
   }
 
   onChange(colorFrom, colorTo) {
-    console.log(colorFrom, colorTo);
+    //console.log(colorFrom, colorTo);
     this.setState({ from : colorFrom, to : colorTo});
   }
 
@@ -111,7 +116,7 @@ class App extends Component {
                           cards={this.props.data.values[i].cardsCount} 
                           count={this.cards[i].count} 
                           qid={this.props.data.values[i].src} 
-                          active={i==this.state.activeIndex} />
+                          active={i === this.state.activeIndex} />
     }
     var tmp = this.progressBar[0];
     this.progressBar[0] = this.progressBar[this.state.activeIndex];

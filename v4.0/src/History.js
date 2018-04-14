@@ -8,11 +8,16 @@ class History extends React.Component {
 		this.historyData = [];
 		this.idx = 0;
 		this.itemsizeData = this.itemsizeData.bind(this);
+		this.updateScroll = this.updateScroll.bind(this);
+	}
+
+	updateScroll() {
+    var element = document.getElementById("history-wrapper");
+    element.scrollTop = element.scrollHeight;
 	}
 
 	itemsizeData(bh, from, to) {
 		++this.idx;
-		//this.historyData.splice(-1, 1);			//remove the last element from array
 		this.historyData.push(
 			<div key={this.idx} className="history-data">
 				<div className="box hist" style={{height: bh, width: bh, backgroundColor: from}}>Start</div>
@@ -20,7 +25,7 @@ class History extends React.Component {
 				<div className="box hist" style={{height: bh, width: bh, backgroundColor: to}}>End</div>
 			</div>
 		);
-		console.log(this.historyData);
+		this.updateScroll();
 	}
 
 	render() {
@@ -28,7 +33,7 @@ class History extends React.Component {
 		const from = this.props.from;
 		const to = this.props.to;
 
-		if(from !== to)
+		if(from.localeCompare(to) !== 0)
 			this.itemsizeData(bh, from, to);
 
 		return (

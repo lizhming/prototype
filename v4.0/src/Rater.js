@@ -1,6 +1,5 @@
 import React from 'react';
 import * as d3 from 'd3';
-import axios from 'axios';
 import file from './data/data.csv';
 
 class Rater extends React.Component {
@@ -18,7 +17,7 @@ class Rater extends React.Component {
 	      height = 350 - margin.top - margin.bottom;
 
 	  var range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
-	  var colorRange = ["#67001f","#b2182b","#d6604d","#f4a582","#fddbc7","#e0e0e0","#bababa","#878787","#4d4d4d","#1a1a1a"];
+	  var colorRange = ["#fafafa", "#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"];
 	  var colors = d3.scaleQuantize().range(colorRange);
 
 	  d3.csv(file, function ( response ) {

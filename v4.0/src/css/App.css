@@ -24,7 +24,7 @@ body {
 }
 .box {
   position: absolute;
-  background: #ffc107;
+  background: #969696;
   border: 3px solid #000;
   border-radius: 10px;
   margin: 10px;
@@ -51,17 +51,26 @@ body {
 .progressbar {
   width: 100%;
   padding: 0.4rem;
-  border-radius: 1rem;
-  border: 1px solid #000;
   filter: none;
-  -webkit-filter: grayscale(70%);
+  -webkit-filter: opacity(50%);
+  /*-webkit-filter: grayscale(70%);
   -moz-filter: grayscale(70%);
   -ms-filter: grayscale(70%);
-  -o-filter: grayscale(70%);
+  -o-filter: grayscale(70%);*/
 }
 .progress-bar {
   color: black;
   font-weight: bolder;
+  background-color: #4FC4F6;
+}
+.bg-warning {
+  background-color: #969696 !important;
+}
+.bg-danger {
+  background-color: #E64C65 !important;
+}
+.bg-success {
+  background-color: #11A8AB !important;
 }
 .progress {
   height: 3.5rem;
@@ -81,10 +90,10 @@ body {
 .active-bar {
   border: 5px solid #f00;
   filter: none;
-  -webkit-filter: grayscale(0%);
-  -moz-filter: grayscale(0%);
+  
+  /*-moz-filter: grayscale(0%);
   -ms-filter: grayscale(0%);
-  -o-filter: grayscale(0%);
+  -o-filter: grayscale(0%);*/
 }
 .main {
   position: relative;
@@ -178,7 +187,7 @@ li.key {
 .question-tag {
   width: 100%;
   height: 150px;
-  background: #999;
+  background: #000;
 }
 .axis path,
 .axis line {

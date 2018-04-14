@@ -13,7 +13,9 @@ class Cards extends React.Component {
       x: window.innerWidth*0.66*props.ratio*0.5, 
       y: window.innerHeight*0.88*props.ratio*0.5
     };
-    this.color = ["#ffc107", "#28a745", "#007bff", "#dc3545"];
+    
+    this.color = ["#969696", "#11A8AB", "#4FC4F6", "#E64C65"]; 
+    //"#ffc107", "#28a745", "#007bff", "#dc3545" - older values
 
     this.state = { 
       activeDrags : 0,
@@ -85,10 +87,10 @@ class Cards extends React.Component {
     for(var i=1; i<=this.props.categories; ++i) {
       var pos = this.props.categories * this.props.activeIndex + i - 1;
       var pie = document.getElementsByClassName("circle")[pos].getBoundingClientRect();
-      let center = {
+      /*let center = {
         x: this.center.x - main.left,
         y: this.center.y - main.top
-      }
+      }*/
       if(this.inside({x: x, y: y}, pie.width/2, -1.57, 0.5233)) {
         return 1;
       } else if(this.inside({x: x, y: y}, pie.width/2, 0.5233, 2.616)) {
@@ -162,9 +164,19 @@ class Cards extends React.Component {
 
     this.setState({ count : count });
     //console.log(this.state.count);
-    this.props.onProgressUpdate(this.state.count);
     if(typeof this.prev !== 'undefined' && typeof this.curr !== 'undefined' && (this.curr !== this.prev)) {
+      this.props.onProgressUpdate(this.state.count);
       this.props.onChange(this.color[this.prev], this.color[this.curr]);
+      var playPromise = this.audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          // Automatic playback started!
+          console.log("Passed");
+        }).catch(function(error) {
+          // Automatic playback failed.
+          console.log(error);
+        });
+      }
     }
     //document.getElementById("main").style.backgroundPosition = "initial";
   }
@@ -195,6 +207,10 @@ class Cards extends React.Component {
         <div className="stage"></div>
         {this.categories}
         {this.cards}
+        <audio ref={(audio) => { this.audio = audio; }}>
+          <source src="sounds/cardPlace1.wav" type="audio/wav" >
+          </source>
+        </audio>
       </div>
     );
   }
