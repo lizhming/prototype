@@ -23,13 +23,14 @@ class History extends React.Component {
 
 	itemsizeData(bh, from, to) {
 		++this.idx[this.props.activeIndex];
-		this.historyData[this.props.activeIndex].push(
-			<div key={this.idx[this.props.activeIndex]} className="history-data">
-				<div className="box hist" style={{height: bh, width: bh, backgroundColor: from}}>{this.props.cardName}</div>
-				<div className="dir"></div>
-				<div className="box hist" style={{height: bh, width: bh, backgroundColor: to}}>{this.props.cardName}</div>
-			</div>
-		);
+		const entry = (
+				<div key={this.idx[this.props.activeIndex]} className="history-data">
+					<div className="box hist" style={{height: bh, width: bh, backgroundColor: from}}>{this.props.cardName}</div>
+					<div className="dir"></div>
+					<div className="box hist" style={{height: bh, width: bh, backgroundColor: to}}>{this.props.cardName}</div>
+				</div>
+			);
+		this.historyData[this.props.activeIndex].push(entry);
 		this.updateScroll();
 	}
 

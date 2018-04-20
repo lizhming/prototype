@@ -99,7 +99,11 @@ class App extends Component {
   }
 
   toggle() {
-    this.setState({ collapse: !this.state.collapse });
+    this.setState({ 
+      collapse: !this.state.collapse,
+      from : this.defaultColor, 
+      to : this.defaultColor  
+    });
   }
 
   createLabels() {
@@ -131,7 +135,7 @@ class App extends Component {
         <div className={cls} key={id} id={id}>
           <History count={this.props.data.questionsCount}
                    ratio={this.props.ratio} 
-                   from={this.state.from} 
+                   from={this.state.from}
                    to={this.state.to} 
                    activeIndex={this.state.activeIndex}
                    cardName={this.state.cardName}
