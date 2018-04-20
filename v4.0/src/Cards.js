@@ -1,5 +1,7 @@
 import React from 'react';
+import DetailedDescription from './DetailedDescription.js'
 import Draggable from 'react-draggable';
+import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 class Cards extends React.Component {
   
@@ -9,6 +11,7 @@ class Cards extends React.Component {
     this.val = 6;
     this.size = 75;
     this.createBindings();
+    this.h = (this.props.ratio * 0.79 * window.innerHeight) + "px";
     this.center = {
       x: window.innerWidth*0.66*props.ratio*0.5, 
       y: window.innerHeight*0.79*props.ratio*0.5
@@ -19,7 +22,7 @@ class Cards extends React.Component {
 
     this.state = { 
       activeDrags : 0,
-      deltaPosition: {x: 0, y: 0},
+      deltaPosition : {x: 0, y: 0},
       from : 0,
       to : 0
     };
@@ -37,14 +40,17 @@ class Cards extends React.Component {
       var py = this.props.ratio * (Math.floor(Math.random() * 200) + this.center.y-150);
       var bh = (this.props.ratio * this.size) + "px";
 
+      this.cards.push(<DetailedDescription key={i}
+                             id={this.props.id+"_"+i}
+                             height={this.h}
+                             px={px}
+                             py={py}
+                             bh={bh}
+                             card={this.props.cards[i]}
+                             dragHandlers={dragHandlers}></DetailedDescription>);
       //console.log(i, px, py);
-
-      this.cards.push(
-        <Draggable key={i} defaultPosition={{x: px, y: py}} bounds="parent" {...dragHandlers}>
-            <div className="box" style={{height: bh, width: bh}}>{this.props.cards[i]}</div>
-        </Draggable>);
     }
-
+     
     this.categories = [];
     this.createCategories();
   }
@@ -191,10 +197,8 @@ class Cards extends React.Component {
   }
 
   render() {
-    const h = (this.props.ratio * 0.79 * window.innerHeight) + "px";
-
     return (
-      <div className="main" style={{height:h}}>
+      <div className="main" style={{height:this.h}}>
         <div className="stage"></div>
         {this.categories}
         {this.cards}

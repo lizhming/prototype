@@ -94,12 +94,13 @@ class App extends Component {
 
   createLabels() {
     return this.labels.map((val, i) => {
-      let id = "c-"+i;
+      let id = "cs"+i;
       //console.log("show" + this.state.activeIndex)
       let cls = (i === this.state.activeIndex) ? "card-section" : "card-section hidden";
       return (
-        <div className={cls} key={id}>
-          <Cards cards={this.props.data.values[i].values} 
+        <div className={cls} key={id} id={id}>
+          <Cards id={id} 
+                cards={this.props.data.values[i].values} 
                 cardsCount={this.props.data.values[i].cardsCount} 
                 count={this.cards[i].count} 
                 ratio={this.props.ratio} 
