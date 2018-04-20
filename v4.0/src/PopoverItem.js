@@ -20,6 +20,7 @@ class PopoverItem extends React.Component {
   render() {
     return (
       <div>
+        <h2 className="heading">{this.props.title}</h2>
         <div className={this.props.className} 
              id={this.props.id} 
              style={{height:this.props.height}} 

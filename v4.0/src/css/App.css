@@ -22,6 +22,11 @@ body {
 .cursor-x {
   cursor: ew-resize;
 }
+.heading {
+  font-size: 1.15rem;
+  position: relative;
+  display: inline;
+}
 .box {
   position: absolute;
   background: #969696;
@@ -106,9 +111,16 @@ body {
 }
 #viz {
   overflow-y: scroll;
+  border-bottom: 5px solid #555;
 }
 #rater {
-	
+	border-bottom: 5px solid #555;
+}
+#codebook {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 10;
 }
 .title, .legend, .heatmap {
   position: relative;
@@ -118,8 +130,8 @@ body {
 }
 .legend {
   width: 20%;
-  top: 5%;
-  padding-left: 10%;
+  padding-top: 1rem;
+  padding-left: 1.5rem;
 }
 li.key {
   border-left-width: 3rem;

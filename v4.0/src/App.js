@@ -5,6 +5,7 @@ import History from './History.js';
 import Question from './Question.js';
 import ProgressBar from './ProgressBar.js';
 import PopoverItem from './PopoverItem.js';
+import { Button, Collapse, Card, CardTitle, CardBody } from 'reactstrap';
 
 import './css/App.css';
 
@@ -20,7 +21,8 @@ class App extends Component {
       activeIndex: 0,
       from: this.defaultColor,
       to: this.defaultColor,
-      cardName: ""
+      cardName: "",
+      collapse: false
     };
     this._isMounted = false;
     this.cards = [];
@@ -43,6 +45,7 @@ class App extends Component {
     this.createHistory = this.createHistory.bind(this);
     this.onSelectQuestion = this.onSelectQuestion.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
@@ -93,6 +96,10 @@ class App extends Component {
   onSelectQuestion(id) {
     this.setState({ activeIndex : id });
     //console.log(id);
+  }
+
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
   }
 
   createLabels() {
@@ -149,10 +156,11 @@ class App extends Component {
   }
 
   render() {
-    const vizH = (this.props.ratio * 0.44 * this.state.h) + "px";
+    const vizH = (this.props.ratio * 0.39 * this.state.h) + "px";
     const raterH = (this.props.ratio * 0.30 * this.state.h) + "px";
-    const historyH = (this.props.ratio * 0.26 * this.state.h) + "px";
+    const historyH = (this.props.ratio * 0.28 * this.state.h) + "px";
     const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
+    const codebookH = (this.props.ratio * 0.615 * this.state.h) + "px";
 
     const vizDesc = "Graphical representation of the progress made by all the domain-experts to train the ML Algorithm by labeling and classifying questions.";
     const raterDesc = "It is the representation of intercoder agreement, such as Cohen's kappa or Krippendoff alpha, is used to evaluate the robustness of the labeled data.";
@@ -162,13 +170,24 @@ class App extends Component {
       <div className="container-fluid">
         <div className="row"> 
           <div className="col-4 border">
-            <PopoverItem id="viz" height={vizH} placement="right" title="Total Progress" 
+            <PopoverItem id="viz" height={vizH} placement="right" title="Total Training Progress" 
                 elements={this.createProgressBars()} className="row" description={vizDesc} />
             <PopoverItem id="rater" height={raterH} placement="right" title="Rater's Agreement" 
-                elements={<Rater ratio={this.props.ratio} className="row" />} description={raterDesc} />
+                elements={<Rater ratio={this.props.ratio} />} className="row" description={raterDesc} />
             <PopoverItem id="history" height={historyH} placement="right" title="History" className="row"
                 description={historyDesc}
                 elements={this.createHistory()} />
+            <div className="row" id="codebook">
+            <Collapse className="in" isOpen={this.state.collapse} style={{width: "100%"}}>
+              <Card>
+                <CardBody style={{height: codebookH}}>
+                  <CardTitle>Codebook</CardTitle>
+                  <textarea className="form-control" rows="23"></textarea>
+                </CardBody>
+              </Card>
+            </Collapse>
+            <Button color="primary" onClick={this.toggle} style={{ position: 'fixed', bottom: 0 }}>Codebook</Button>
+            </div>
           </div>
           <div className="col-8 border">
             <div className="row">
