@@ -77,7 +77,7 @@ class Cards extends React.Component {
     this.toggleSize(elem, false);
 
     var idx = this.locateCard(ui.x, ui.y);
-    if(idx >= 0 && idx <= this.props.categories) {
+    if(idx >= 0 && idx <= this.props.categories.length) {
       elem.style.background = this.color[idx];
     }
   }
@@ -88,8 +88,8 @@ class Cards extends React.Component {
       return 0;
     }
     var main = document.getElementsByClassName("main")[this.props.activeIndex].getBoundingClientRect();
-    for(var i=1; i<=this.props.categories; ++i) {
-      var pos = this.props.categories * this.props.activeIndex + i - 1;
+    for(var i=1; i<=this.props.categories.length; ++i) {
+      var pos = this.props.categories.length * this.props.activeIndex + i - 1;
       var pie = document.getElementsByClassName("circle")[pos].getBoundingClientRect();
       /*let center = {
         x: this.center.x - main.left,
@@ -186,7 +186,7 @@ class Cards extends React.Component {
   }
 
   createCategories() {
-    for(var i=1; i<=this.props.categories; ++i) {
+    for(var i=1; i<=this.props.categories.length; ++i) {
       let id = "part"+i;
       this.categories.push(
           <div key={i} id={id} className="circle"></div>
@@ -198,6 +198,9 @@ class Cards extends React.Component {
     return (
       <div className="main" style={{height:this.h}}>
         <div className="stage"></div>
+        <div className="stageHeading" id="cat-three">{this.props.categories[2]}</div>
+        <div className="stageHeading" id="cat-one">{this.props.categories[0]}</div>
+        <div className="stageHeading" id="cat-two">{this.props.categories[1]}</div>
         {this.categories}
         {this.cards}
       </div>

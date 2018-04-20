@@ -160,6 +160,27 @@ li.key {
   clip-path: circle(20% at 50% 50%);
   z-index: 1;
 }
+#cat-one {
+  right: 0;
+}
+#cat-two {
+  bottom: 0;
+  left: 44%;
+}
+#cat-three {
+  left: 0;
+}
+.stageHeading {
+  position: absolute;
+  display: inline;
+  font-size: 1.5rem;
+  margin: 1rem;
+  border: 5px solid;
+  padding: 0.7rem;
+  font-weight: 900;
+  border-radius: 20px;
+  box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.87);
+}
 .circle {
   width: 100%;
   height: 100%;
