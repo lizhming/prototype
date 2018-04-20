@@ -122,6 +122,9 @@ body {
   bottom: 0;
   z-index: 10;
 }
+textarea {
+  resize: none;
+}
 .title, .legend, .heatmap {
   position: relative;
   display: inline-block;
