@@ -41,7 +41,7 @@ class Rater extends React.Component {
 	        .domain([d3.max(data, function(d) {
 	        	return d.values;
 	        })])
-	        .range([0, r/4, r/2, 3*r/4]);
+	        .range([0, r/5, 2*r/5, 3*r/5, 4*r/5]);
 
 	    var xAxis = d3.axisBottom()
 	        .scale(xScale)
@@ -53,7 +53,7 @@ class Rater extends React.Component {
 	        .domain([d3.max(data, function(d) {
 	        	return d.values;
 	        })])
-	        .range([0, r/4, r/2, 3*r/4]);
+	        .range([0, r/5, 2*r/5, 3*r/5, 4*r/5]);
 
 	    var yAxis = d3.axisLeft()
 	        .scale(yScale)
@@ -69,7 +69,7 @@ class Rater extends React.Component {
 	        .append("svg")
 	        .attr("width", width + margin.left + margin.right)
 	        .attr("height", height + margin.top + margin.bottom)
-	        .attr("transform", "translate(175, 50)")
+	        .attr("transform", "translate(125, 0)")
 	        .append("g")
 	        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
