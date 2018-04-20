@@ -26,11 +26,13 @@ class App extends Component {
     this.cards = [];
     this.labels = [];
     this.progressBar = [];
+    this.history = [];
 
     for(var i=0; i<props.data.questionsCount; ++i) {
       this.cards.push({count: [10,0,0,0]})
       this.progressBar.push(i);
       this.labels.push(i);
+      this.history.push(i);
     }
   }
 
@@ -38,6 +40,7 @@ class App extends Component {
     this._maintainAspectRatio = this._maintainAspectRatio.bind(this);
     this.onProgressUpdate = this.onProgressUpdate.bind(this);
     this.createProgressBars = this.createProgressBars.bind(this);
+    this.createHistory = this.createHistory.bind(this);
     this.onSelectQuestion = this.onSelectQuestion.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -83,7 +86,7 @@ class App extends Component {
   }
 
   onChange(colorFrom, colorTo, value) {
-    //console.log(colorFrom, colorTo);
+    //console.log(colorFrom, colorTo);    
     this.setState({ from : colorFrom, to : colorTo, cardName: value });
   }
 
@@ -98,7 +101,7 @@ class App extends Component {
       //console.log("show" + this.state.activeIndex)
       let cls = (i === this.state.activeIndex) ? "card-section" : "card-section hidden";
       return (
-        <div className={cls} key={id} id={id}>
+        <div className={cls} key={id}>
           <Cards id={id} 
                 cards={this.props.data.values[i].values} 
                 cardsCount={this.props.data.values[i].cardsCount} 
@@ -110,6 +113,24 @@ class App extends Component {
                 onProgressUpdate={this.onProgressUpdate} />
         </div>
       )
+    });
+  }
+
+  createHistory() {
+    return this.history.map((val, i) => {
+      let id = "hist"+i;
+      let cls = (i === this.state.activeIndex) ? "history-main" : "history-main hidden";
+      return (
+        <div className={cls} key={id} id={id}>
+          <History count={this.props.data.questionsCount}
+                   ratio={this.props.ratio} 
+                   from={this.state.from} 
+                   to={this.state.to} 
+                   activeIndex={this.state.activeIndex}
+                   cardName={this.state.cardName}
+                   className="row" />
+        </div>
+        );
     });
   }
 
@@ -147,11 +168,7 @@ class App extends Component {
                 elements={<Rater ratio={this.props.ratio} className="row" />} description={raterDesc} />
             <PopoverItem id="history" height={historyH} placement="right" title="History" className="row"
                 description={historyDesc}
-                elements={<History ratio={this.props.ratio} 
-                                   from={this.state.from} 
-                                   to={this.state.to} 
-                                   cardName={this.state.cardName}
-                                   className="row" />} />
+                elements={this.createHistory()} />
           </div>
           <div className="col-8 border">
             <div className="row">

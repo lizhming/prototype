@@ -1,7 +1,5 @@
 import React from 'react';
 import DetailedDescription from './DetailedDescription.js'
-import Draggable from 'react-draggable';
-import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 class Cards extends React.Component {
   
@@ -47,8 +45,8 @@ class Cards extends React.Component {
                              py={py}
                              bh={bh}
                              card={this.props.cards[i]}
-                             dragHandlers={dragHandlers}></DetailedDescription>);
-      //console.log(i, px, py);
+                             dragHandlers={dragHandlers} />);
+      /// console.log(i, px, py);
     }
      
     this.categories = [];

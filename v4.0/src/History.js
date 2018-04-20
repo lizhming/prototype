@@ -6,20 +6,25 @@ class History extends React.Component {
 		super(props);
 		this.size = 75;
 		this.historyData = [];
-		this.idx = 0;
+		this.idx = [];
+		this.prevIndex = 0;
+		for(var i=0; i<props.count; ++i) {
+			this.historyData.push([]);
+			this.idx.push(0);
+		}
 		this.itemsizeData = this.itemsizeData.bind(this);
 		this.updateScroll = this.updateScroll.bind(this);
 	}
 
 	updateScroll() {
-    var element = document.getElementById("history-wrapper");
+    var element = document.getElementsByClassName("history-main")[0];
     element.scrollTop = element.scrollHeight;
 	}
 
 	itemsizeData(bh, from, to) {
-		++this.idx;
-		this.historyData.push(
-			<div key={this.idx} className="history-data">
+		++this.idx[this.props.activeIndex];
+		this.historyData[this.props.activeIndex].push(
+			<div key={this.idx[this.props.activeIndex]} className="history-data">
 				<div className="box hist" style={{height: bh, width: bh, backgroundColor: from}}>{this.props.cardName}</div>
 				<div className="dir"></div>
 				<div className="box hist" style={{height: bh, width: bh, backgroundColor: to}}>{this.props.cardName}</div>
@@ -32,13 +37,15 @@ class History extends React.Component {
 		const bh = this.size * this.props.ratio;
 		const from = this.props.from;
 		const to = this.props.to;
-
-		if(from.localeCompare(to) !== 0)
+		
+		if(from.localeCompare(to) !== 0 && this.prevIndex === this.props.activeIndex)
 			this.itemsizeData(bh, from, to);
 
+		this.prevIndex = this.props.activeIndex;
+
 		return (
-				<div id="history-wrapper">
-					{this.historyData}
+				<div className="history-wrapper">
+					{this.historyData[this.props.activeIndex]}
 				</div>
 			);
 	}
