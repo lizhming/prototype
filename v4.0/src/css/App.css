@@ -4,6 +4,9 @@
 html, body {
   height: 100%;
 }
+rect {
+  color: white;
+}
 body {
   color: #222;
   font-family: "Helvetica Neue", sans-serif;
@@ -116,6 +119,23 @@ body {
 #rater {
 	border-bottom: 5px solid #555;
 }
+.d3-tip {
+  background-color: #555;
+  padding: 1rem; 
+  font-weight: 700;
+  border-radius: 1rem;
+}
+.d3-tip:after {
+  left: 42.5%;
+  top: 97%;
+  content: "";
+  width: 0; 
+  height: 0;
+  position: absolute;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-top: 0.5rem solid #555;
+}
 #codebook {
   position: absolute;
   width: 100%;
@@ -140,12 +160,12 @@ li.key {
   border-left-width: 3rem;
   border-left-style: solid;
   height: 2rem;
-  font-size: 0.5rem;
+  font-size: 0.75rem;
   /*width: 10%;*/
   padding-left: 1rem;
   padding-right: 0;
   padding-top: 0.75rem;
-  font-weight: bolder;
+  font-weight: 700;
 }
 .card-section {
   width: 100%;

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
+import * as d3tip from 'd3-tip';
 import file from './data/data.csv';
 
 class Rater extends React.Component {
@@ -73,6 +74,15 @@ class Rater extends React.Component {
 	        .append("g")
 	        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+	    var tip = d3tip()
+          .attr('class', 'd3-tip')
+          .style("visibility","visible")
+          .offset([20, 0])
+          .html(function(d) {
+            return "<span style='color:white'> Value: </span><span style='color:red'>" + d.value + "</span>";
+          });
+			tip(svg.append("g"));
+
 	    var cells = svg.selectAll('rect')
 	        .data(data)
 	        .enter().append('g').append('rect')
@@ -81,13 +91,15 @@ class Rater extends React.Component {
 	        .attr('height', cellSize)
 	        .attr('y', function(d) { return yScale(d.country); })
 	        .attr('x', function(d) { return xScale(d.product); })
-	        .attr('fill', function(d) { return colorScale(d.value); });
+	        .attr('fill', function(d) { return colorScale(d.value); })
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
 
 	    svg.append("g")
 	        .attr("class", "y axis")
 	        .call(yAxis)
 	        .selectAll('text')
-	        .attr('font-weight', 'normal')
+	        .attr('font-weight', '900')
 	        .attr("transform", function (d) {
 	            return "translate(0,30)";
 	        });
@@ -96,7 +108,7 @@ class Rater extends React.Component {
 	        .attr("class", "x axis")
 	        .call(xAxis)
 	        .selectAll('text')
-	        .attr('font-weight', 'normal')
+	        .attr('font-weight', '900')
 	        .style("text-anchor", "start")
 	        .attr("dx", ".8em")
 	        .attr("dy", ".5em")

@@ -23,7 +23,7 @@ class PopoverItem extends React.Component {
         <h2 className="heading">{this.props.title}</h2>
         <div className={this.props.className} 
              id={this.props.id} 
-             style={{height:this.props.height}} 
+             style={{height:this.props.height}}
              onClick={this.toggle}>
           {this.props.elements}
         </div>
