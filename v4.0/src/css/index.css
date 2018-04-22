@@ -4,3 +4,10 @@ body {
   overflow: hidden;
   background-color: #eee !important;
 }
+
+#root {
+  position: relative;
+  width: 1920px;
+  margin: 0 auto;
+  height: 1080px;
+}
