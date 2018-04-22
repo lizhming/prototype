@@ -4,19 +4,25 @@ import { Progress } from 'reactstrap';
 class ProgressBar extends React.Component {
   constructor(props) {
     super(props);    
+    this.console = this.console.bind(this);
+  }
+
+  console() {
+    console.log(this.props.qid);
+    this.props.onSelectQuestion(this.props.qid)
   }
 
 	render() {
-    let qid = this.props.qid.substr(0, 50);
+    let qname = this.props.qname.substr(0, 50);
     const multiplier = 100/this.props.cards;
     let etc = "";
     let className = "progressbar";
     
-    if(this.props.qid.length > 50) {
+    if(this.props.qname.length > 50) {
       if(!this.props.isOne) {
         etc += "...";
       } else {
-        qid = this.props.qid;
+        qname = this.props.qname;
       }
     }
     if(this.props.active) {
@@ -27,7 +33,7 @@ class ProgressBar extends React.Component {
     }
 
 		return (
-			<div className={className}> 
+			<div className={className} onClick={this.console}> 
         <Progress multi>
         	<Progress bar color="warning" value={(this.props.count[0]-this.props.factor)*multiplier}>
             {(this.props.count[0]-this.props.factor)*multiplier}%
@@ -42,8 +48,8 @@ class ProgressBar extends React.Component {
             {this.props.count[3]*multiplier}%
           </Progress>
         </Progress>
-        <div className="qid">
-          {qid}{etc}
+        <div className="qname">
+          {qname}{etc}
         </div>
       </div>
 		);

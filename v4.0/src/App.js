@@ -77,7 +77,7 @@ class App extends Component {
 
       document.getElementById("viz").style.height = (this.state.ratio * 0.44 * this.state.h) + "px";
       document.getElementById("rater").style.height = (this.state.ratio * 0.56 * this.state.h) + "px";
-      document.getElementById("question").style.height = (this.state.ratio * this.state.h) + "px";
+      //document.getElementById("question").style.height = (this.state.ratio * this.state.h) + "px";
 
       this.props.onPropsChange(this.state.ratio);
     }
@@ -155,20 +155,25 @@ class App extends Component {
                           isOne={false}
                           cards={this.totalCards[i]} 
                           count={this.cards[i].count} 
-                          qid={this.props.data.values[i].src} 
+                          qid={i}
+                          onSelectQuestion={this.onSelectQuestion}
+                          qname={this.props.data.values[i].src} 
                           active={i === this.state.activeIndex} />
       /// creating all progress bars
     }
-    var tmp = this.progressBar[0];
-    this.progressBar[0] = this.progressBar[this.state.activeIndex];
-    this.progressBar[this.state.activeIndex] = tmp;
+    
+    //var tmp = this.progressBar[0];
+    //this.progressBar[0] = this.progressBar[this.state.activeIndex];
+    //this.progressBar[this.state.activeIndex] = tmp;
 
     this.currProgressBar = <ProgressBar 
                           factor={30}
                           isOne={true}
                           cards={this.props.data.values[this.state.activeIndex].cardsCount} 
                           count={this.cards[this.state.activeIndex].count} 
-                          qid={this.props.data.values[this.state.activeIndex].src} 
+                          qid={this.state.activeIndex}
+                          onSelectQuestion={this.onSelectQuestion}
+                          qname={this.props.data.values[this.state.activeIndex].src} 
                           active={true} />
     /// to set for active progress bar
     return this.progressBar;
@@ -223,3 +228,13 @@ class App extends Component {
 }
 
 export default App;
+
+// <div className="row">
+//   <div id="question" className="question-tag" 
+//         style={{height:quesH}}>
+//     <Question qcount={this.props.data.questionsCount}
+//               qcards={this.props.data.values} 
+//               ratio={this.props.ratio}
+//               onSelectQuestion={this.onSelectQuestion} />
+//   </div>
+// </div>

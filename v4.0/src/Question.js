@@ -1,4 +1,8 @@
 // Code Src: https://reactstrap.github.io/components/carousel/
+
+// NOT IN USE!
+
+
 import React from 'react';
 import {
   Carousel,
