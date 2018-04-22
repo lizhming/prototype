@@ -209,7 +209,7 @@ class App extends Component {
         <div className="row"> 
           <div className="col-4 border">
             <PopoverItem id="viz" height={vizH} show={this.state.show}
-                        placement="right" title="Total Training Progress" 
+                        placement="right" title="Total ML Training Progress" 
                         className="row" description={vizDesc}
                         elements={this.createProgressBars()} />
             <PopoverItem id="rater" height={raterH} show={this.state.show} 
