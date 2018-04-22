@@ -3,6 +3,7 @@ body {
   padding: 0;
   overflow: hidden;
   background-color: #eee !important;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !important;
 }
 
 #root {

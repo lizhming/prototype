@@ -7,16 +7,23 @@ class ProgressBar extends React.Component {
   }
 
 	render() {
-    const qid = this.props.qid.substr(0, 25);
+    let qid = this.props.qid.substr(0, 50);
     const multiplier = 100/this.props.cards;
     let etc = "";
     let className = "progressbar";
     
-    if(this.props.qid.length > 25) {
-      etc += "...";
+    if(this.props.qid.length > 50) {
+      if(!this.props.isOne) {
+        etc += "...";
+      } else {
+        qid = this.props.qid;
+      }
     }
     if(this.props.active) {
       className += " active-bar";
+    }
+    if(this.props.isOne) {
+      className += " active-bar-black";
     }
 
 		return (

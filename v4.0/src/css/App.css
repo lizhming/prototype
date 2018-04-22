@@ -59,7 +59,7 @@ body {
 }
 .progressbar {
   width: 100%;
-  padding: 0.4rem;
+  padding: 0.2rem;
   filter: none;
   -webkit-filter: opacity(50%);
   /*-webkit-filter: grayscale(70%);
@@ -82,9 +82,10 @@ body {
   background-color: #11A8AB !important;
 }
 .progress {
-  height: 3.5rem;
+  height: 2.75rem;
   font-size: 1.25rem;
   width: 100%;
+  border-radius: 0;
 }
 .qid {
   position: relative;
@@ -92,18 +93,21 @@ body {
   height: 2rem;
   color: #fff;
   text-align: center;
-  font-weight: bolder;
+  font-weight: 700;
   background-color: #000;
   width: 100%;
   font-size: 1.25rem;
 }
 .active-bar {
-  border: 5px solid #f00;
+  border: 0.3rem solid #f00;
   filter: none;
   
   /*-moz-filter: grayscale(0%);
   -ms-filter: grayscale(0%);
   -o-filter: grayscale(0%);*/
+}
+.active-bar-black {
+  border-color: #000;
 }
 .main {
   position: relative;
@@ -115,6 +119,7 @@ body {
 }
 #viz {
   overflow-y: scroll;
+  padding: 0.2rem 0.4rem;
   border-bottom: 5px solid #555;
 }
 #rater {

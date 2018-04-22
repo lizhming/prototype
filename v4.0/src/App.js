@@ -152,6 +152,7 @@ class App extends Component {
     for(var i=0; i<this.props.data.questionsCount; ++i) {
       this.progressBar[i] = <ProgressBar key={i} 
                           factor={0}
+                          isOne={false}
                           cards={this.totalCards[i]} 
                           count={this.cards[i].count} 
                           qid={this.props.data.values[i].src} 
@@ -164,6 +165,7 @@ class App extends Component {
 
     this.currProgressBar = <ProgressBar 
                           factor={30}
+                          isOne={true}
                           cards={this.props.data.values[this.state.activeIndex].cardsCount} 
                           count={this.cards[this.state.activeIndex].count} 
                           qid={this.props.data.values[this.state.activeIndex].src} 
@@ -207,15 +209,6 @@ class App extends Component {
             </div>
           </div>
           <div className="col-8 border">
-            <div className="row">
-              <div id="question" className="question-tag" 
-                    style={{height:quesH}}>
-                <Question qcount={this.props.data.questionsCount}
-                          qcards={this.props.data.values} 
-                          ratio={this.props.ratio}
-                          onSelectQuestion={this.onSelectQuestion} />
-              </div>
-            </div>
             <div className="row">
               {this.currProgressBar}
             </div>
