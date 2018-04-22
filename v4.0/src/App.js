@@ -12,6 +12,7 @@ import './css/App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.RATERS = 4;
     this.defaultColor = "#969696";
     this.createBindings();
     this.state = {
@@ -29,9 +30,11 @@ class App extends Component {
     this.labels = [];
     this.progressBar = [];
     this.history = [];
+    this.totalCards = [];
 
     for(var i=0; i<props.data.questionsCount; ++i) {
-      this.cards.push({count: [10,0,0,0]})
+      this.totalCards.push(props.data.values[i].cardsCount * this.RATERS);
+      this.cards.push({count: [this.totalCards[i],0,0,0]})
       this.progressBar.push(i);
       this.labels.push(i);
       this.history.push(i);
@@ -148,14 +151,24 @@ class App extends Component {
   createProgressBars() {
     for(var i=0; i<this.props.data.questionsCount; ++i) {
       this.progressBar[i] = <ProgressBar key={i} 
-                          cards={this.props.data.values[i].cardsCount} 
+                          factor={0}
+                          cards={this.totalCards[i]} 
                           count={this.cards[i].count} 
                           qid={this.props.data.values[i].src} 
                           active={i === this.state.activeIndex} />
+      /// creating all progress bars
     }
     var tmp = this.progressBar[0];
     this.progressBar[0] = this.progressBar[this.state.activeIndex];
     this.progressBar[this.state.activeIndex] = tmp;
+
+    this.currProgressBar = <ProgressBar 
+                          factor={30}
+                          cards={this.props.data.values[this.state.activeIndex].cardsCount} 
+                          count={this.cards[this.state.activeIndex].count} 
+                          qid={this.props.data.values[this.state.activeIndex].src} 
+                          active={true} />
+    /// to set for active progress bar
     return this.progressBar;
   }
 
@@ -204,7 +217,7 @@ class App extends Component {
               </div>
             </div>
             <div className="row">
-              {this.progressBar[0]}
+              {this.currProgressBar}
             </div>
             <div className="row">
               {this.createLabels()}
