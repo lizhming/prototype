@@ -153,13 +153,13 @@ textarea {
 }
 .legend {
   width: 20%;
-  padding-top: 1rem;
+  padding-top: 0.75rem;
   padding-left: 1.5rem;
 }
 li.key {
   border-left-width: 3rem;
   border-left-style: solid;
-  height: 2rem;
+  height: 1.85rem;
   font-size: 0.75rem;
   /*width: 10%;*/
   padding-left: 1rem;

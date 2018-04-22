@@ -70,7 +70,7 @@ class Rater extends React.Component {
 	        .append("svg")
 	        .attr("width", width + margin.left + margin.right)
 	        .attr("height", height + margin.top + margin.bottom)
-	        .attr("transform", "translate(125, 0)")
+	        .attr("transform", "translate(100, -35)")
 	        .append("g")
 	        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
