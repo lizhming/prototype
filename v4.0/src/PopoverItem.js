@@ -7,13 +7,13 @@ class PopoverItem extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      popoverOpen: false
+      popoverOpen: this.props.show
     };
   }
 
   toggle() {
     this.setState({
-      popoverOpen: !this.state.popoverOpen
+      popoverOpen: this.props.show
     });
   }
 
@@ -23,12 +23,11 @@ class PopoverItem extends React.Component {
         <h2 className="heading">{this.props.title}</h2>
         <div className={this.props.className} 
              id={this.props.id} 
-             style={{height:this.props.height}}
-             onClick={this.toggle}>
+             style={{height:this.props.height}}>
           {this.props.elements}
         </div>
         <Popover placement={this.props.placement} 
-                 isOpen={this.state.popoverOpen} 
+                 isOpen={this.props.show} 
                  target={this.props.id} 
                  toggle={this.toggle}>
           <PopoverHeader>{this.props.title}</PopoverHeader>

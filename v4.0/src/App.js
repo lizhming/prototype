@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Cards from './Cards.js';
 import Rater from './Rater.js';
 import History from './History.js';
-import Question from './Question.js';
+//import Question from './Question.js';
 import ProgressBar from './ProgressBar.js';
 import PopoverItem from './PopoverItem.js';
 import { Button, Collapse, Card, CardTitle, CardBody } from 'reactstrap';
@@ -23,6 +23,7 @@ class App extends Component {
       from: this.defaultColor,
       to: this.defaultColor,
       cardName: "",
+      show: false,
       collapse: false
     };
     this._isMounted = false;
@@ -49,6 +50,7 @@ class App extends Component {
     this.onSelectQuestion = this.onSelectQuestion.bind(this);
     this.onChange = this.onChange.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.showInfo = this.showInfo.bind(this);
   }
 
   componentDidMount() {
@@ -97,13 +99,25 @@ class App extends Component {
   }
 
   onSelectQuestion(id) {
-    this.setState({ activeIndex : id });
+    this.setState({ 
+      activeIndex : id, 
+      from : this.defaultColor, 
+      to : this.defaultColor   
+    });
     //console.log(id);
   }
 
   toggle() {
     this.setState({ 
       collapse: !this.state.collapse,
+      from : this.defaultColor, 
+      to : this.defaultColor  
+    });
+  }
+
+  showInfo() {
+    this.setState({
+      show: !this.state.show,
       from : this.defaultColor, 
       to : this.defaultColor  
     });
@@ -183,7 +197,7 @@ class App extends Component {
     const vizH = (this.props.ratio * 0.39 * this.state.h) + "px";
     const raterH = (this.props.ratio * 0.30 * this.state.h) + "px";
     const historyH = (this.props.ratio * 0.28 * this.state.h) + "px";
-    const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
+    //const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
     const codebookH = (this.props.ratio * 0.615 * this.state.h) + "px";
 
     const vizDesc = "Graphical representation of the progress made by all the domain-experts to train the ML Algorithm by labeling and classifying questions.";
@@ -194,13 +208,18 @@ class App extends Component {
       <div className="container-fluid">
         <div className="row"> 
           <div className="col-4 border">
-            <PopoverItem id="viz" height={vizH} placement="right" title="Total Training Progress" 
-                elements={this.createProgressBars()} className="row" description={vizDesc} />
-            <PopoverItem id="rater" height={raterH} placement="right" title="Rater's Agreement" 
-                elements={<Rater ratio={this.props.ratio} />} className="row" description={raterDesc} />
-            <PopoverItem id="history" height={historyH} placement="right" title="History" className="row"
-                description={historyDesc}
-                elements={this.createHistory()} />
+            <PopoverItem id="viz" height={vizH} show={this.state.show}
+                        placement="right" title="Total Training Progress" 
+                        className="row" description={vizDesc}
+                        elements={this.createProgressBars()} />
+            <PopoverItem id="rater" height={raterH} show={this.state.show} 
+                        placement="right" title="Rater's Agreement" 
+                        className="row" description={raterDesc} 
+                        elements={<Rater ratio={this.props.ratio} />} />
+            <PopoverItem id="history" height={historyH} 
+                        placement="right" title="History" show={this.state.show} 
+                        className="row" description={historyDesc}
+                        elements={this.createHistory()} />
             <div className="row" id="codebook">
             <Collapse className="in" isOpen={this.state.collapse} style={{width: "100%"}}>
               <Card>
@@ -222,6 +241,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+        <div id="info" onClick={this.showInfo}></div>
       </div>
     );
   }
