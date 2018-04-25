@@ -182,8 +182,8 @@ li.key {
   height: 100%;
   border: 1em solid #000;
   background-color: #eee;
-  -webkit-clip-path: circle(20% at 50% 50%);
-  clip-path: circle(20% at 50% 50%);
+  -webkit-clip-path: circle(15rem at 50% 50%);
+  clip-path: circle(15rem at 50% 50%);
   z-index: 1;
 }
 #cat-one {
@@ -191,7 +191,8 @@ li.key {
 }
 #cat-two {
   bottom: 0;
-  left: 44%;
+  transform: translate(-50%, -50%);
+  left: 50%;
 }
 #cat-three {
   left: 0;
