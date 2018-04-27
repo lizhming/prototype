@@ -14,6 +14,7 @@ class History extends React.Component {
 		}
 		this.itemsizeData = this.itemsizeData.bind(this);
 		this.updateScroll = this.updateScroll.bind(this);
+		this.showCancel = this.showCancel.bind(this);
 	}
 
 	updateScroll() {
@@ -21,13 +22,24 @@ class History extends React.Component {
     element.scrollTop = element.scrollHeight;
 	}
 
+	showCancel(event) {
+		console.log(event, event.target);
+		event.stopPropagation();
+		event.nativeEvent.stopImmediatePropagation();
+		var element = event.target;
+		element.style.visibility = "visible";
+	}
+
 	itemsizeData(bh, from, to) {
 		++this.idx[this.props.activeIndex];
+		this.id = this.idx[this.props.activeIndex];
+
 		const entry = (
-				<div key={this.idx[this.props.activeIndex]} className="history-data">
+				<div key={"h_"+this.id} id={this.id} className="history-data" onClick={this.showCancel}>
 					<div className="box hist" style={{height: bh, width: bh, backgroundColor: from}}>{this.props.cardName}</div>
 					<div className="dir"></div>
 					<div className="box hist" style={{height: bh, width: bh, backgroundColor: to}}>{this.props.cardName}</div>
+					<div className="cancel_overlay"></div>
 				</div>
 			);
 		this.historyData[this.props.activeIndex].push(entry);

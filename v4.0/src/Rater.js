@@ -1,15 +1,18 @@
 import React from 'react';
 import * as d3 from 'd3';
 import * as d3tip from 'd3-tip';
-import file from './data/data.csv';
+import file1 from './data/data.csv';
+import file2 from './data/data2.csv';
 
 class Rater extends React.Component {
 	constructor(props) {
 		super(props);
-		const ratio = this.props.ratio;
+		//const ratio = this.props.ratio;
+
+		this.renderHeatMap = this.renderHeatMap.bind(this);
 	}
   
-  componentDidMount() {
+  renderHeatMap() {
     var itemSize = 60,
 	      cellSize = itemSize - 1,
 	      margin = {top: 40, right: 10, bottom: 10, left: 40};
@@ -20,6 +23,8 @@ class Rater extends React.Component {
 	  var range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
 	  var colorRange = ["#fafafa", "#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"];
 	  var colors = d3.scaleQuantize().range(colorRange);
+
+	  var file = Math.floor(Math.random() * 100) % 3 === 0 ? file2 : file1;
 
 	  d3.csv(file, function ( response ) {
 
@@ -32,9 +37,9 @@ class Rater extends React.Component {
 	        return newItem;
 	    });
 
-	    var x_elements = d3.set(data.map(function( item ) { return item.product; } )).values(),
-	        y_elements = d3.set(data.map(function( item ) { return item.country; } )).values(),
-	        relation_values = d3.set(data.map(function( item ) { return item.value; })).values();
+	    var x_elements = d3.set(data.map(function( item ) { return item.product; } )).values();
+	        //y_elements = d3.set(data.map(function( item ) { return item.country; } )).values(),
+	        //relation_values = d3.set(data.map(function( item ) { return item.value; })).values();
 
 	    var r = (x_elements.length) * itemSize;
 
@@ -67,6 +72,7 @@ class Rater extends React.Component {
 	        .range(colors.range());
 
 	    var svg = d3.select('.heatmap')
+	    		.html("")
 	        .append("svg")
 	        .attr("width", width + margin.left + margin.right)
 	        .attr("height", height + margin.top + margin.bottom)
@@ -83,7 +89,7 @@ class Rater extends React.Component {
           });
 			tip(svg.append("g"));
 
-	    var cells = svg.selectAll('rect')
+	    svg.selectAll('rect')
 	        .data(data)
 	        .enter().append('g').append('rect')
 	        .attr('class', 'cell')
@@ -117,6 +123,7 @@ class Rater extends React.Component {
 	        });
 
 	  	var legend = d3.select('.legend')
+	  									.html("")
 										  .append('ul')
 										  .attr('class', 'list-inline');
 
@@ -134,6 +141,7 @@ class Rater extends React.Component {
 
 
 	render() {
+		this.renderHeatMap();
 		return(
 			<div className="container-fluid">
 				<div className="legend"></div> 

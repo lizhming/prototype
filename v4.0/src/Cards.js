@@ -87,7 +87,7 @@ class Cards extends React.Component {
     if(this.insideCircle({x: x, y: y}, stage.width)) {
       return 0;
     }
-    var main = document.getElementsByClassName("main")[this.props.activeIndex].getBoundingClientRect();
+    //var main = document.getElementsByClassName("main")[this.props.activeIndex].getBoundingClientRect();
     for(var i=1; i<=this.props.categories.length; ++i) {
       var pos = this.props.categories.length * this.props.activeIndex + i - 1;
       var pie = document.getElementsByClassName("circle")[pos].getBoundingClientRect();
