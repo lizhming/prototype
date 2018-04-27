@@ -74,7 +74,7 @@ class Cards extends React.Component {
     var elem = document.getElementsByClassName("react-draggable-dragging")[0];
     elem.style.zIndex = this.val;
     //elem.innerHTML = this.state.deltaPosition.x + ", " + this.state.deltaPosition.y;
-    this.toggleSize(elem, false);
+    this.toggleSize(elem, true);
 
     var idx = this.locateCard(ui.x, ui.y);
     if(idx >= 0 && idx <= this.props.categories.length) {
@@ -179,7 +179,7 @@ class Cards extends React.Component {
   toggleSize(elem, flg) {
     var factor = 1;
     if(flg) {
-      factor = 0.52;
+      factor = 2.5;
     }
     elem.style.height = (this.size * factor) + "px";
     elem.style.width = (this.size * factor) + "px";
