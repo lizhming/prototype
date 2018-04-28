@@ -32,6 +32,7 @@ class App extends Component {
     this.progressBar = [];
     this.history = [];
     this.totalCards = [];
+    this.color = ["#969696", "#11a8ab", "#4fc4f6", "#e64c65"]; 
 
     for(var i=0; i<props.data.questionsCount; ++i) {
       this.totalCards.push(props.data.values[i].cardsCount * this.RATERS);
@@ -51,6 +52,7 @@ class App extends Component {
     this.onChange = this.onChange.bind(this);
     this.toggle = this.toggle.bind(this);
     this.showInfo = this.showInfo.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
   }
 
   componentDidMount() {
@@ -94,7 +96,7 @@ class App extends Component {
   }
 
   onChange(colorFrom, colorTo, value) {
-    //console.log(colorFrom, colorTo);    
+    //console.log(colorFrom, colorTo, value);    
     this.setState({ from : colorFrom, to : colorTo, cardName: value });
   }
 
@@ -110,7 +112,7 @@ class App extends Component {
   toggle() {
     this.setState({ 
       collapse: !this.state.collapse,
-      from : this.defaultColor, 
+      from : this.defaultColor,
       to : this.defaultColor  
     });
   }
@@ -118,12 +120,25 @@ class App extends Component {
   showInfo() {
     this.setState({
       show: !this.state.show,
-      from : this.defaultColor, 
-      to : this.defaultColor  
+      from : this.defaultColor,
+      to : this.defaultColor
     });
   }
 
-  createLabels() {
+  deleteEvent(index, fromColor, toColor, cardName) {
+    // console.log(index, fromColor, toColor, cardName);
+    // count [notClassified, relevant, unknown, irrelevant]
+    let count = this.state.count;
+    ++count[this.color.indexOf(fromColor)];
+    --count[this.color.indexOf(toColor)];
+
+    this.onProgressUpdate(count);
+    this.cards[this.state.activeIndex].count = this.state.count;
+    //change color and add value
+    //this.onChange(toColor, fromColor, cardName);
+  }
+
+  createLabels() {    
     return this.labels.map((val, i) => {
       let id = "cs"+i;
       //console.log("show" + this.state.activeIndex)
@@ -133,6 +148,7 @@ class App extends Component {
           <Cards id={id} 
                 cards={this.props.data.values[i].values} 
                 cardsCount={this.props.data.values[i].cardsCount} 
+                color={this.color}
                 count={this.cards[i].count} 
                 ratio={this.props.ratio} 
                 activeIndex={this.state.activeIndex}
@@ -145,21 +161,22 @@ class App extends Component {
   }
 
   createHistory() {
-    return this.history.map((val, i) => {
-      let id = "hist"+i;
-      let cls = (i === this.state.activeIndex) ? "history-main" : "history-main hidden";
+    //return this.history.map((val, i) => {
+      //let id = "hist"+i;
+      //let cls = (i === this.state.activeIndex) ? "history-main" : "history-main hidden";
       return (
-        <div className={cls} key={id} id={id}>
+        <div className={"history-main"} key={"hist"} id={"hist"}>
           <History count={this.props.data.questionsCount}
                    ratio={this.props.ratio} 
                    from={this.state.from}
                    to={this.state.to} 
                    activeIndex={this.state.activeIndex}
                    cardName={this.state.cardName}
-                   className="row" />
+                   className="row"
+                   deleteEvent={this.deleteEvent} />
         </div>
         );
-    });
+    //});
   }
 
   createProgressBars() {

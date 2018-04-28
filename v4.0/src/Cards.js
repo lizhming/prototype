@@ -15,7 +15,7 @@ class Cards extends React.Component {
       y: window.innerHeight*0.95*props.ratio*0.5
     };
     
-    this.color = ["#969696", "#11A8AB", "#4FC4F6", "#E64C65"]; 
+    this.color = this.props.color;
     //"#ffc107", "#28a745", "#007bff", "#dc3545" - older values
 
     this.state = { 
@@ -133,6 +133,10 @@ class Cards extends React.Component {
            (relPoint.x*relPoint.x + relPoint.y*relPoint.y <= radius * radius);
   }
 
+  autoPlaceCards(value) {
+    console.log(document.getElementById("cs_"+this.props.activeIndex+"_"+value));
+  }
+
   onStart(e, ui) {
     console.log("onStart", ui.x, ui.y);
     ++this.val;
@@ -179,7 +183,7 @@ class Cards extends React.Component {
   toggleSize(elem, flg) {
     var factor = 1;
     if(flg) {
-      factor = 2.5;
+      factor = 1.75;
     }
     elem.style.height = (this.size * factor) + "px";
     elem.style.width = (this.size * factor) + "px";
