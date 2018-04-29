@@ -33,8 +33,8 @@ class History extends React.Component {
 		// event.stopPropagation();
 		// event.nativeEvent.stopImmediatePropagation();
 		
-		let index = event.target.id.split("_");
-		document.getElementById("o_"+index[1]+"_"+index[2]).style.display = "block";
+		let index = event.target.id.split("_").slice(1);
+		document.getElementById("o_"+index.join("_")).style.display = "block";
 		//document.getElementById("hist"+index[1]).getElementsByClassName("cancel_overlay")[index[2]-1].style.display = "block";
 	}
 
@@ -42,8 +42,8 @@ class History extends React.Component {
 		event.stopPropagation();
 		event.nativeEvent.stopImmediatePropagation();
 		
-		let index = event.target.id.split("_");
-		document.getElementById("o_"+index[1]+"_"+index[2]).style.display = "none";
+		let index = event.target.id.split("_").slice(1);
+		document.getElementById("o_"+index.join("_")).style.display = "none";
 		//document.getElementById("hist"+index[1]).getElementsByClassName("cancel_overlay")[index[2]-1].style.display = "none";
 	}
 
@@ -51,38 +51,38 @@ class History extends React.Component {
 		event.stopPropagation();
 		event.nativeEvent.stopImmediatePropagation();
 		
-		let index = event.target.id.split("_");
-		let value = this.historyData[index[1]][index[2]-1];
+		let index = event.target.id.split("_").slice(1);
+		let value = this.historyData[index[0]][index[1]-1];
 
-		this.historyData[index[1]] = this.historyData[index[1]].filter(function(item) { 
+		this.historyData[index[0]] = this.historyData[index[0]].filter(function(item) { 
     	return item !== value;
 		});
 
-		let fromColor = document.getElementById("s_"+index[1]+"_"+index[2]).style.backgroundColor;
-		let toColor = document.getElementById("e_"+index[1]+"_"+index[2]).style.backgroundColor;
-		let cardName = document.getElementById("s_"+index[1]+"_"+index[2]).innerHTML;
+		let fromColor = document.getElementById("s_"+index.join("_")).style.backgroundColor;
+		let toColor = document.getElementById("e_"+index.join("_")).style.backgroundColor;
+		let cardName = document.getElementById("s_"+index.join("_")).innerHTML;
 
-		document.getElementById("h_"+index[1]+"_"+index[2]).style.display = "none";
+		document.getElementById("h_"+index.join("_")).style.display = "none";
 		//document.getElementById("hist"+index[1]).getElementsByClassName("history-data")[index[2]-1].style.display = "none";
-		this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName);
+		this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
 	}
 
 	itemsizeData(bh, from, to) {
 		++this.idx[this.props.activeIndex];
-		let id = this.props.activeIndex + "_" + this.idx[this.props.activeIndex];
+		let id = "_" + this.props.activeIndex + "_" + this.idx[this.props.activeIndex] + "_" + this.props.cardID;
 
 		const entry = (
-				<div key={"key_"+id} id={"h_"+id} className="history-data" onClick={this.showCancel}>
-					<div className="box hist" id={"s_"+id} style={{height: bh, width: bh, backgroundColor: from}}>
+				<div key={"key"+id} id={"h"+id} className="history-data" onClick={this.showCancel}>
+					<div className="box hist" id={"s"+id} style={{height: bh, width: bh, backgroundColor: from}}>
 						{this.props.cardName}
 					</div>
-					<div className="dir" id={"di_"+id}></div>
-					<div className="box hist" id={"e_"+id} style={{height: bh, width: bh, backgroundColor: to}}>
+					<div className="dir" id={"di"+id}></div>
+					<div className="box hist" id={"e"+id} style={{height: bh, width: bh, backgroundColor: to}}>
 						{this.props.cardName}
 					</div>
-					<div className="cancel_overlay" id={"o_"+id}>
-						<div className="back" id={"b_"+id} onClick={this.back}></div>
-						<div className="delete" id={"d_"+id} onClick={this.delete}></div>
+					<div className="cancel_overlay" id={"o"+id}>
+						<div className="back" id={"b"+id} onClick={this.back}></div>
+						<div className="delete" id={"d"+id} onClick={this.delete}></div>
 					</div>
 				</div>
 			);
@@ -96,7 +96,7 @@ class History extends React.Component {
 		const to = this.props.to;
 		
 		if(from.localeCompare(to) !== 0 && this.prevIndex === this.props.activeIndex)
-			this.itemsizeData(bh, from, to);
+			this.itemsizeData(bh, from, to, this.props.index);
 
 		this.prevIndex = this.props.activeIndex;
 

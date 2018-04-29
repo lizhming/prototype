@@ -24,7 +24,7 @@ class Rater extends React.Component {
 	  var colorRange = ["#fafafa", "#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"];
 	  var colors = d3.scaleQuantize().range(colorRange);
 
-	  var file = Math.floor(Math.random() * 100) % 3 === 0 ? file2 : file1;
+	  var file = Math.floor(Date.now()) % 5 === 0 ? file2 : file1;
 
 	  d3.csv(file, function ( response ) {
 

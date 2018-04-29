@@ -1,15 +1,20 @@
 import React from 'react';
 import { Progress } from 'reactstrap';
+import soundfile from './sounds/chipLay.wav';
 
 class ProgressBar extends React.Component {
   constructor(props) {
     super(props);    
+    this.state = {
+      audio: new Audio(soundfile)
+    }
     this.console = this.console.bind(this);
   }
 
   console() {
-    console.log(this.props.qid);
+    //console.log(this.props.qid);
     this.props.onSelectQuestion(this.props.qid)
+    this.state.audio.play();
   }
 
 	render() {

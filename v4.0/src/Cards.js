@@ -1,4 +1,13 @@
 import React from 'react';
+import soundfile1 from './sounds/cardPlace1.wav';
+import soundfile2 from './sounds/cardPlace2.wav';
+import soundfile3 from './sounds/cardSlide1.wav';
+import soundfile4 from './sounds/cardSlide2.wav';
+import soundfile5 from './sounds/cardSlide3.wav';
+import soundfile6 from './sounds/cardSlide4.wav';
+import soundfile7 from './sounds/cardSlide5.wav';
+import soundfile8 from './sounds/cardSlide6.wav';
+import soundfile9 from './sounds/cardSlide7.wav';
 import DetailedDescription from './DetailedDescription.js'
 
 class Cards extends React.Component {
@@ -22,7 +31,12 @@ class Cards extends React.Component {
       activeDrags : 0,
       deltaPosition : {x: 0, y: 0},
       from : 0,
-      to : 0
+      to : 0,
+      start: {x: 0, y: 0},
+      stop: {x: 0, y: 0},
+      audio: [ new Audio(soundfile1), new Audio(soundfile2), new Audio(soundfile3), 
+        new Audio(soundfile4), new Audio(soundfile5), new Audio(soundfile6), 
+        new Audio(soundfile7), new Audio(soundfile8), new Audio(soundfile9) ]
     };
 
     const dragHandlers = {
@@ -54,10 +68,10 @@ class Cards extends React.Component {
   }
 
   createBindings() {
-    this.onStart = this.onStart.bind(this);
     this.onStop = this.onStop.bind(this);
-    this.handleDrag = this.handleDrag.bind(this);
     this.inside = this.inside.bind(this);
+    this.onStart = this.onStart.bind(this);
+    this.handleDrag = this.handleDrag.bind(this);
     this.insideCircle = this.insideCircle.bind(this);
     this.createCategories = this.createCategories.bind(this);
   }
@@ -133,12 +147,11 @@ class Cards extends React.Component {
            (relPoint.x*relPoint.x + relPoint.y*relPoint.y <= radius * radius);
   }
 
-  autoPlaceCards(value) {
-    console.log(document.getElementById("cs_"+this.props.activeIndex+"_"+value));
-  }
-
   onStart(e, ui) {
-    console.log("onStart", ui.x, ui.y);
+    //console.log("onStart", ui.x, ui.y);
+    this.setState({
+      start: {x: ui.x, y: ui.y}
+    });
     ++this.val;
     this.setState({
       activeDrags: this.state.activeDrags + 1
@@ -160,24 +173,31 @@ class Cards extends React.Component {
     });
 
     this.toggleSize(document.getElementsByClassName("react-draggable-dragging")[0], false);
-    console.log("onStop", ui.x, ui.y);
+    //console.log("onStop", ui.x, ui.y);
+    this.setState({
+      stop: {x: ui.x, y: ui.y}
+    });
 
     this.curr = this.locateCard(ui.x, ui.y);
     this.setState({
       to: this.curr
     });
-    console.log(this.curr, this.prev);
+    console.log("Curr: " + this.curr, "Prev: " + this.prev);
     ++count[this.curr];
     --count[this.prev];
 
     this.setState({ count : count });
     //console.log(this.state.count);
     if(typeof this.prev !== 'undefined' && typeof this.curr !== 'undefined' && (this.curr !== this.prev)) {
-      let name = document.getElementsByClassName("react-draggable-dragging")[0].innerHTML;
+      let elem = document.getElementsByClassName("react-draggable-dragging")[0];
+      let name = elem.innerHTML;
       this.props.onProgressUpdate(this.state.count);
-      this.props.onChange(this.color[this.prev], this.color[this.curr], name);
+      this.props.onChange(this.color[this.prev], this.color[this.curr], name, elem.id.split("_")[1]);
+      this.props.onUpdatePosition(this.state.start, this.state.stop, elem.id.split("_")[1]);
     }
     //document.getElementById("main").style.backgroundPosition = "initial";
+    let rnd = Math.floor(Math.random() * this.state.audio.length);
+    this.state.audio[rnd].play();
   }
 
   toggleSize(elem, flg) {

@@ -5,6 +5,8 @@ import History from './History.js';
 //import Question from './Question.js';
 import ProgressBar from './ProgressBar.js';
 import PopoverItem from './PopoverItem.js';
+import soundfile from './sounds/chipLay.wav';
+import soundfile1 from './sounds/cardSlide8.wav';
 import { Button, Collapse, Card, CardTitle, CardBody } from 'reactstrap';
 
 import './css/App.css';
@@ -23,8 +25,12 @@ class App extends Component {
       from: this.defaultColor,
       to: this.defaultColor,
       cardName: "",
+      reset: false,
+      cardID: -1,
       show: false,
-      collapse: false
+      collapse: false,
+      info: new Audio(soundfile),
+      codebookClick: new Audio(soundfile1)
     };
     this._isMounted = false;
     this.cards = [];
@@ -32,6 +38,7 @@ class App extends Component {
     this.progressBar = [];
     this.history = [];
     this.totalCards = [];
+    this.cardPositions = [];
     this.color = ["#969696", "#11a8ab", "#4fc4f6", "#e64c65"]; 
 
     for(var i=0; i<props.data.questionsCount; ++i) {
@@ -40,12 +47,15 @@ class App extends Component {
       this.progressBar.push(i);
       this.labels.push(i);
       this.history.push(i);
+      this.cardPositions.push([]);
+      this.cardPositions[i].push(i);
     }
   }
 
   createBindings() {
     this._maintainAspectRatio = this._maintainAspectRatio.bind(this);
     this.onProgressUpdate = this.onProgressUpdate.bind(this);
+    this.onUpdatePosition = this.onUpdatePosition.bind(this);
     this.createProgressBars = this.createProgressBars.bind(this);
     this.createHistory = this.createHistory.bind(this);
     this.onSelectQuestion = this.onSelectQuestion.bind(this);
@@ -95,9 +105,9 @@ class App extends Component {
     });
   }
 
-  onChange(colorFrom, colorTo, value) {
-    //console.log(colorFrom, colorTo, value);    
-    this.setState({ from : colorFrom, to : colorTo, cardName: value });
+  onChange(colorFrom, colorTo, value, id, reset=false) {
+    //console.log(colorFrom, colorTo, value);  
+    this.setState({ from : colorFrom, to : colorTo, cardName: value, cardID: id, reset: reset });
   }
 
   onSelectQuestion(id) {
@@ -115,6 +125,7 @@ class App extends Component {
       from : this.defaultColor,
       to : this.defaultColor  
     });
+    this.state.codebookClick.play();
   }
 
   showInfo() {
@@ -123,37 +134,61 @@ class App extends Component {
       from : this.defaultColor,
       to : this.defaultColor
     });
+    this.state.info.play();
   }
 
-  deleteEvent(index, fromColor, toColor, cardName) {
+  deleteEvent(index, fromColor, toColor, cardName, cardID) {
     // console.log(index, fromColor, toColor, cardName);
-    // count [notClassified, relevant, unknown, irrelevant]
+    // count -> [notClassified, relevant, unknown, irrelevant]
     let count = this.state.count;
-    ++count[this.color.indexOf(fromColor)];
+    ++count[this.color.indexOf(this.defaultColor)];
     --count[this.color.indexOf(toColor)];
 
     this.onProgressUpdate(count);
     this.cards[this.state.activeIndex].count = this.state.count;
+    
     //change color and add value
-    //this.onChange(toColor, fromColor, cardName);
+    this.onChange(toColor, this.defaultColor, cardName, cardID, true);
+    let x = (Math.floor(Math.random() * 200) + window.innerWidth*0.66*0.5-150);
+    let y = (Math.floor(Math.random() * 200) + window.innerHeight*0.95*0.5-150);
+    this.onUpdatePosition(this.cardPositions[this.state.activeIndex][cardID].stop, {x: x, y: y}, cardID, true);
   }
 
-  createLabels() {    
+  onUpdatePosition(start, stop, value, flag) {
+    this.cardPositions[this.state.activeIndex][value] = { start: start, stop: stop };
+    //console.log(this.cardPositions);
+    if(flag) {
+      let id = "cs" + this.state.activeIndex + "_" + value;
+      //console.log(id, document.getElementById(id).style);
+      console.log("translate("+this.cardPositions[this.state.activeIndex][value].stop.x+"px, "+this.cardPositions[this.state.activeIndex][value].stop.y+"px);");
+      document.getElementById(id).style.transform = "translate("+this.cardPositions[this.state.activeIndex][value].stop.x+"px, "+this.cardPositions[this.state.activeIndex][value].stop.y+"px);";
+      //let left = this.cardPositions[this.state.activeIndex][value].stop.x - this.cardPositions[this.state.activeIndex][value].start.x;
+      //let top = this.cardPositions[this.state.activeIndex][value].stop.y - this.cardPositions[this.state.activeIndex][value].start.y;
+      document.getElementById(id).style.backgroundColor = this.defaultColor;
+      //document.getElementById(id).style.left = left + "px";
+      //document.getElementById(id).style.top = top + "px";
+    }
+  }
+
+  createLabels() {
     return this.labels.map((val, i) => {
       let id = "cs"+i;
       //console.log("show" + this.state.activeIndex)
       let cls = (i === this.state.activeIndex) ? "card-section" : "card-section hidden";
       return (
-        <div className={cls} key={id}>
+        <div className={cls} key={id} id={id}>
           <Cards id={id} 
                 cards={this.props.data.values[i].values} 
                 cardsCount={this.props.data.values[i].cardsCount} 
                 color={this.color}
                 count={this.cards[i].count} 
                 ratio={this.props.ratio} 
+                //reset={(i === this.state.activeIndex) ? this.state.reset : false}
+                //resetValues={this.cardPositions[this.state.activeIndex]}
                 activeIndex={this.state.activeIndex}
                 categories={this.props.data.categories}
                 onChange={this.onChange}
+                onUpdatePosition={this.onUpdatePosition}
                 onProgressUpdate={this.onProgressUpdate} />
         </div>
       )
@@ -169,7 +204,8 @@ class App extends Component {
           <History count={this.props.data.questionsCount}
                    ratio={this.props.ratio} 
                    from={this.state.from}
-                   to={this.state.to} 
+                   to={this.state.to}
+                   cardID={this.state.cardID}
                    activeIndex={this.state.activeIndex}
                    cardName={this.state.cardName}
                    className="row"
