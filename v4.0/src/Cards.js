@@ -18,10 +18,10 @@ class Cards extends React.Component {
     this.val = 6;
     this.size = 75;
     this.createBindings();
-    this.h = (this.props.ratio * 0.95 * window.innerHeight) + "px";
+    this.h = (this.props.ratio * 0.916 * window.innerHeight) + "px";
     this.center = {
       x: window.innerWidth*0.66*props.ratio*0.5, 
-      y: window.innerHeight*0.95*props.ratio*0.5
+      y: window.innerHeight*0.916*props.ratio*0.5
     };
     
     this.color = ["#969696", "#11a8ab", "#4fc4f6", "#e64c65"]; 
