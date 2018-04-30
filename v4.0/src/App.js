@@ -39,6 +39,7 @@ class App extends Component {
     this.history = [];
     this.totalCards = [];
     this.cardPositions = [];
+    this.cardColor = [];
     this.color = ["#969696", "#11a8ab", "#4fc4f6", "#e64c65"]; 
 
     for(var i=0; i<props.data.questionsCount; ++i) {
@@ -48,7 +49,13 @@ class App extends Component {
       this.labels.push(i);
       this.history.push(i);
       this.cardPositions.push([]);
-      this.cardPositions[i].push(i);
+      this.cardColor.push([]);
+      for(var j=0; j<props.data.values[i].cardsCount; ++j) {
+        let px = (Math.floor(Math.random() * 200) + window.innerWidth*0.66*0.5-150);
+        let py = (Math.floor(Math.random() * 200) + window.innerHeight*0.95*0.5-150);
+        this.cardPositions[i].push({start: {x: 0, y: 0}, stop: {x: px, y: py}});
+        this.cardColor[i].push(this.color[0]);
+      }
     }
   }
 
@@ -151,40 +158,40 @@ class App extends Component {
     this.onChange(toColor, this.defaultColor, cardName, cardID, true);
     let x = (Math.floor(Math.random() * 200) + window.innerWidth*0.66*0.5-150);
     let y = (Math.floor(Math.random() * 200) + window.innerHeight*0.95*0.5-150);
-    this.onUpdatePosition(this.cardPositions[this.state.activeIndex][cardID].stop, {x: x, y: y}, cardID, true);
+    this.onUpdatePosition(this.cardPositions[this.state.activeIndex][cardID].stop, {x: x, y: y}, toColor, cardID, true);
   }
 
-  onUpdatePosition(start, stop, value, flag) {
+  onUpdatePosition(start, stop, color, value, flag) {
+    let id = "cs" + this.state.activeIndex + "_" + value;
+    //document.getElementById(id).style.backgroundColor = color;
+    this.cardColor[this.state.activeIndex][value] = color;
     this.cardPositions[this.state.activeIndex][value] = { start: start, stop: stop };
     //console.log(this.cardPositions);
     if(flag) {
-      let id = "cs" + this.state.activeIndex + "_" + value;
-      //console.log(id, document.getElementById(id).style);
-      console.log("translate("+this.cardPositions[this.state.activeIndex][value].stop.x+"px, "+this.cardPositions[this.state.activeIndex][value].stop.y+"px);");
-      document.getElementById(id).style.transform = "translate("+this.cardPositions[this.state.activeIndex][value].stop.x+"px, "+this.cardPositions[this.state.activeIndex][value].stop.y+"px);";
-      //let left = this.cardPositions[this.state.activeIndex][value].stop.x - this.cardPositions[this.state.activeIndex][value].start.x;
-      //let top = this.cardPositions[this.state.activeIndex][value].stop.y - this.cardPositions[this.state.activeIndex][value].start.y;
       document.getElementById(id).style.backgroundColor = this.defaultColor;
-      //document.getElementById(id).style.left = left + "px";
-      //document.getElementById(id).style.top = top + "px";
+      document.getElementById(id).style.transform = "translate("+this.cardPositions[this.state.activeIndex][value].stop.x+"px, "+this.cardPositions[this.state.activeIndex][value].stop.y+"px)";
+      this.cardColor[this.state.activeIndex][value] = this.defaultColor;
     }
   }
 
   createLabels() {
-    return this.labels.map((val, i) => {
-      let id = "cs"+i;
+    //return this.labels.map((val, i) => {
+      //let id = "cs"+i;
       //console.log("show" + this.state.activeIndex)
-      let cls = (i === this.state.activeIndex) ? "card-section" : "card-section hidden";
+      //let cls = (i === this.state.activeIndex) ? "card-section" : "card-section hidden";
+      let i = this.state.activeIndex;
+      let cls = "card-section";
+      let id = "cs" + i;
       return (
         <div className={cls} key={id} id={id}>
           <Cards id={id} 
                 cards={this.props.data.values[i].values} 
                 cardsCount={this.props.data.values[i].cardsCount} 
-                color={this.color}
                 count={this.cards[i].count} 
                 ratio={this.props.ratio} 
-                //reset={(i === this.state.activeIndex) ? this.state.reset : false}
-                //resetValues={this.cardPositions[this.state.activeIndex]}
+                px={this.cardPositions[this.state.activeIndex]}
+                py={this.cardPositions[this.state.activeIndex]}
+                color={this.cardColor[this.state.activeIndex]}
                 activeIndex={this.state.activeIndex}
                 categories={this.props.data.categories}
                 onChange={this.onChange}
@@ -192,7 +199,7 @@ class App extends Component {
                 onProgressUpdate={this.onProgressUpdate} />
         </div>
       )
-    });
+    //});
   }
 
   createHistory() {

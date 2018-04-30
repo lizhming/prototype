@@ -28,7 +28,7 @@ class DetailedDescription extends React.Component {
     return (
     	<div className="mainFocused" style={{height: this.props.height}}>
     		<Draggable key={this.id+"_"} defaultPosition={{x: this.px, y: this.py}} bounds="parent" {...this.dragHandlers}>
-            <div id={this.id} className="box" onClick={this.toggle} style={{height: this.bh, width: this.bh}}>
+            <div id={this.id} className="box" onClick={this.toggle} style={{height: this.bh, width: this.bh, backgroundColor: this.props.color}}>
             	{this.props.card}
             </div>
         </Draggable>

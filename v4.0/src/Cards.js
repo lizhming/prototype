@@ -24,7 +24,7 @@ class Cards extends React.Component {
       y: window.innerHeight*0.95*props.ratio*0.5
     };
     
-    this.color = this.props.color;
+    this.color = ["#969696", "#11a8ab", "#4fc4f6", "#e64c65"]; 
     //"#ffc107", "#28a745", "#007bff", "#dc3545" - older values
 
     this.state = { 
@@ -48,23 +48,22 @@ class Cards extends React.Component {
     this.cards = [];
     for(var i=0; i<this.props.cardsCount; i++) {
       //put cards in random location between x & y betwwen (275, 475)
-      var px = this.props.ratio * (Math.floor(Math.random() * 200) + this.center.x-150);
-      var py = this.props.ratio * (Math.floor(Math.random() * 200) + this.center.y-150);
       var bh = (this.props.ratio * this.size) + "px";
-
       this.cards.push(<DetailedDescription key={i}
                              id={this.props.id+"_"+i}
                              height={this.h}
-                             px={px}
-                             py={py}
+                             px={this.props.px[i].stop.x}
+                             py={this.props.py[i].stop.y}
                              bh={bh}
+                             color={this.props.color[i]}
                              card={this.props.cards[i]}
                              dragHandlers={dragHandlers} />);
-      /// console.log(i, px, py);
+      ///console.log(i, px, py);
     }
      
     this.categories = [];
     this.createCategories();
+    console.log("Cpns: ", this.cards);
   }
 
   createBindings() {
@@ -97,14 +96,14 @@ class Cards extends React.Component {
   }
 
   locateCard(x, y) {
-    var stage = document.getElementsByClassName("stage")[this.props.activeIndex].getBoundingClientRect();
+    var stage = document.getElementsByClassName("stage")[0].getBoundingClientRect();
     if(this.insideCircle({x: x, y: y}, stage.width)) {
       return 0;
     }
     //var main = document.getElementsByClassName("main")[this.props.activeIndex].getBoundingClientRect();
     for(var i=1; i<=this.props.categories.length; ++i) {
-      var pos = this.props.categories.length * this.props.activeIndex + i - 1;
-      var pie = document.getElementsByClassName("circle")[pos].getBoundingClientRect();
+      //var pos = this.props.categories.length * this.props.activeIndex + i - 1;
+      var pie = document.getElementsByClassName("circle")[0].getBoundingClientRect();
       /*let center = {
         x: this.center.x - main.left,
         y: this.center.y - main.top
@@ -193,7 +192,7 @@ class Cards extends React.Component {
       let name = elem.innerHTML;
       this.props.onProgressUpdate(this.state.count);
       this.props.onChange(this.color[this.prev], this.color[this.curr], name, elem.id.split("_")[1]);
-      this.props.onUpdatePosition(this.state.start, this.state.stop, elem.id.split("_")[1]);
+      this.props.onUpdatePosition(this.state.start, this.state.stop, this.color[this.curr], elem.id.split("_")[1]);
     }
     //document.getElementById("main").style.backgroundPosition = "initial";
     let rnd = Math.floor(Math.random() * this.state.audio.length);
