@@ -60,10 +60,9 @@ class Cards extends React.Component {
                              dragHandlers={dragHandlers} />);
       ///console.log(i, px, py);
     }
-     
+    
     this.categories = [];
     this.createCategories();
-    console.log("Cpns: ", this.cards);
   }
 
   createBindings() {

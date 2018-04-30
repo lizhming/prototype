@@ -163,14 +163,19 @@ class App extends Component {
 
   onUpdatePosition(start, stop, color, value, flag) {
     let id = "cs" + this.state.activeIndex + "_" + value;
-    //document.getElementById(id).style.backgroundColor = color;
     this.cardColor[this.state.activeIndex][value] = color;
     this.cardPositions[this.state.activeIndex][value] = { start: start, stop: stop };
     //console.log(this.cardPositions);
     if(flag) {
       document.getElementById(id).style.backgroundColor = this.defaultColor;
       document.getElementById(id).style.transform = "translate("+this.cardPositions[this.state.activeIndex][value].stop.x+"px, "+this.cardPositions[this.state.activeIndex][value].stop.y+"px)";
-      this.cardColor[this.state.activeIndex][value] = this.defaultColor;
+      // this.cardColor[this.state.activeIndex][value] = this.defaultColor;
+      // let val = this.state.activeIndex + 1;
+      // if(this.state.activeIndex == this.props.data.questionsCount-1) {
+      //   val = this.state.activeIndex - 1;
+      // }
+      // this.onSelectQuestion(val);
+      //window.setTimeout(this.onSelectQuestion(this.state.activeIndex), 100);
     }
   }
 

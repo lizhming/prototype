@@ -62,9 +62,8 @@ class History extends React.Component {
 		let toColor = document.getElementById("e_"+index.join("_")).style.backgroundColor;
 		let cardName = document.getElementById("s_"+index.join("_")).innerHTML;
 
-		document.getElementById("h_"+index.join("_")).style.display = "none";
-		//document.getElementById("hist"+index[1]).getElementsByClassName("history-data")[index[2]-1].style.display = "none";
-		this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
+		//document.getElementById("h_"+index.join("_")).style.display = "none";
+		//this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
 	}
 
 	itemsizeData(bh, from, to) {
