@@ -45,6 +45,7 @@ body {
   line-height: 1rem;
   display: inline-block;
   z-index: 1;
+  overflow: hidden;
 }
 .animate {
   -webkit-animation:pop-in 0.5s;

@@ -56,11 +56,12 @@ class Cards extends React.Component {
                              py={this.props.py[i].stop.y}
                              bh={bh}
                              color={this.props.color[i]}
-                             card={this.props.cards[i]}
+                             card={this.props.cards[i].head}
+                             desc={this.props.cards[i].description}
                              dragHandlers={dragHandlers} />);
       ///console.log(i, px, py);
     }
-    
+
     this.categories = [];
     this.createCategories();
   }

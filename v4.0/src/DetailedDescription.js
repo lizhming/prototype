@@ -38,19 +38,7 @@ class DetailedDescription extends React.Component {
                  toggle={this.toggle}>
           <PopoverHeader>{this.props.card}</PopoverHeader>
           <PopoverBody>
-          	Lorem ipsum dolor sit amet, consectetur <mark>adipiscing elit.</mark> Integer ut ante eu mauris maximus vestibulum sed at arcu. 
-          	Vivamus ac dui leo. Aliquam eget faucibus nunc, ac eleifend dolor. Nunc aliquam, ex id imperdiet pellentesque, 
-          	massa tellus pretium lorem, at sollicitudin felis velit id ipsum. Ut sollicitudin arcu erat, vel vulputate nisl 
-          	lacinia nec. Mauris aliquam ex nec volutpat pellentesque. Donec hendrerit tincidunt lacus, sit amet commodo urna placerat sit amet. 
-          	Aenean ac bibendum dui. Fusce non hendrerit elit, et auctor velit. Nam tincidunt ex in eros tristique facilisis. Donec 
-          	tincidunt mauris ac commodo elementum. Cras bibendum, ex sit amet facilisis interdum, neque massa fringilla orci, et rhoncus ante mi non nibh.
-          	<br/><br/>
-						Duis sit amet sapien vitae magna cursus aliquam sit amet a mi. <mark>Etiam nulla purus, suscipit vehicula quam sed, egestas 
-						dignissim neque.</mark> Cras tristique varius justo mollis finibus. Etiam eget odio nisi. Sed quis nibh at tortor posuere 
-						elementum sit amet quis mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-						Integer pellentesque tristique aliquam. Suspendisse bibendum interdum leo rhoncus gravida. Fusce nec diam in enim fringilla 
-						fringilla in nec metus. Vestibulum viverra non nulla eget posuere. Aenean sodales imperdiet velit, at dictum lorem viverra ac. 
-						Morbi sed finibus orci.
+          	{this.props.desc}
           </PopoverBody>
         </Popover>
         </div>
