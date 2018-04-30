@@ -62,6 +62,7 @@ class History extends React.Component {
 		let toColor = document.getElementById("e_"+index.join("_")).style.backgroundColor;
 		let cardName = document.getElementById("s_"+index.join("_")).innerHTML;
 
+		// Uncomment these two for UNDO
 		//document.getElementById("h_"+index.join("_")).style.display = "none";
 		//this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
 	}
