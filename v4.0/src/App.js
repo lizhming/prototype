@@ -46,7 +46,7 @@ class App extends Component {
     for(var i=0; i<props.data.questionsCount; ++i) {
       total += props.data.values[i].cardsCount;
     }
-    for(var i=0; i<props.data.questionsCount; ++i) {
+    for(i=0; i<props.data.questionsCount; ++i) {
       this.totalCards.push(total);
       this.cards.push({count: [this.totalCards[i],0,0,0]})
       this.progressBar.push(i);
@@ -61,7 +61,6 @@ class App extends Component {
         this.cardColor[i].push(this.color[0]);
       }
     }
-    console.log(this.totalCards, this.cards);
   }
 
   createBindings() {

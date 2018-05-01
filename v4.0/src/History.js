@@ -58,11 +58,12 @@ class History extends React.Component {
     	return item !== value;
 		});
 
-		let fromColor = document.getElementById("s_"+index.join("_")).style.backgroundColor;
-		let toColor = document.getElementById("e_"+index.join("_")).style.backgroundColor;
-		let cardName = document.getElementById("s_"+index.join("_")).innerHTML;
+		// Uncomment these lines for UNDO functionality
 
-		// Uncomment these two for UNDO
+		// let fromColor = document.getElementById("s_"+index.join("_")).style.backgroundColor;
+		// let toColor = document.getElementById("e_"+index.join("_")).style.backgroundColor;
+		// let cardName = document.getElementById("s_"+index.join("_")).innerHTML;
+
 		//document.getElementById("h_"+index.join("_")).style.display = "none";
 		//this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
 	}
@@ -70,9 +71,9 @@ class History extends React.Component {
 	itemsizeData(bh, from, to) {
 		++this.idx[this.props.activeIndex];
 		let id = "_" + this.props.activeIndex + "_" + this.idx[this.props.activeIndex] + "_" + this.props.cardID;
-
+		let cls = (this.idx[this.props.activeIndex]%2 !== 0) ? "history-data" : "history-data right";
 		const entry = (
-				<div key={"key"+id} id={"h"+id} className="history-data" onClick={this.showCancel}>
+				<div key={"key"+id} id={"h"+id} className={cls} onClick={this.showCancel}>
 					<div className="box hist" id={"s"+id} style={{height: bh, width: bh, backgroundColor: from}}>
 						{this.props.cardName}
 					</div>
