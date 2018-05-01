@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import * as d3tip from 'd3-tip';
 import file1 from './data/data.csv';
 import file2 from './data/data2.csv';
+import file3 from './data/data3.csv';
 
 class Rater extends React.Component {
 	constructor(props) {
@@ -10,6 +11,7 @@ class Rater extends React.Component {
 		//const ratio = this.props.ratio;
 
 		this.renderHeatMap = this.renderHeatMap.bind(this);
+		this.prevFile = file1;
 	}
   
   renderHeatMap() {
@@ -24,7 +26,7 @@ class Rater extends React.Component {
 	  var colorRange = ["#fafafa", "#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"];
 	  var colors = d3.scaleQuantize().range(colorRange);
 
-	  var file = Math.floor(Date.now()) % 5 === 0 ? file2 : file1;
+	  var file = Math.floor(Date.now()) % 3 === 0 ? file2 : Math.floor(Date.now()) % 5 === 0 ? file3 : file1;
 
 	  d3.csv(file, function ( response ) {
 
@@ -76,7 +78,7 @@ class Rater extends React.Component {
 	        .append("svg")
 	        .attr("width", width + margin.left + margin.right)
 	        .attr("height", height + margin.top + margin.bottom)
-	        .attr("transform", "translate(100, -35)")
+	        .attr("transform", "translate(100, -55)")
 	        .append("g")
 	        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -145,6 +147,8 @@ class Rater extends React.Component {
 		return(
 			<div className="container-fluid">
 				<div className="legend"></div> 
+        <div className="tag" id="low">LOW</div>
+				<div className="tag" id="high">HIGH</div>
         <div className="heatmap"></div>
 			</div>
 			);

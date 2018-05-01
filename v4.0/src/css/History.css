@@ -63,3 +63,11 @@
 .delete {
 	background-image: url('../images/delete.png');
 }
+.tag {
+  display: inline-block;
+  position: absolute;
+}
+#high {
+  top: 18rem;
+  position: relative;
+}
