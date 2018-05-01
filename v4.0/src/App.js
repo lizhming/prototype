@@ -42,8 +42,12 @@ class App extends Component {
     this.cardColor = [];
     this.color = ["#969696", "#11a8ab", "#4fc4f6", "#e64c65"]; 
 
+    let total = 0;
     for(var i=0; i<props.data.questionsCount; ++i) {
-      this.totalCards.push(props.data.values[i].cardsCount * this.RATERS);
+      total += props.data.values[i].cardsCount;
+    }
+    for(var i=0; i<props.data.questionsCount; ++i) {
+      this.totalCards.push(total);
       this.cards.push({count: [this.totalCards[i],0,0,0]})
       this.progressBar.push(i);
       this.labels.push(i);
@@ -57,6 +61,7 @@ class App extends Component {
         this.cardColor[i].push(this.color[0]);
       }
     }
+    console.log(this.totalCards, this.cards);
   }
 
   createBindings() {
@@ -244,9 +249,9 @@ class App extends Component {
     //var tmp = this.progressBar[0];
     //this.progressBar[0] = this.progressBar[this.state.activeIndex];
     //this.progressBar[this.state.activeIndex] = tmp;
-
+    
     this.currProgressBar = <ProgressBar 
-                          factor={30}
+                          factor={this.totalCards[this.state.activeIndex]-this.props.data.values[this.state.activeIndex].cardsCount}
                           isOne={true}
                           cards={this.props.data.values[this.state.activeIndex].cardsCount} 
                           count={this.cards[this.state.activeIndex].count} 

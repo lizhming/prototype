@@ -9,6 +9,7 @@ class ProgressBar extends React.Component {
       audio: new Audio(soundfile)
     }
     this.console = this.console.bind(this);
+    console.log("PG: ", props.cards)
   }
 
   console() {
@@ -41,16 +42,16 @@ class ProgressBar extends React.Component {
 			<div className={className} onClick={this.console}> 
         <Progress multi>
         	<Progress bar color="warning" value={(this.props.count[0]-this.props.factor)*multiplier}>
-            {(this.props.count[0]-this.props.factor)*multiplier}%
+            {Math.round((this.props.count[0]-this.props.factor)*multiplier*100)/100}%
           </Progress>
           <Progress bar color="success" value={this.props.count[1]*multiplier}>
-            {this.props.count[1]*multiplier}%
+            {Math.round(this.props.count[1]*multiplier*100)/100}%
           </Progress>
           <Progress bar value={this.props.count[2]*multiplier}>
-            {this.props.count[2]*multiplier}%
+            {Math.round(this.props.count[2]*multiplier*100)/100}%
           </Progress>
           <Progress bar color="danger" value={this.props.count[3]*multiplier}>
-            {this.props.count[3]*multiplier}%
+            {Math.round(this.props.count[3]*multiplier*100)/100}%
           </Progress>
         </Progress>
         <div className="qname">
