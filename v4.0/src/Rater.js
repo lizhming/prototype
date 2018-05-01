@@ -28,7 +28,6 @@ class Rater extends React.Component {
 
 	  var file = Math.floor(Date.now()) % 3 === 0 ? file2 : Math.floor(Date.now()) % 5 === 0 ? file3 : file1;
 	  if(this.prevFile !== "" && this.prevFile !== file) {
-	  	console.log("Displaying gif");
 	  	document.getElementById("loader").style.display = "block";
 	  }
 	  window.setTimeout(function() {

@@ -9,6 +9,8 @@ class ProgressBar extends React.Component {
       audio: new Audio(soundfile)
     }
     this.console = this.console.bind(this);
+    console.log("PG: ", this.props.cards);
+    console.log("PGww: ", this.props.count);
   }
 
   console() {

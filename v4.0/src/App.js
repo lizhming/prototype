@@ -233,6 +233,8 @@ class App extends Component {
 
   createProgressBars() {
     for(var i=0; i<this.props.data.questionsCount; ++i) {
+      let val = this.props.data.values[i].cardsCount * 4; //raters = 4
+
       this.progressBar[i] = <ProgressBar key={i} 
                           factor={0}
                           isOne={false}
@@ -267,11 +269,15 @@ class App extends Component {
     const raterH = (this.props.ratio * 0.30 * this.state.h) + "px";
     const historyH = (this.props.ratio * 0.28 * this.state.h) + "px";
     //const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
-    const codebookH = (this.props.ratio * 0.615 * this.state.h) + "px";
+    const codebookH = (this.props.ratio * 0.62 * this.state.h) + "px";
 
     const vizDesc = "Graphical representation of the progress made by all the domain-experts to train the ML Algorithm by labeling and classifying questions.";
     const raterDesc = "It is the representation of intercoder agreement, such as Cohen's kappa or Krippendoff alpha, is used to evaluate the robustness of the labeled data.";
     const historyDesc = "This section displays history data for each classification made per question by the trainer.";
+
+    let rel = "The data which resembles most to the given question can be considered in this category... \nEg: " + this.props.data.values[0].values[0].description;
+    let unk = "Any detail which is completely vague in terms of the information it provides is considered to be in 'unknown' set.. \nEg: " + this.props.data.values[0].values[1].description;
+    let irr = "Those codes/data which provide some detail about the query made, but aren't sufficient enough are considered to be irrelevant data.. \nEg: " + this.props.data.values[0].values[2].description;;
 
     return (
       <div className="container-fluid">
@@ -294,7 +300,13 @@ class App extends Component {
               <Card>
                 <CardBody style={{height: codebookH}}>
                   <CardTitle>Codebook</CardTitle>
-                  <textarea className="form-control" rows="23"></textarea>
+                  <div><span className="bold">Question:</span> {this.props.data.values[this.state.activeIndex].src}</div>
+                  <span>Relevant</span>
+                  <textarea className="form-control" rows="5" defaultValue={rel}></textarea>
+                  <span>Irrelevant</span>
+                  <textarea className="form-control" rows="6" defaultValue={irr}></textarea>
+                  <span>Unkown</span>
+                  <textarea className="form-control" rows="5" defaultValue={unk}></textarea>
                 </CardBody>
               </Card>
             </Collapse>
