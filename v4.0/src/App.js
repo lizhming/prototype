@@ -311,6 +311,7 @@ class App extends Component {
           </div>
         </div>
         <div id="info" onClick={this.showInfo}></div>
+        <div id="loader" style={{height: raterH}}></div>
       </div>
     );
   }

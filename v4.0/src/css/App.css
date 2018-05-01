@@ -13,6 +13,17 @@ body {
   font-weight: 200;
   margin: 0;
 }
+#loader {
+  position: absolute;
+  top: 29rem;
+  width: 38rem;
+  display: none;
+  background-color: rgba(238,238,238,0.7);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url('../images/loadingsome.gif');
+}
 .react-draggable, .cursor {
   cursor: move;
 }

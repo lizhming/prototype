@@ -11,7 +11,7 @@ class Rater extends React.Component {
 		//const ratio = this.props.ratio;
 
 		this.renderHeatMap = this.renderHeatMap.bind(this);
-		this.prevFile = file1;
+		this.prevFile = "";
 	}
   
   renderHeatMap() {
@@ -27,6 +27,14 @@ class Rater extends React.Component {
 	  var colors = d3.scaleQuantize().range(colorRange);
 
 	  var file = Math.floor(Date.now()) % 3 === 0 ? file2 : Math.floor(Date.now()) % 5 === 0 ? file3 : file1;
+	  if(this.prevFile !== "" && this.prevFile !== file) {
+	  	console.log("Displaying gif");
+	  	document.getElementById("loader").style.display = "block";
+	  }
+	  window.setTimeout(function() {
+	  	document.getElementById("loader").style.display = "none";
+	  }, 250);
+	  this.prevFile = file;
 
 	  d3.csv(file, function ( response ) {
 
