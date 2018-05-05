@@ -60,12 +60,12 @@ class History extends React.Component {
 
 		// Uncomment these lines for UNDO functionality
 
-		// let fromColor = document.getElementById("s_"+index.join("_")).style.backgroundColor;
-		// let toColor = document.getElementById("e_"+index.join("_")).style.backgroundColor;
-		// let cardName = document.getElementById("s_"+index.join("_")).innerHTML;
+		let fromColor = document.getElementById("s_"+index.join("_")).style.backgroundColor;
+		let toColor = document.getElementById("e_"+index.join("_")).style.backgroundColor;
+		let cardName = document.getElementById("s_"+index.join("_")).innerHTML;
 
-		//document.getElementById("h_"+index.join("_")).style.display = "none";
-		//this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
+		document.getElementById("h_"+index.join("_")).style.display = "none";
+		this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
 	}
 
 	itemsizeData(bh, from, to) {

@@ -193,6 +193,16 @@ class Cards extends React.Component {
       this.props.onProgressUpdate(this.state.count);
       this.props.onChange(this.color[this.prev], this.color[this.curr], name, elem.id.split("_")[1]);
       this.props.onUpdatePosition(this.state.start, this.state.stop, this.color[this.curr], elem.id.split("_")[1]);
+      let output = {     
+          "uid": 12345,
+          "question_id" : parseInt(elem.id.substr(2,1), 10),
+          "label_id" : parseInt(elem.id.split("_")[1], 10),
+          "previous_category_id" : this.prev,
+          "current_category_id" : this.curr
+      };
+      console.log(output);
+      // output data
+
     }
     //document.getElementById("main").style.backgroundPosition = "initial";
     let rnd = Math.floor(Math.random() * this.state.audio.length);
