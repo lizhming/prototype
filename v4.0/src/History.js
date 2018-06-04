@@ -1,6 +1,10 @@
 import React from 'react';
 import './css/History.css';
 
+/**
+ * History - code for history section in the application
+ */
+
 class History extends React.Component {
 	constructor(props) {
 		super(props);
@@ -20,6 +24,7 @@ class History extends React.Component {
 		this.back = this.back.bind(this);
 	}
 
+	// returns hex code for a rgb color value
 	getHexCode(rgb) {
 		return '#' + rgb.substr(4, rgb.indexOf(')') - 4).split(',').map((color) => String("0" + parseInt(color).toString(16)).slice(-2)).join('');
 	}
@@ -38,6 +43,7 @@ class History extends React.Component {
 		//document.getElementById("hist"+index[1]).getElementsByClassName("cancel_overlay")[index[2]-1].style.display = "block";
 	}
 
+	// handler for back button press
 	back(event) {
 		event.stopPropagation();
 		event.nativeEvent.stopImmediatePropagation();
@@ -47,6 +53,7 @@ class History extends React.Component {
 		//document.getElementById("hist"+index[1]).getElementsByClassName("cancel_overlay")[index[2]-1].style.display = "none";
 	}
 
+	// handler for delete button press
 	delete(event) {
 		event.stopPropagation();
 		event.nativeEvent.stopImmediatePropagation();
@@ -68,10 +75,11 @@ class History extends React.Component {
 		this.props.deleteEvent(index, this.getHexCode(fromColor), this.getHexCode(toColor), cardName, index[2]);
 	}
 
+	// function to display history in desired format
 	itemsizeData(bh, from, to) {
 		++this.idx[this.props.activeIndex];
 		let id = "_" + this.props.activeIndex + "_" + this.idx[this.props.activeIndex] + "_" + this.props.cardID;
-		let cls = (this.idx[this.props.activeIndex]%2 !== 0) ? "history-data" : "history-data right";
+		let cls = (this.idx[this.props.activeIndex]%2 !== 0) ? "history-data" : "history-data";
 		const entry = (
 				<div key={"key"+id} id={"h"+id} className={cls} onClick={this.showCancel}>
 					<div className="box hist" id={"s"+id} style={{height: bh, width: bh, backgroundColor: from}}>

@@ -6,6 +6,9 @@ import App from './App';
 import data from './data/file.json';
 import registerServiceWorker from './registerServiceWorker';
 
+/**
+ * The index js file, to get the aspect ratio of the screen, and create renderer for ReactDOM
+ */
 var w = window.innerWidth, h = window.innerHeight;
 var ratio;
 

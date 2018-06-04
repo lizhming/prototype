@@ -2,6 +2,10 @@ import React from 'react';
 import { Progress } from 'reactstrap';
 import soundfile from './sounds/chipLay.wav';
 
+/**
+ * ProgressBar - file to configure properties for progress bars (ie. questions)
+ */
+
 class ProgressBar extends React.Component {
   constructor(props) {
     super(props);    
@@ -13,6 +17,7 @@ class ProgressBar extends React.Component {
     console.log("PGww: ", this.props.count);
   }
 
+  // function binder, and sound on tap of each question
   console() {
     //console.log(this.props.qid);
     this.props.onSelectQuestion(this.props.qid)
@@ -39,6 +44,7 @@ class ProgressBar extends React.Component {
       className += " active-bar-black";
     }
 
+    // Creating a progress bar using bootstrap, each color is corresponding to some category in the staging area.
 		return (
 			<div className={className} onClick={this.console}> 
         <Progress multi>

@@ -5,6 +5,10 @@ import file1 from './data/data.csv';
 import file2 from './data/data2.csv';
 import file3 from './data/data3.csv';
 
+/**
+ * Raters Agreement Component in the application
+ */
+
 class Rater extends React.Component {
 	constructor(props) {
 		super(props);
@@ -14,6 +18,7 @@ class Rater extends React.Component {
 		this.prevFile = "";
 	}
   
+  // rendering heatmap using d3 js
   renderHeatMap() {
     var itemSize = 60,
 	      cellSize = itemSize - 1,
@@ -131,6 +136,7 @@ class Rater extends React.Component {
 	            return "translate(10,-25)";
 	        });
 
+	    // adding the legen for the heatmap
 	  	var legend = d3.select('.legend')
 	  									.html("")
 										  .append('ul')

@@ -2,6 +2,10 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
+/**
+ * Detailed Description for a card content
+ */
+ 
 class DetailedDescription extends React.Component {
 	constructor(props) {
     super(props);

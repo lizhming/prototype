@@ -10,6 +10,10 @@ import soundfile8 from './sounds/cardSlide6.wav';
 import soundfile9 from './sounds/cardSlide7.wav';
 import DetailedDescription from './DetailedDescription.js'
 
+/**
+ * Cards - depicts properties to handle events on each card.
+ */
+
 class Cards extends React.Component {
   
   constructor(props) {
@@ -75,6 +79,7 @@ class Cards extends React.Component {
     this.createCategories = this.createCategories.bind(this);
   }
 
+  // drag event handler for the cards
   handleDrag(e, ui) {
     const {x, y} = this.state.deltaPosition;
     this.setState({
@@ -95,6 +100,8 @@ class Cards extends React.Component {
     }
   }
 
+  // function to check the current position of each card, the staging area is divided into 4 parts, 
+  // 3 classification categories, and 1 unclassified one.
   locateCard(x, y) {
     var stage = document.getElementsByClassName("stage")[0].getBoundingClientRect();
     if(this.insideCircle({x: x, y: y}, stage.width)) {
@@ -118,6 +125,7 @@ class Cards extends React.Component {
     }
   }
 
+  // to check if the card is placed in unclassified category
   insideCircle(point, r) {
     let radius = 240;   //15rem
     var relPoint = {
@@ -146,6 +154,7 @@ class Cards extends React.Component {
            (relPoint.x*relPoint.x + relPoint.y*relPoint.y <= radius * radius);
   }
 
+  // event handler when touch event starts on a card
   onStart(e, ui) {
     //console.log("onStart", ui.x, ui.y);
     this.setState({
@@ -163,6 +172,7 @@ class Cards extends React.Component {
     });
   }
 
+  // event handler when touch event is stopped on a card (user removes their finger from card)
   onStop(e, ui) {
     let count = this.props.count;
 
@@ -209,6 +219,7 @@ class Cards extends React.Component {
     this.state.audio[rnd].play();
   }
 
+  // scale up and down the card on dragging
   toggleSize(elem, flg) {
     var factor = 1;
     if(flg) {
@@ -218,6 +229,7 @@ class Cards extends React.Component {
     elem.style.width = (this.size * factor) + "px";
   }
 
+  // to create and divied the staging area into different categories
   createCategories() {
     for(var i=1; i<=this.props.categories.length; ++i) {
       let id = "part"+i;

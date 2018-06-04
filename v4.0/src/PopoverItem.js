@@ -1,6 +1,10 @@
 import React from 'react';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
+/**
+ * Small popover section thats displayed on tapping some components in the application.
+ */
+
 class PopoverItem extends React.Component {
   constructor(props) {
     super(props);

@@ -11,6 +11,11 @@ import { Button, Collapse, Card, CardTitle, CardBody } from 'reactstrap';
 
 import './css/App.css';
 
+/** 
+ * App - file which takes care of all other components of the application.
+ * It renders other 6 components.
+ */
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -183,6 +188,7 @@ class App extends Component {
     }
   }
 
+  // to create elements for a question's cards
   createLabels() {
     //return this.labels.map((val, i) => {
       //let id = "cs"+i;
@@ -211,6 +217,7 @@ class App extends Component {
     //});
   }
 
+  // creating history element
   createHistory() {
     //return this.history.map((val, i) => {
       //let id = "hist"+i;
@@ -231,6 +238,7 @@ class App extends Component {
     //});
   }
 
+  // creating questions' elements
   createProgressBars() {
     for(var i=0; i<this.props.data.questionsCount; ++i) {
       let val = this.props.data.values[i].cardsCount * 4; //raters = 4
