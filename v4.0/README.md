@@ -44,3 +44,11 @@ npm start
 `npm install bootstrap --save`
 
 `npm install --save reactstrap@next react react-dom`
+
+
+## Running the program
+
+1. Clone the repo
+2. In the terminal `npm start`. http://localhost:3000/ opens up on your default browser.
+3. Inspect element, and make the resolution of the screen to 1920x1080. In order to use other resolutions, goto src > css > Index.css and set width and height of the root to required values. 
+4. Refresh the browser to see changes.
