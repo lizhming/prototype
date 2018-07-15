@@ -10,6 +10,7 @@ import soundfile1 from './sounds/cardSlide8.wav';
 import { Button, Collapse, Card, CardTitle, CardBody } from 'reactstrap';
 
 import './css/App.css';
+import './css/screen-res.css';
 
 /** 
  * App - file which takes care of all other components of the application.
@@ -218,14 +219,14 @@ class App extends Component {
   }
 
   // creating history element
-  createHistory() {
+  createHistory(height) {
     //return this.history.map((val, i) => {
       //let id = "hist"+i;
       //let cls = (i === this.state.activeIndex) ? "history-main" : "history-main hidden";
       return (
         <div className={"history-main"} key={"hist"} id={"hist"}>
           <History count={this.props.data.questionsCount}
-                   ratio={this.props.ratio} 
+                   height={height}
                    from={this.state.from}
                    to={this.state.to}
                    cardID={this.state.cardID}
@@ -298,11 +299,11 @@ class App extends Component {
             <PopoverItem id="rater" height={raterH} show={this.state.show} 
                         placement="right" title="Rater's Agreement" 
                         className="row" description={raterDesc} 
-                        elements={<Rater ratio={this.props.ratio} />} />
+                        elements={<Rater height={raterH} />} />
             <PopoverItem id="history" height={historyH} 
                         placement="right" title="History" show={this.state.show} 
                         className="row" description={historyDesc}
-                        elements={this.createHistory()} />
+                        elements={this.createHistory(historyH)} />
             <div className="row" id="codebook">
             <Collapse className="in" isOpen={this.state.collapse} style={{width: "100%"}}>
               <Card>

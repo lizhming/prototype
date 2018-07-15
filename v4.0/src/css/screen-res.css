@@ -1,0 +1,26 @@
+@media only screen and (max-width: 1440px)  {
+	li.key {
+		padding-top: 0.5em;
+	}
+
+	.tag {
+		margin-left: 0.5em;
+	}
+
+	#high {
+		top: 15em;
+	}
+
+	.history-data {
+		height: 90px;
+	}
+
+	.dir {
+		width: 27px;
+	}
+
+	#loader {
+	    top: 24.5rem;
+	    width: 29rem;
+	}
+}

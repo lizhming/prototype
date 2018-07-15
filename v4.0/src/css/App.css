@@ -179,12 +179,12 @@ textarea {
   padding-left: 1.5rem;
 }
 li.key {
-  border-left-width: 3rem;
+  border-left-width: 3em;
   border-left-style: solid;
-  height: 1.85rem;
-  font-size: 0.75rem;
+  /*height: 1.85rem;*/
+  font-size: 0.75em;
   /*width: 10%;*/
-  padding-left: 1rem;
+  padding-left: 1em;
   padding-right: 0;
   padding-top: 0.75rem;
   font-weight: 700;

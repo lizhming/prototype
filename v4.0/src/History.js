@@ -16,6 +16,7 @@ class History extends React.Component {
 			this.historyData.push([]);
 			this.idx.push(0);
 		}
+		this.getLocalAspectRatio = this.getLocalAspectRatio.bind(this);
 		this.itemsizeData = this.itemsizeData.bind(this);
 		this.updateScroll = this.updateScroll.bind(this);
 		this.getHexCode = this.getHexCode.bind(this);
@@ -30,8 +31,20 @@ class History extends React.Component {
 	}
 
 	updateScroll() {
-    var element = document.getElementsByClassName("history-main")[0];
-    element.scrollTop = element.scrollHeight;
+	    var element = document.getElementsByClassName("history-main")[0];
+	    element.scrollTop = element.scrollHeight;
+	}
+
+	getLocalAspectRatio(currW, currH) {
+		let w = 637.98, 
+			h = 302.4,
+			ratio = currH / h;
+
+		if (w * ratio > currW) {
+		    ratio = currW / w;
+		}
+
+		return ratio;
 	}
 
 	showCancel(event) {
@@ -100,7 +113,7 @@ class History extends React.Component {
 	}
 
 	render() {
-		const bh = this.size * this.props.ratio;
+		const bh = this.size * this.getLocalAspectRatio(0.4 * window.innerWidth, parseFloat(this.props.height));
 		const from = this.props.from;
 		const to = this.props.to;
 		

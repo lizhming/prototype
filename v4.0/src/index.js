@@ -13,6 +13,10 @@ var w = window.innerWidth, h = window.innerHeight;
 var ratio;
 
 window.addEventListener('resize', maintainAspectRatio, false);
+document.getElementById("root").style.width = w + "px";
+document.getElementById("root").style.height = h + "px";
+
+console.log(w, h);
 
 function maintainAspectRatio() {
 	ratio = window.innerWidth / w;
