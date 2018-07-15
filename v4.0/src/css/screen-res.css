@@ -1,14 +1,10 @@
 @media only screen and (max-width: 1440px)  {
-	li.key {
-		padding-top: 0.5em;
+	.legend {
+		padding-top: 0.2em;
 	}
 
 	.tag {
 		margin-left: 0.5em;
-	}
-
-	#high {
-		top: 15em;
 	}
 
 	.history-data {

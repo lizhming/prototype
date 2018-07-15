@@ -109,7 +109,7 @@ class Rater extends React.Component {
 			        .append("svg")
 			        .attr("width", width + margin.left + margin.right)
 			        .attr("height", height + margin.top + margin.bottom)
-			        .attr("transform", "translate(" + (100 - margin.right) * ratio + "," + (-55 * ratio) + ")")
+			        .attr("transform", "translate(" + 100 * ratio + "," + (-55 * ratio) + ")")
 			        .append("g")
 			        .attr("transform", "translate(" + margin.left * ratio + "," + margin.top * ratio + ")");
 
@@ -166,22 +166,26 @@ class Rater extends React.Component {
 				keys.enter().append('li')
 				    .attr('class', 'key')
 				    .style('border-left-color', String)
+				    .style('padding-top', 0.75 * ratio * ratio + "em")
 				    .text(function(d) {
 				        var r = colors.invertExtent(d);
 				        return r[1];
 				    });
 	  	});
+
+	  	return ratio;
     }
 
 
 	render() {
-		this.renderHeatMap();
+		const ratio = this.renderHeatMap();
+		let t = (ratio * 17) + "em";
 		return(
 			<div className="container-fluid">
 				<div className="legend"></div> 
-        <div className="tag" id="low">LOW</div>
-				<div className="tag" id="high">HIGH</div>
-        <div className="heatmap"></div>
+        		<div className="tag" id="low">LOW</div>
+				<div className="tag" style={{top: t}}  id="high">HIGH</div>
+        		<div className="heatmap"></div>
 			</div>
 			);
 	}
