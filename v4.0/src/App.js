@@ -278,7 +278,7 @@ class App extends Component {
     const raterH = (this.props.ratio * 0.30 * this.state.h) + "px";
     const historyH = (this.props.ratio * 0.28 * this.state.h) + "px";
     //const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
-    const codebookH = (this.props.ratio * 0.62 * this.state.h) + "px";
+    const codebookH = window.innerHeight > 900 ? (this.props.ratio * 0.62 * this.state.h) + "px" : "auto";
 
     const vizDesc = "Graphical representation of the progress made by all the domain-experts to train the ML Algorithm by labeling and classifying questions.";
     const raterDesc = "It is the representation of intercoder agreement, such as Cohen's kappa or Krippendoff alpha, is used to evaluate the robustness of the labeled data.";

@@ -15,8 +15,8 @@ body {
 }
 #loader {
   position: absolute;
-  top: 29rem;
-  width: 38rem;
+  top: 29em;
+  width: 38em;
   display: none;
   background-color: rgba(238,238,238,0.7);
   background-repeat: no-repeat;
@@ -41,7 +41,7 @@ body {
   cursor: ew-resize;
 }
 .heading {
-  font-size: 1.15rem;
+  font-size: 1.15em;
   position: relative;
   display: inline;
   font-weight: 800;
@@ -49,15 +49,15 @@ body {
 .box {
   position: absolute;
   background: #969696;
-  border: 0.1rem solid #000;
-  border-radius: 1rem;
-  margin: 0.625rem;
-  padding: 0.25rem;
+  border: 0.1em solid #000;
+  border-radius: 1em;
+  margin: 0.625em;
+  padding: 0.25em;
   text-align: center;
   font-weight: bolder;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   word-wrap: break-word;
-  line-height: 1rem;
+  line-height: 1em;
   display: inline-block;
   z-index: 1;
   overflow: hidden;
@@ -75,7 +75,7 @@ body {
 }
 .progressbar {
   width: 100%;
-  padding: 0.2rem;
+  padding: 0.2em;
   filter: none;
   -webkit-filter: opacity(50%);
   /*-webkit-filter: grayscale(70%);
@@ -98,24 +98,24 @@ body {
   background-color: #11A8AB !important;
 }
 .progress {
-  height: 2.75rem;
-  font-size: 1.25rem;
+  height: 2.75em;
+  font-size: 1.25em;
   width: 100%;
   border-radius: 0;
 }
 .qname {
   position: relative;
   float: left;
-  height: 2rem;
+  height: 2em;
   color: #fff;
   text-align: center;
   font-weight: 700;
   background-color: #000;
   width: 100%;
-  font-size: 1.25rem;
+  font-size: 1.25em;
 }
 .active-bar {
-  border: 0.3rem solid #f00;
+  border: 0.3em solid #f00;
   filter: none;
   
   /*-moz-filter: grayscale(0%);
@@ -135,7 +135,7 @@ body {
 }
 #viz {
   overflow-y: scroll;
-  padding: 0.2rem 0.4rem;
+  padding: 0.2em 0.4em;
   border-bottom: 5px solid #555;
 }
 #rater {
@@ -143,9 +143,9 @@ body {
 }
 .d3-tip {
   background-color: #555;
-  padding: 1rem; 
+  padding: 1em; 
   font-weight: 700;
-  border-radius: 1rem;
+  border-radius: 1em;
 }
 .d3-tip:after {
   left: 42.5%;
@@ -154,9 +154,9 @@ body {
   width: 0; 
   height: 0;
   position: absolute;
-  border-left: 0.5rem solid transparent;
-  border-right: 0.5rem solid transparent;
-  border-top: 0.5rem solid #555;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 0.5em solid #555;
 }
 #codebook {
   position: absolute;
@@ -175,8 +175,8 @@ textarea {
 }
 .legend {
   width: 20%;
-  padding-top: 0.75rem;
-  padding-left: 1.5rem;
+  padding-top: 0.75em;
+  padding-left: 1.5em;
 }
 li.key {
   border-left-width: 3em;
@@ -198,8 +198,8 @@ li.key {
   height: 100%;
   border: 1em solid #000;
   background-color: #eee;
-  -webkit-clip-path: circle(15rem at 50% 50%);
-  clip-path: circle(15rem at 50% 50%);
+  -webkit-clip-path: circle(15em at 50% 50%);
+  clip-path: circle(15em at 50% 50%);
   z-index: 1;
 }
 #cat-one {
@@ -216,13 +216,13 @@ li.key {
 .stageHeading {
   position: absolute;
   display: inline;
-  font-size: 1.5rem;
-  margin: 1rem;
-  border: 0.2rem solid;
-  padding: 0.7rem;
+  font-size: 1.5em;
+  margin: 1em;
+  border: 0.2em solid;
+  padding: 0.7em;
   font-weight: 900;
-  border-radius: 1rem;
-  box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.87);
+  border-radius: 1em;
+  box-shadow: 0 0 0.5em 0 rgba(0,0,0,0.87);
 }
 .circle {
   width: 100%;

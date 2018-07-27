@@ -22,10 +22,10 @@ class Cards extends React.Component {
     this.val = 6;
     this.size = 75;
     this.createBindings();
-    this.h = (this.props.ratio * 0.916 * window.innerHeight) + "px";
+    this.h = (this.props.ratio * 0.9 * window.innerHeight) + "px";
     this.center = {
       x: window.innerWidth*0.66*props.ratio*0.5, 
-      y: window.innerHeight*0.916*props.ratio*0.5
+      y: window.innerHeight*0.9*props.ratio*0.5
     };
     
     this.color = ["#969696", "#11a8ab", "#4fc4f6", "#e64c65"]; 
@@ -127,7 +127,7 @@ class Cards extends React.Component {
 
   // to check if the card is placed in unclassified category
   insideCircle(point, r) {
-    let radius = 240;   //15rem
+    let radius = window.innerHeight > 900 ? 240 : 185;   //15rem
     var relPoint = {
       x: point.x - this.center.x,
       y: point.y - this.center.y

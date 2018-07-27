@@ -13,7 +13,7 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.5em;
 }
 
 /* Track */
@@ -24,7 +24,7 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888; 
-  border-radius: 1rem;
+  border-radius: 1em;
 }
 
 /* Handle on hover */
@@ -34,8 +34,8 @@ body {
 
 #info {
   position: absolute;
-  width: 3rem;
-  height: 3rem;
+  width: 3em;
+  height: 3em;
   background-image: url('../images/info-symbol-vector-graphics.png');
   background-position: center;
   background-size: contain;
@@ -43,7 +43,7 @@ body {
   bottom: 0;
   right: 0;
   z-index: 1000;
-  margin: 0.5rem;
-  border-radius: 5rem;
-  box-shadow: 0 0 3rem #000;
+  margin: 0.5em;
+  border-radius: 5em;
+  box-shadow: 0 0 3em #000;
 }

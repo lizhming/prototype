@@ -8,27 +8,27 @@
 .history-wrapper {
 	position: relative;
 	width: 100%;
-	padding-top: 0.5rem;
+	padding-top: 0.5em;
 	overflow-y: hidden;
-	margin-top: 0.25rem;
-	margin-bottom: 1rem;
+	margin-top: 0.25em;
+	margin-bottom: 1em;
 }
 .history-data {
 	position: relative;
 	/*width: 49%;*/
 	height: 110px;
-	margin: 0.4rem;	
-	padding: 0.3125rem;
+	margin: 0.4em;	
+	padding: 0.3125em;
 	float: left;
 }
 .dir {
 	position: relative;
 	width: 45px;
 	height: 35px;
-	top: 1rem;
-	left: 0.2rem;
-	margin: 0.625rem;
-	padding: 0.625rem;
+	top: 1em;
+	left: 0.2em;
+	margin: 0.625em;
+	padding: 0.625em;
 	float: left;
 	background-image: url('../images/arrow.png');
 	background-size: contain;
