@@ -8,7 +8,7 @@ import './css/History.css';
 class History extends React.Component {
 	constructor(props) {
 		super(props);
-		this.size = 75;
+		this.size = 90;
 		this.historyData = [];
 		this.idx = [];
 		this.prevIndex = 0;

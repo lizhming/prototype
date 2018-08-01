@@ -276,7 +276,8 @@ class App extends Component {
   render() {
     const vizH = (this.props.ratio * 0.39 * this.state.h) + "px";
     const raterH = (this.props.ratio * 0.30 * this.state.h) + "px";
-    const historyH = (this.props.ratio * 0.28 * this.state.h) + "px";
+    const historyFactor = window.innerHeight > 900 ? 0.28 : 0.25;
+    const historyH = (this.props.ratio * historyFactor * this.state.h) + "px";
     //const quesH = (this.props.ratio * 0.12 * this.state.h) + "px";
     const codebookH = window.innerHeight > 900 ? (this.props.ratio * 0.62 * this.state.h) + "px" : "auto";
 

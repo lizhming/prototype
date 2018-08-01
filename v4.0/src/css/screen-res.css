@@ -7,8 +7,16 @@
 		margin-left: 0.5em;
 	}
 
+	.history-wrapper {
+		margin: 0;
+	}
+
 	.history-data {
-		height: 90px;
+		height: 75px;
+	}
+
+	.cancel_overlay {
+		height: 65px;
 	}
 
 	.dir {
@@ -22,6 +30,10 @@
 
 	.qname {
 		height: 1.5em;
+	}
+
+	.progressbar {
+		padding: 0;
 	}
 
 	.progress {
